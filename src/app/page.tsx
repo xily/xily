@@ -1,11 +1,90 @@
+import Link from 'next/link';
+import { cookies } from 'next/headers';
+
 export default function Home() {
+  const cookieStore = cookies();
+  const isLoggedIn = Boolean(
+    cookieStore.get('session')?.value || cookieStore.get('token')?.value
+  );
+
+  const ctaHref = isLoggedIn ? '/dashboard' : '/login';
+
   return (
-    <main className="flex min-h-[60vh] items-center justify-center">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold text-gray-900">
-          Internly – Internship Discovery Made Simple
-        </h1>
-      </div>
-    </main>
+    <div className="flex flex-col">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-b from-blue-50 to-white">
+        <div className="mx-auto max-w-7xl px-8 py-16">
+          <div className="text-center">
+            <h1 className="text-5xl font-extrabold tracking-tight text-gray-900 sm:text-6xl">
+              Internly
+            </h1>
+            <p className="mt-4 text-lg text-gray-700">
+              Internship Discovery Made Simple
+            </p>
+            <div className="mt-8">
+              <Link
+                href="/internships"
+                className="inline-flex items-center justify-center rounded-lg bg-blue-600 px-6 py-3 text-white shadow-sm transition-colors hover:bg-blue-700"
+              >
+                Browse Internships
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Mission Statement Section */}
+      <section>
+        <div className="mx-auto max-w-7xl px-8 py-16">
+          <div className="grid gap-8 md:grid-cols-2 md:items-center">
+            <div>
+              <h2 className="text-2xl font-semibold text-gray-900">Our Mission</h2>
+              <p className="mt-4 text-gray-700">
+                To make internship discovery simple, fair, and timely—so students spend less time
+                searching and more time succeeding.
+              </p>
+            </div>
+            <div className="flex items-center justify-center">
+              <div className="h-48 w-full max-w-md rounded-xl border border-gray-200 bg-gray-50" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Core Idea Section */}
+      <section className="bg-white">
+        <div className="mx-auto max-w-7xl px-8 py-16">
+          <div className="mx-auto max-w-3xl text-center">
+            <div className="mb-3 text-3xl" aria-hidden>
+              🎯
+            </div>
+            <h2 className="text-2xl font-semibold text-gray-900">Why Internly?</h2>
+            <p className="mt-4 text-gray-700">
+              Internly is your real-time internship radar. We filter opportunities by graduation year,
+              industry, season, and location—so you only see what’s open and relevant.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section>
+        <div className="mx-auto max-w-7xl px-8 py-16">
+          <div className="flex flex-col items-center justify-center text-center">
+            <h3 className="text-xl font-semibold text-gray-900">
+              Ready to land your next internship?
+            </h3>
+            <div className="mt-6">
+              <Link
+                href={ctaHref}
+                className="inline-flex items-center justify-center rounded-lg bg-blue-600 px-6 py-3 text-white shadow-sm transition-colors hover:bg-blue-700"
+              >
+                Get Started
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }
