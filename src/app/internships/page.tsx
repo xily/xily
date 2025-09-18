@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { formatDeadlineDate, getDeadlineCountdown, isDeadlinePassed } from '@/app/lib/dateUtils';
 
 interface Internship {
   _id: string;
@@ -334,7 +335,11 @@ export default function InternshipsPage() {
           ) : (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {internships.map((internship) => (
-                <div key={internship._id} className="relative rounded-xl bg-white p-6 shadow-md">
+                <Link 
+                  key={internship._id} 
+                  href={`/internships/${internship._id}`}
+                  className="relative block rounded-xl bg-white p-6 shadow-md transition-shadow hover:shadow-lg"
+                >
                   {/* Verified badge */}
                   {internship.verified && (
                     <div className="absolute right-4 top-4">
@@ -363,9 +368,21 @@ export default function InternshipsPage() {
                       <p className="text-sm text-gray-600">📅 {internship.season}</p>
                     )}
                     {internship.deadline && (
-                      <p className="text-sm text-gray-600">
-                        ⏰ Deadline: {formatDate(internship.deadline)}
-                      </p>
+                      <div className="space-y-1">
+                        <p className="text-sm text-gray-600">
+                          ⏰ Deadline: {formatDeadlineDate(new Date(internship.deadline))}
+                        </p>
+                        <p className={`text-sm font-medium ${
+                          isDeadlinePassed(new Date(internship.deadline))
+                            ? 'text-red-600 font-semibold'
+                            : 'text-blue-600'
+                        }`}>
+                          {isDeadlinePassed(new Date(internship.deadline))
+                            ? '❌ Closed'
+                            : `⏳ ${getDeadlineCountdown(new Date(internship.deadline))}`
+                          }
+                        </p>
+                      </div>
                     )}
                   </div>
                   
@@ -375,6 +392,7 @@ export default function InternshipsPage() {
                       href={internship.applyLink}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
                       className="inline-block rounded bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700"
                     >
                       Apply Now
@@ -384,7 +402,7 @@ export default function InternshipsPage() {
                       No Link Available
                     </span>
                   )}
-                </div>
+                </Link>
               ))}
             </div>
           )}
