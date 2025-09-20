@@ -5,12 +5,13 @@
 /**
  * Formats a date to a readable string (e.g., "Nov 15, 2025")
  */
-export function formatDeadlineDate(deadline: Date): string {
+export function formatDeadlineDate(deadline: Date | string): string {
+  const date = typeof deadline === 'string' ? new Date(deadline) : deadline;
   return new Intl.DateTimeFormat('en-US', {
     month: 'short',
     day: 'numeric',
     year: 'numeric',
-  }).format(deadline);
+  }).format(date);
 }
 
 /**
@@ -18,9 +19,10 @@ export function formatDeadlineDate(deadline: Date): string {
  * @param deadline - The deadline date
  * @returns Formatted string showing time remaining or "Closed" if past
  */
-export function getDeadlineCountdown(deadline: Date): string {
+export function getDeadlineCountdown(deadline: Date | string): string {
+  const date = typeof deadline === 'string' ? new Date(deadline) : deadline;
   const now = new Date();
-  const timeDiff = deadline.getTime() - now.getTime();
+  const timeDiff = date.getTime() - now.getTime();
 
   // If deadline has passed
   if (timeDiff <= 0) {
@@ -56,6 +58,7 @@ export function getDeadlineCountdown(deadline: Date): string {
  * @param deadline - The deadline date
  * @returns true if deadline has passed, false otherwise
  */
-export function isDeadlinePassed(deadline: Date): boolean {
-  return deadline.getTime() <= new Date().getTime();
+export function isDeadlinePassed(deadline: Date | string): boolean {
+  const date = typeof deadline === 'string' ? new Date(deadline) : deadline;
+  return date.getTime() <= new Date().getTime();
 }

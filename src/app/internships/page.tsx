@@ -3,7 +3,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import { formatDeadlineDate, getDeadlineCountdown, isDeadlinePassed } from '@/app/lib/dateUtils';
+import InternshipCard from '@/app/components/InternshipCard';
 
 interface Internship {
   _id: string;
@@ -42,9 +44,13 @@ function formatDate(dateString: string): string {
 export default function InternshipsPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { data: session } = useSession();
   const [internships, setInternships] = useState<Internship[]>([]);
   const [loading, setLoading] = useState(true);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
+  const [savedInternships, setSavedInternships] = useState<Set<string>>(new Set());
+  const [saving, setSaving] = useState<Set<string>>(new Set());
+  const [message, setMessage] = useState('');
   
   const [filters, setFilters] = useState<Filters>({
     graduationYear: searchParams.get('graduationYear') || '',
@@ -74,7 +80,61 @@ export default function InternshipsPage() {
 
   useEffect(() => {
     fetchInternships(filters);
-  }, []);
+    if (session) {
+      fetchSavedInternships();
+    }
+  }, [session]);
+
+  const fetchSavedInternships = async () => {
+    try {
+      const response = await fetch('/api/saved');
+      if (response.ok) {
+        const data = await response.json();
+        const savedIds = new Set(data.savedInternships.map((item: any) => item.internshipId._id));
+        setSavedInternships(savedIds);
+      }
+    } catch (error) {
+      console.error('Error fetching saved internships:', error);
+    }
+  };
+
+  const handleSave = async (internshipId: string) => {
+    if (!session) {
+      router.push('/login');
+      return;
+    }
+
+    setSaving(prev => new Set(prev).add(internshipId));
+
+    try {
+      const response = await fetch('/api/saved', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ internshipId }),
+      });
+
+      if (response.ok) {
+        setSavedInternships(prev => new Set(prev).add(internshipId));
+        setMessage('Internship saved successfully!');
+        setTimeout(() => setMessage(''), 3000);
+      } else {
+        const data = await response.json();
+        setMessage(data.error || 'Failed to save internship');
+        setTimeout(() => setMessage(''), 3000);
+      }
+    } catch (error) {
+      setMessage('Error saving internship');
+      setTimeout(() => setMessage(''), 3000);
+    } finally {
+      setSaving(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(internshipId);
+        return newSet;
+      });
+    }
+  };
 
   const updateFilters = (newFilters: Partial<Filters>) => {
     const updatedFilters = { ...filters, ...newFilters };
@@ -328,6 +388,12 @@ export default function InternshipsPage() {
         
         {/* Main Content */}
         <div className="flex-1">
+          {message && (
+            <div className="mb-4 bg-green-50 border border-green-200 rounded-md p-4">
+              <p className="text-green-800">{message}</p>
+            </div>
+          )}
+          
           {internships.length === 0 ? (
             <div className="text-center">
               <p className="text-lg text-gray-600">No internships found. Check back soon!</p>
@@ -335,74 +401,13 @@ export default function InternshipsPage() {
           ) : (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {internships.map((internship) => (
-                <Link 
-                  key={internship._id} 
-                  href={`/internships/${internship._id}`}
-                  className="relative block rounded-xl bg-white p-6 shadow-md transition-shadow hover:shadow-lg"
-                >
-                  {/* Verified badge */}
-                  {internship.verified && (
-                    <div className="absolute right-4 top-4">
-                      <span className="text-green-500" aria-label="Verified">✅</span>
-                    </div>
-                  )}
-                  
-                  {/* Title */}
-                  <h2 className="mb-2 text-xl font-bold text-gray-900">{internship.title}</h2>
-                  
-                  {/* Company */}
-                  <p className="mb-1 text-sm font-medium text-gray-700">{internship.company}</p>
-                  
-                  {/* Details */}
-                  <div className="mb-4 space-y-1">
-                    {internship.location && (
-                      <p className="text-sm text-gray-600">📍 {internship.location}</p>
-                    )}
-                    {internship.industry && (
-                      <p className="text-sm text-gray-600">🏢 {internship.industry}</p>
-                    )}
-                    {internship.graduationYear && (
-                      <p className="text-sm text-gray-600">🎓 Class of {internship.graduationYear}</p>
-                    )}
-                    {internship.season && (
-                      <p className="text-sm text-gray-600">📅 {internship.season}</p>
-                    )}
-                    {internship.deadline && (
-                      <div className="space-y-1">
-                        <p className="text-sm text-gray-600">
-                          ⏰ Deadline: {formatDeadlineDate(new Date(internship.deadline))}
-                        </p>
-                        <p className={`text-sm font-medium ${
-                          isDeadlinePassed(new Date(internship.deadline))
-                            ? 'text-red-600 font-semibold'
-                            : 'text-blue-600'
-                        }`}>
-                          {isDeadlinePassed(new Date(internship.deadline))
-                            ? '❌ Closed'
-                            : `⏳ ${getDeadlineCountdown(new Date(internship.deadline))}`
-                          }
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                  
-                  {/* Apply button */}
-                  {internship.applyLink ? (
-                    <Link
-                      href={internship.applyLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="inline-block rounded bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700"
-                    >
-                      Apply Now
-                    </Link>
-                  ) : (
-                    <span className="inline-block rounded bg-gray-400 px-4 py-2 text-white">
-                      No Link Available
-                    </span>
-                  )}
-                </Link>
+                <InternshipCard
+                  key={internship._id}
+                  internship={internship}
+                  showSaveButton={true}
+                  onSave={handleSave}
+                  isSaved={savedInternships.has(internship._id)}
+                />
               ))}
             </div>
           )}

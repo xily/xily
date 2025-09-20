@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { cookies } from 'next/headers';
 
-export default function Home() {
-  const cookieStore = cookies();
+export default async function Home() {
+  const cookieStore = await cookies();
   const isLoggedIn = Boolean(
     cookieStore.get('session')?.value || cookieStore.get('token')?.value
   );
