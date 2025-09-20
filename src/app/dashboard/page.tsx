@@ -3,7 +3,7 @@
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import InternshipCard from '@/app/components/InternshipCard';
+import ApplicationTrackerCard from '@/app/components/ApplicationTrackerCard';
 
 interface SavedInternship {
   _id: string;
@@ -23,12 +23,34 @@ interface SavedInternship {
   savedAt: string;
 }
 
+interface Application {
+  _id: string;
+  internshipId: {
+    _id: string;
+    title: string;
+    company: string;
+    location?: string;
+    industry?: string;
+    graduationYear?: number;
+    season?: string;
+    deadline?: string;
+    applyLink?: string;
+    verified: boolean;
+    createdAt: string;
+  };
+  status: 'Saved' | 'Applied' | 'Interviewing' | 'Offer' | 'Rejected';
+  notes?: string;
+  updatedAt: string;
+}
+
 export default function DashboardPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [savedInternships, setSavedInternships] = useState<SavedInternship[]>([]);
+  const [applications, setApplications] = useState<Application[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [updating, setUpdating] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     if (status === 'loading') return; // Still loading
@@ -38,6 +60,7 @@ export default function DashboardPage() {
   useEffect(() => {
     if (session) {
       fetchSavedInternships();
+      fetchApplications();
     }
   }, [session]);
 
@@ -58,15 +81,79 @@ export default function DashboardPage() {
     }
   };
 
-  const handleRemove = async (internshipId: string) => {
+  const fetchApplications = async () => {
     try {
-      const response = await fetch(`/api/saved?internshipId=${internshipId}`, {
-        method: 'DELETE',
+      const response = await fetch('/api/applications');
+      if (response.ok) {
+        const data = await response.json();
+        setApplications(data.applications);
+      } else {
+        console.error('Failed to fetch applications');
+      }
+    } catch (err) {
+      console.error('Error fetching applications:', err);
+    }
+  };
+
+  const handleUpdateApplication = async (internshipId: string, status: string, notes: string) => {
+    setUpdating(prev => new Set(prev).add(internshipId));
+    
+    try {
+      const response = await fetch('/api/applications', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ internshipId, status, notes }),
       });
       
       if (response.ok) {
+        const data = await response.json();
+        // Update applications state
+        setApplications(prev => {
+          const existing = prev.find(app => app.internshipId._id === internshipId);
+          if (existing) {
+            return prev.map(app => 
+              app.internshipId._id === internshipId 
+                ? { ...app, status: status as any, notes, updatedAt: new Date().toISOString() }
+                : app
+            );
+          } else {
+            return [...prev, data.application];
+          }
+        });
+      } else {
+        setError('Failed to update application');
+      }
+    } catch (err) {
+      setError('Error updating application');
+    } finally {
+      setUpdating(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(internshipId);
+        return newSet;
+      });
+    }
+  };
+
+  const handleRemove = async (internshipId: string) => {
+    try {
+      // Remove from saved internships
+      const savedResponse = await fetch(`/api/saved?internshipId=${internshipId}`, {
+        method: 'DELETE',
+      });
+      
+      // Remove from applications
+      const appResponse = await fetch(`/api/applications?internshipId=${internshipId}`, {
+        method: 'DELETE',
+      });
+      
+      if (savedResponse.ok) {
         setSavedInternships(prev => 
           prev.filter(item => item.internshipId._id !== internshipId)
+        );
+        setApplications(prev => 
+          prev.filter(app => app.internshipId._id !== internshipId)
         );
       } else {
         setError('Failed to remove internship');
@@ -96,7 +183,7 @@ export default function DashboardPage() {
             Welcome back, {session.user?.name}!
           </h1>
           <p className="text-gray-600">
-            Manage your saved internships and track your applications.
+            Track your internship applications and manage your saved opportunities.
           </p>
         </div>
 
@@ -108,7 +195,7 @@ export default function DashboardPage() {
 
         {loading ? (
           <div className="flex items-center justify-center py-12">
-            <div className="text-lg text-gray-600">Loading your saved internships...</div>
+            <div className="text-lg text-gray-600">Loading your applications...</div>
           </div>
         ) : savedInternships.length === 0 ? (
           <div className="text-center py-12">
@@ -128,18 +215,26 @@ export default function DashboardPage() {
           <div>
             <div className="mb-6">
               <h2 className="text-xl font-semibold text-gray-900">
-                Your Saved Internships ({savedInternships.length})
+                Application Tracker ({savedInternships.length} internships)
               </h2>
+              <p className="text-sm text-gray-600 mt-1">
+                Track your application status and add notes for each internship.
+              </p>
             </div>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {savedInternships.map((savedInternship) => (
-                <InternshipCard
-                  key={savedInternship._id}
-                  internship={savedInternship.internshipId}
-                  showRemoveButton={true}
-                  onRemove={handleRemove}
-                />
-              ))}
+            <div className="grid gap-6 sm:grid-cols-1 lg:grid-cols-2">
+              {savedInternships.map((savedInternship) => {
+                const application = applications.find(app => app.internshipId._id === savedInternship.internshipId._id);
+                return (
+                  <ApplicationTrackerCard
+                    key={savedInternship._id}
+                    internship={savedInternship.internshipId}
+                    application={application}
+                    onUpdateApplication={handleUpdateApplication}
+                    onRemove={handleRemove}
+                    isUpdating={updating.has(savedInternship.internshipId._id)}
+                  />
+                );
+              })}
             </div>
           </div>
         )}
