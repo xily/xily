@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
+import { usePathname } from 'next/navigation';
 
 const publicNavItems = [
   { href: '/', label: 'Home' },
@@ -14,6 +15,7 @@ const publicNavItems = [
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { data: session, status } = useSession();
+  const pathname = usePathname();
 
   const toggleMenu = () => setIsOpen((prev) => !prev);
   const closeMenu = () => setIsOpen(false);
@@ -38,7 +40,11 @@ const Navbar: React.FC = () => {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-sm font-medium text-gray-700 transition-colors hover:text-blue-600"
+                className={`text-sm font-medium transition-colors ${
+                  pathname === item.href
+                    ? 'text-blue-600 border-b-2 border-blue-600 pb-1'
+                    : 'text-gray-700 hover:text-blue-600'
+                }`}
               >
                 {item.label}
               </Link>
@@ -48,7 +54,11 @@ const Navbar: React.FC = () => {
               <>
                 <Link
                   href="/dashboard"
-                  className="text-sm font-medium text-gray-700 transition-colors hover:text-blue-600"
+                  className={`text-sm font-medium transition-colors ${
+                    pathname === '/dashboard'
+                      ? 'text-blue-600 border-b-2 border-blue-600 pb-1'
+                      : 'text-gray-700 hover:text-blue-600'
+                  }`}
                 >
                   Dashboard
                 </Link>
@@ -120,7 +130,11 @@ const Navbar: React.FC = () => {
               <Link
                 key={item.href}
                 href={item.href}
-                className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-blue-600"
+                className={`px-4 py-2 text-sm font-medium transition-colors ${
+                  pathname === item.href
+                    ? 'bg-blue-50 text-blue-600'
+                    : 'text-gray-700 hover:bg-gray-50 hover:text-blue-600'
+                }`}
                 onClick={closeMenu}
               >
                 {item.label}
@@ -131,7 +145,11 @@ const Navbar: React.FC = () => {
               <>
                 <Link
                   href="/dashboard"
-                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-blue-600"
+                  className={`px-4 py-2 text-sm font-medium transition-colors ${
+                    pathname === '/dashboard'
+                      ? 'bg-blue-50 text-blue-600'
+                      : 'text-gray-700 hover:bg-gray-50 hover:text-blue-600'
+                  }`}
                   onClick={closeMenu}
                 >
                   Dashboard

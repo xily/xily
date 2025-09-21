@@ -6,7 +6,7 @@ export default function AboutPage(): JSX.Element {
     <div className="flex flex-col">
       {/* Header Section */}
       <section className="border-b border-gray-200">
-        <div className="mx-auto max-w-7xl px-8 py-16">
+        <div className="mx-auto max-w-7xl px-6 py-12">
           <h1 className="mb-2 text-3xl font-bold text-gray-900">About Internly</h1>
           <p className="text-gray-700">A modern, clean platform built to make internships simple.</p>
         </div>
@@ -14,7 +14,7 @@ export default function AboutPage(): JSX.Element {
 
       {/* Mission Statement Section */}
       <section className="border-b border-gray-200">
-        <div className="mx-auto max-w-7xl px-8 py-16">
+        <div className="mx-auto max-w-7xl px-6 py-12">
           <h2 className="mb-4 text-3xl font-bold text-gray-900">🧭 Mission Statement</h2>
           <p className="max-w-3xl text-gray-700">
             Our mission is to centralize and streamline early-career opportunity access, starting with internships built for the class of tomorrow.
@@ -24,7 +24,7 @@ export default function AboutPage(): JSX.Element {
 
       {/* Core Idea Section */}
       <section className="border-b border-gray-200">
-        <div className="mx-auto max-w-7xl px-8 py-16">
+        <div className="mx-auto max-w-7xl px-6 py-12">
           <h2 className="mb-4 text-3xl font-bold text-gray-900">💡 Core Idea</h2>
           <div className="max-w-4xl text-gray-700">
             <p>
@@ -39,7 +39,7 @@ export default function AboutPage(): JSX.Element {
 
       {/* Key Features Section */}
       <section className="border-b border-gray-200">
-        <div className="mx-auto max-w-7xl px-8 py-16">
+        <div className="mx-auto max-w-7xl px-6 py-12">
           <h2 className="mb-6 text-3xl font-bold text-gray-900">🧱 Key Features</h2>
           <div className="grid gap-6 md:grid-cols-2">
             {[
@@ -66,7 +66,7 @@ export default function AboutPage(): JSX.Element {
 
       {/* Roadmap Section */}
       <section className="border-b border-gray-200">
-        <div className="mx-auto max-w-7xl px-8 py-16">
+        <div className="mx-auto max-w-7xl px-6 py-12">
           <h2 className="mb-6 text-3xl font-bold text-gray-900">🪜 Phases / Roadmap</h2>
           <div className="grid gap-6 md:grid-cols-3">
             {[
@@ -94,7 +94,7 @@ export default function AboutPage(): JSX.Element {
 
       {/* Why Now Section */}
       <section className="border-b border-gray-200">
-        <div className="mx-auto max-w-7xl px-8 py-16">
+        <div className="mx-auto max-w-7xl px-6 py-12">
           <h2 className="mb-4 text-3xl font-bold text-gray-900">🧠 Why Now?</h2>
           <p className="max-w-4xl text-gray-700">
             Students are frustrated with LinkedIn, Handshake, and Indeed—all bloated, outdated, or unfiltered. Recruiting seasons start earlier than ever. There’s no real-time, deadline-first, class-year-aware internship dashboard. Internly fills that gap.
@@ -104,7 +104,7 @@ export default function AboutPage(): JSX.Element {
 
       {/* Ideal Users Section */}
       <section>
-        <div className="mx-auto max-w-7xl px-8 py-16">
+        <div className="mx-auto max-w-7xl px-6 py-12">
           <h2 className="mb-4 text-3xl font-bold text-gray-900">🎯 Ideal Users</h2>
           <ul className="list-disc space-y-2 pl-6 text-gray-700">
             <li>College students (Sophomores & Juniors especially)</li>

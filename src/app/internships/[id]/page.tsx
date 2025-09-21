@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { formatDeadlineDate, getDeadlineCountdown, isDeadlinePassed } from '@/app/lib/dateUtils';
@@ -50,7 +50,8 @@ export default async function InternshipDetailPage({ params }: PageProps) {
   }
 
   return (
-    <div className="max-w-3xl mx-auto py-12 px-6">
+    <div className="mx-auto max-w-7xl px-6 py-12">
+      <div className="max-w-3xl mx-auto">
       {/* Back Button */}
       <Link 
         href="/internships" 
@@ -169,6 +170,7 @@ export default async function InternshipDetailPage({ params }: PageProps) {
             Browse More Internships
           </Link>
         </div>
+      </div>
       </div>
     </div>
   );

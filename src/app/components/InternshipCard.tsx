@@ -56,7 +56,7 @@ export default function InternshipCard({
 
   return (
     <div 
-      className="relative rounded-xl bg-white p-6 shadow-md transition-shadow hover:shadow-lg cursor-pointer"
+      className="relative rounded-xl bg-white p-6 shadow-md transition-all duration-200 hover:shadow-lg hover:scale-[1.02] cursor-pointer border border-gray-100"
       onClick={handleCardClick}
     >
       {/* Verified badge */}
@@ -80,10 +80,10 @@ export default function InternshipCard({
           {showSaveButton && (
             <button
               onClick={handleSave}
-              className={`px-3 py-1 rounded text-sm ${
+              className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
                 isSaved 
                   ? 'bg-gray-500 text-white cursor-not-allowed' 
-                  : 'bg-green-600 text-white hover:bg-green-700'
+                  : 'bg-green-600 text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2'
               }`}
               disabled={isSaved}
             >
@@ -137,7 +137,7 @@ export default function InternshipCard({
             href={internship.applyLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center rounded bg-blue-600 px-6 py-3 text-white font-medium transition-colors hover:bg-blue-700"
+            className="inline-flex items-center justify-center rounded bg-blue-600 px-6 py-3 text-white font-medium transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             onClick={(e) => e.stopPropagation()}
           >
             Apply Now

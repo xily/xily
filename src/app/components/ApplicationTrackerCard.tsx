@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { formatDeadlineDate, getDeadlineCountdown, isDeadlinePassed } from '@/app/lib/dateUtils';
+import StatusBadge from './StatusBadge';
 
 interface Internship {
   _id: string;
@@ -32,13 +33,6 @@ interface ApplicationTrackerCardProps {
   isUpdating?: boolean;
 }
 
-const statusColors = {
-  Saved: 'bg-gray-100 text-gray-800',
-  Applied: 'bg-blue-100 text-blue-800',
-  Interviewing: 'bg-yellow-100 text-yellow-800',
-  Offer: 'bg-green-100 text-green-800',
-  Rejected: 'bg-red-100 text-red-800',
-};
 
 export default function ApplicationTrackerCard({ 
   internship, 
@@ -68,7 +62,7 @@ export default function ApplicationTrackerCard({
 
   return (
     <div 
-      className="relative rounded-xl bg-white p-6 shadow-md transition-shadow hover:shadow-lg cursor-pointer"
+      className="relative rounded-xl bg-white p-6 shadow-md transition-all duration-200 hover:shadow-lg hover:scale-[1.02] cursor-pointer border border-gray-100"
       onClick={handleCardClick}
     >
       {/* Verified badge */}
@@ -148,9 +142,7 @@ export default function ApplicationTrackerCard({
               </select>
             ) : (
               <div className="flex items-center gap-2">
-                <span className={`px-2 py-1 rounded-full text-xs font-medium ${statusColors[status]}`}>
-                  {status}
-                </span>
+                <StatusBadge status={status} size="sm" />
                 <button
                   onClick={(e) => {
                     e.stopPropagation();

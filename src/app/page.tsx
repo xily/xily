@@ -13,7 +13,7 @@ export default async function Home() {
     <div className="flex flex-col">
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-blue-50 to-white">
-        <div className="mx-auto max-w-7xl px-8 py-16">
+        <div className="mx-auto max-w-7xl px-6 py-12">
           <div className="text-center">
             <h1 className="text-5xl font-extrabold tracking-tight text-gray-900 sm:text-6xl">
               Internly
@@ -35,7 +35,7 @@ export default async function Home() {
 
       {/* Mission Statement Section */}
       <section>
-        <div className="mx-auto max-w-7xl px-8 py-16">
+        <div className="mx-auto max-w-7xl px-6 py-12">
           <div className="grid gap-8 md:grid-cols-2 md:items-center">
             <div>
               <h2 className="text-2xl font-semibold text-gray-900">Our Mission</h2>
@@ -53,7 +53,7 @@ export default async function Home() {
 
       {/* Core Idea Section */}
       <section className="bg-white">
-        <div className="mx-auto max-w-7xl px-8 py-16">
+        <div className="mx-auto max-w-7xl px-6 py-12">
           <div className="mx-auto max-w-3xl text-center">
             <div className="mb-3 text-3xl" aria-hidden>
               🎯
@@ -69,7 +69,7 @@ export default async function Home() {
 
       {/* CTA Section */}
       <section>
-        <div className="mx-auto max-w-7xl px-8 py-16">
+        <div className="mx-auto max-w-7xl px-6 py-12">
           <div className="flex flex-col items-center justify-center text-center">
             <h3 className="text-xl font-semibold text-gray-900">
               Ready to land your next internship?

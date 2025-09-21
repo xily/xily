@@ -47,6 +47,7 @@ export default function InternshipsPage() {
   const { data: session } = useSession();
   const [internships, setInternships] = useState<Internship[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [savedInternships, setSavedInternships] = useState<Set<string>>(new Set());
   const [saving, setSaving] = useState<Set<string>>(new Set());
@@ -61,6 +62,7 @@ export default function InternshipsPage() {
 
   const fetchInternships = async (filterParams: Filters) => {
     setLoading(true);
+    setError('');
     try {
       const queryParams = new URLSearchParams();
       Object.entries(filterParams).forEach(([key, value]) => {
@@ -69,9 +71,16 @@ export default function InternshipsPage() {
       
       const response = await fetch(`/api/internships?${queryParams.toString()}`);
       const data = await response.json();
-      setInternships(data.success ? data.data : []);
+      
+      if (response.ok && data.success) {
+        setInternships(data.data);
+      } else {
+        setError('Failed to load internships.');
+        setInternships([]);
+      }
     } catch (error) {
       console.error('Error fetching internships:', error);
+      setError('Something went wrong. Please try again.');
       setInternships([]);
     } finally {
       setLoading(false);
@@ -173,7 +182,7 @@ export default function InternshipsPage() {
           <select
             value={filters.graduationYear}
             onChange={(e) => updateFilters({ graduationYear: e.target.value })}
-            className="w-full border rounded px-3 py-2"
+            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
           >
             <option value="">All Years</option>
             <option value="2025">2025</option>
@@ -190,7 +199,7 @@ export default function InternshipsPage() {
           <select
             value={filters.season}
             onChange={(e) => updateFilters({ season: e.target.value })}
-            className="w-full border rounded px-3 py-2"
+            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
           >
             <option value="">All Seasons</option>
             <option value="Summer 2025">Summer 2025</option>
@@ -210,7 +219,7 @@ export default function InternshipsPage() {
           <select
             value={filters.location}
             onChange={(e) => updateFilters({ location: e.target.value })}
-            className="w-full border rounded px-3 py-2"
+            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
           >
             <option value="">All Locations</option>
             <option value="New York">New York, NY</option>
@@ -234,7 +243,7 @@ export default function InternshipsPage() {
           <select
             value={filters.industry}
             onChange={(e) => updateFilters({ industry: e.target.value })}
-            className="w-full border rounded px-3 py-2"
+            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
           >
             <option value="">All Industries</option>
             <option value="Tech">Tech</option>
@@ -248,7 +257,7 @@ export default function InternshipsPage() {
         {/* Reset Button */}
         <button
           onClick={resetFilters}
-          className="text-sm text-gray-500 hover:text-gray-700"
+          className="text-sm text-gray-500 hover:text-gray-700 font-medium transition-colors duration-200"
         >
           Reset Filters
         </button>
@@ -259,7 +268,7 @@ export default function InternshipsPage() {
   const MobileFilterButton = () => (
     <button
       onClick={() => setShowMobileFilters(!showMobileFilters)}
-      className="mb-4 rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 lg:hidden"
+      className="mb-4 rounded-lg bg-blue-600 px-4 py-3 text-white font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200 lg:hidden"
     >
       {showMobileFilters ? 'Hide Filters' : 'Show Filters'}
     </button>
@@ -279,7 +288,7 @@ export default function InternshipsPage() {
             <select
               value={filters.graduationYear}
               onChange={(e) => updateFilters({ graduationYear: e.target.value })}
-              className="w-full border rounded px-3 py-2"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
             >
               <option value="">All Years</option>
               <option value="2025">2025</option>
@@ -296,7 +305,7 @@ export default function InternshipsPage() {
             <select
               value={filters.season}
               onChange={(e) => updateFilters({ season: e.target.value })}
-              className="w-full border rounded px-3 py-2"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
             >
               <option value="">All Seasons</option>
               <option value="Summer 2025">Summer 2025</option>
@@ -316,7 +325,7 @@ export default function InternshipsPage() {
             <select
               value={filters.location}
               onChange={(e) => updateFilters({ location: e.target.value })}
-              className="w-full border rounded px-3 py-2"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
             >
               <option value="">All Locations</option>
               <option value="New York">New York, NY</option>
@@ -340,7 +349,7 @@ export default function InternshipsPage() {
             <select
               value={filters.industry}
               onChange={(e) => updateFilters({ industry: e.target.value })}
-              className="w-full border rounded px-3 py-2"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
             >
               <option value="">All Industries</option>
               <option value="Tech">Tech</option>
@@ -354,7 +363,7 @@ export default function InternshipsPage() {
 
         <button
           onClick={resetFilters}
-          className="mt-4 text-sm text-gray-500 hover:text-gray-700"
+          className="mt-4 text-sm text-gray-500 hover:text-gray-700 font-medium transition-colors duration-200"
         >
           Reset Filters
         </button>
@@ -367,7 +376,10 @@ export default function InternshipsPage() {
       <div className="mx-auto max-w-7xl px-6 py-12">
         <div className="text-center">
           <h1 className="mb-4 text-3xl font-bold text-gray-900">Internships</h1>
-          <p className="text-lg text-gray-600">Loading internships...</p>
+          <div className="flex items-center justify-center space-x-2">
+            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
+            <p className="text-lg text-gray-600">Loading internships...</p>
+          </div>
         </div>
       </div>
     );
@@ -394,11 +406,19 @@ export default function InternshipsPage() {
             </div>
           )}
           
-          {internships.length === 0 ? (
-            <div className="text-center">
-              <p className="text-lg text-gray-600">No internships found. Check back soon!</p>
+          {error && (
+            <div className="mb-4 bg-red-50 border border-red-200 rounded-md p-4">
+              <p className="text-red-800">{error}</p>
             </div>
-          ) : (
+          )}
+          
+          {internships.length === 0 && !error ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">🔍</div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">No internships found</h2>
+              <p className="text-lg text-gray-600">Try adjusting your filters or check back soon!</p>
+            </div>
+          ) : internships.length > 0 ? (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {internships.map((internship) => (
                 <InternshipCard
@@ -410,7 +430,7 @@ export default function InternshipsPage() {
                 />
               ))}
             </div>
-          )}
+          ) : null}
         </div>
       </div>
     </div>

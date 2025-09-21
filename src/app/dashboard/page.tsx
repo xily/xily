@@ -165,8 +165,11 @@ export default function DashboardPage() {
 
   if (status === 'loading') {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-lg">Loading...</div>
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="flex items-center space-x-2">
+          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
+          <div className="text-lg text-gray-600">Loading...</div>
+        </div>
       </div>
     );
   }
@@ -195,7 +198,10 @@ export default function DashboardPage() {
 
         {loading ? (
           <div className="flex items-center justify-center py-12">
-            <div className="text-lg text-gray-600">Loading your applications...</div>
+            <div className="flex items-center space-x-2">
+              <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
+              <div className="text-lg text-gray-600">Loading your applications...</div>
+            </div>
           </div>
         ) : savedInternships.length === 0 ? (
           <div className="text-center py-12">
