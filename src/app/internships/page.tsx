@@ -60,6 +60,7 @@ export default function InternshipsPage() {
     industry?: string;
     createdAt: string;
   }>>([]);
+  const [alertPreferences, setAlertPreferences] = useState<Set<string>>(new Set());
   
   const [filters, setFilters] = useState<Filters>({
     graduationYear: searchParams.get('graduationYear') || '',
@@ -100,6 +101,7 @@ export default function InternshipsPage() {
     if (session) {
       fetchSavedInternships();
       fetchSavedFilters();
+      fetchAlertPreferences();
     }
   }, [session]);
 
@@ -167,6 +169,19 @@ export default function InternshipsPage() {
     }
   };
 
+  const fetchAlertPreferences = async () => {
+    try {
+      const res = await fetch('/api/alerts');
+      const data = await res.json();
+      if (res.ok && data.success) {
+        const activeFilterIds = new Set(data.alerts.map((alert: any) => alert.filterId._id));
+        setAlertPreferences(activeFilterIds);
+      }
+    } catch (err) {
+      console.error('Error fetching alert preferences:', err);
+    }
+  };
+
   const saveCurrentFilters = async () => {
     if (!session) {
       router.push('/login');
@@ -213,12 +228,63 @@ export default function InternshipsPage() {
       const data = await res.json();
       if (res.ok && data.success) {
         setSavedFilters((prev) => prev.filter((x) => x._id !== id));
+        // Also remove from alert preferences if it exists
+        setAlertPreferences((prev) => {
+          const newSet = new Set(prev);
+          newSet.delete(id);
+          return newSet;
+        });
       } else {
         setError(data.error || 'Failed to delete saved filter');
         setTimeout(() => setError(''), 2500);
       }
     } catch (err) {
       setError('Error deleting saved filter');
+      setTimeout(() => setError(''), 2500);
+    }
+  };
+
+  // Alert functions
+  const enableAlerts = async (filterId: string) => {
+    try {
+      const res = await fetch('/api/alerts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ filterId }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setAlertPreferences((prev) => new Set(prev).add(filterId));
+        setMessage('Email alerts enabled for this filter');
+        setTimeout(() => setMessage(''), 2500);
+      } else {
+        setError(data.error || 'Failed to enable alerts');
+        setTimeout(() => setError(''), 2500);
+      }
+    } catch (err) {
+      setError('Error enabling alerts');
+      setTimeout(() => setError(''), 2500);
+    }
+  };
+
+  const disableAlerts = async (filterId: string) => {
+    try {
+      const res = await fetch(`/api/alerts?filterId=${filterId}`, { method: 'DELETE' });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setAlertPreferences((prev) => {
+          const newSet = new Set(prev);
+          newSet.delete(filterId);
+          return newSet;
+        });
+        setMessage('Email alerts disabled for this filter');
+        setTimeout(() => setMessage(''), 2500);
+      } else {
+        setError(data.error || 'Failed to disable alerts');
+        setTimeout(() => setError(''), 2500);
+      }
+    } catch (err) {
+      setError('Error disabling alerts');
       setTimeout(() => setError(''), 2500);
     }
   };
@@ -508,29 +574,56 @@ export default function InternshipsPage() {
               ) : (
                 <div className="space-y-3">
                   {savedFilters.map((f) => (
-                    <div key={f._id} className="flex items-center justify-between rounded border border-gray-200 bg-white p-4 shadow-sm">
-                      <div className="text-sm text-gray-700 space-x-2">
-                        {f.graduationYear && <span><span className="font-medium">Year:</span> {f.graduationYear}</span>}
-                        {f.season && <span><span className="font-medium">Season:</span> {f.season}</span>}
-                        {f.location && <span><span className="font-medium">Location:</span> {f.location}</span>}
-                        {f.industry && <span><span className="font-medium">Industry:</span> {f.industry}</span>}
-                        {!f.graduationYear && !f.season && !f.location && !f.industry && (
-                          <span className="italic text-gray-500">(No filters selected)</span>
-                        )}
+                    <div key={f._id} className="rounded border border-gray-200 bg-white p-4 shadow-sm">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="text-sm text-gray-700 space-x-2">
+                          {f.graduationYear && <span><span className="font-medium">Year:</span> {f.graduationYear}</span>}
+                          {f.season && <span><span className="font-medium">Season:</span> {f.season}</span>}
+                          {f.location && <span><span className="font-medium">Location:</span> {f.location}</span>}
+                          {f.industry && <span><span className="font-medium">Industry:</span> {f.industry}</span>}
+                          {!f.graduationYear && !f.season && !f.location && !f.industry && (
+                            <span className="italic text-gray-500">(No filters selected)</span>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={() => applySavedFilter(f)}
+                            className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
+                          >
+                            Apply
+                          </button>
+                          <button
+                            onClick={() => deleteSavedFilter(f._id)}
+                            className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
+                          >
+                            Delete
+                          </button>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <button
-                          onClick={() => applySavedFilter(f)}
-                          className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
-                        >
-                          Apply
-                        </button>
-                        <button
-                          onClick={() => deleteSavedFilter(f._id)}
-                          className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
-                        >
-                          Delete
-                        </button>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          {alertPreferences.has(f._id) ? (
+                            <>
+                              <span className="text-green-600 text-sm">🔔 Alerts Enabled</span>
+                              <button
+                                onClick={() => disableAlerts(f._id)}
+                                className="bg-gray-500 text-white px-3 py-1 rounded hover:bg-gray-700 text-sm"
+                              >
+                                Disable Alerts
+                              </button>
+                            </>
+                          ) : (
+                            <>
+                              <span className="text-gray-500 text-sm">🔕 Alerts Disabled</span>
+                              <button
+                                onClick={() => enableAlerts(f._id)}
+                                className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 text-sm"
+                              >
+                                Enable Alerts
+                              </button>
+                            </>
+                          )}
+                        </div>
                       </div>
                     </div>
                   ))}
