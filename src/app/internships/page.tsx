@@ -52,6 +52,14 @@ export default function InternshipsPage() {
   const [savedInternships, setSavedInternships] = useState<Set<string>>(new Set());
   const [saving, setSaving] = useState<Set<string>>(new Set());
   const [message, setMessage] = useState('');
+  const [savedFilters, setSavedFilters] = useState<Array<{
+    _id: string;
+    graduationYear?: number;
+    season?: string;
+    location?: string;
+    industry?: string;
+    createdAt: string;
+  }>>([]);
   
   const [filters, setFilters] = useState<Filters>({
     graduationYear: searchParams.get('graduationYear') || '',
@@ -91,6 +99,7 @@ export default function InternshipsPage() {
     fetchInternships(filters);
     if (session) {
       fetchSavedInternships();
+      fetchSavedFilters();
     }
   }, [session]);
 
@@ -142,6 +151,75 @@ export default function InternshipsPage() {
         newSet.delete(internshipId);
         return newSet;
       });
+    }
+  };
+
+  // Saved Filters API
+  const fetchSavedFilters = async () => {
+    try {
+      const res = await fetch('/api/filters');
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setSavedFilters(data.filters || []);
+      }
+    } catch (err) {
+      console.error('Error fetching saved filters:', err);
+    }
+  };
+
+  const saveCurrentFilters = async () => {
+    if (!session) {
+      router.push('/login');
+      return;
+    }
+    try {
+      const res = await fetch('/api/filters', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          graduationYear: filters.graduationYear ? Number(filters.graduationYear) : undefined,
+          season: filters.season || undefined,
+          location: filters.location || undefined,
+          industry: filters.industry || undefined,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setMessage('Filters saved');
+        setSavedFilters((prev) => [data.filter, ...prev]);
+        setTimeout(() => setMessage(''), 2500);
+      } else {
+        setError(data.error || 'Failed to save filters');
+        setTimeout(() => setError(''), 2500);
+      }
+    } catch (err) {
+      setError('Error saving filters');
+      setTimeout(() => setError(''), 2500);
+    }
+  };
+
+  const applySavedFilter = (f: { graduationYear?: number; season?: string; location?: string; industry?: string; }) => {
+    updateFilters({
+      graduationYear: f.graduationYear ? String(f.graduationYear) : '',
+      season: f.season || '',
+      location: f.location || '',
+      industry: f.industry || '',
+    });
+  };
+
+  const deleteSavedFilter = async (id: string) => {
+    try {
+      const res = await fetch(`/api/filters?id=${id}`, { method: 'DELETE' });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setSavedFilters((prev) => prev.filter((x) => x._id !== id));
+      } else {
+        setError(data.error || 'Failed to delete saved filter');
+        setTimeout(() => setError(''), 2500);
+      }
+    } catch (err) {
+      setError('Error deleting saved filter');
+      setTimeout(() => setError(''), 2500);
     }
   };
 
@@ -261,6 +339,15 @@ export default function InternshipsPage() {
         >
           Reset Filters
         </button>
+
+        <div className="mt-4">
+          <button
+            onClick={saveCurrentFilters}
+            className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"
+          >
+            Save Current Filters
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -411,6 +498,46 @@ export default function InternshipsPage() {
               <p className="text-red-800">{error}</p>
             </div>
           )}
+
+          {/* Saved Filters Section (moved above cards) */}
+          {session && (
+            <div className="mb-8">
+              <h2 className="text-xl font-semibold text-gray-900 mb-3">My Saved Filters</h2>
+              {savedFilters.length === 0 ? (
+                <p className="text-sm text-gray-600">You have no saved filters yet.</p>
+              ) : (
+                <div className="space-y-3">
+                  {savedFilters.map((f) => (
+                    <div key={f._id} className="flex items-center justify-between rounded border border-gray-200 bg-white p-4 shadow-sm">
+                      <div className="text-sm text-gray-700 space-x-2">
+                        {f.graduationYear && <span><span className="font-medium">Year:</span> {f.graduationYear}</span>}
+                        {f.season && <span><span className="font-medium">Season:</span> {f.season}</span>}
+                        {f.location && <span><span className="font-medium">Location:</span> {f.location}</span>}
+                        {f.industry && <span><span className="font-medium">Industry:</span> {f.industry}</span>}
+                        {!f.graduationYear && !f.season && !f.location && !f.industry && (
+                          <span className="italic text-gray-500">(No filters selected)</span>
+                        )}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => applySavedFilter(f)}
+                          className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
+                        >
+                          Apply
+                        </button>
+                        <button
+                          onClick={() => deleteSavedFilter(f._id)}
+                          className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
           
           {internships.length === 0 && !error ? (
             <div className="text-center py-12">
@@ -431,6 +558,7 @@ export default function InternshipsPage() {
               ))}
             </div>
           ) : null}
+
         </div>
       </div>
     </div>
