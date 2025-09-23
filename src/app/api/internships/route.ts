@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/app/lib/mongodb';
 import Internship from '@/models/Internship';
+import PushSubscription from '@/models/PushSubscription';
+import { sendPushNotificationToAll } from '@/lib/push';
 
 export async function GET(request: NextRequest) {
   try {
@@ -41,6 +43,25 @@ export async function POST(req: NextRequest) {
     await connectDB();
     const body = await req.json();
     const created = await Internship.create(body);
+    
+    // Send push notification to all subscribed users
+    try {
+      const subscriptions = await PushSubscription.find({});
+      if (subscriptions.length > 0) {
+        const payload = {
+          title: 'New Internship Posted!',
+          body: `${created.company} - ${created.title}`,
+          icon: '/icon.png',
+          url: `/internships/${created._id}`,
+        };
+        
+        await sendPushNotificationToAll(subscriptions, payload);
+      }
+    } catch (pushError) {
+      console.error('Error sending push notification:', pushError);
+      // Don't fail the internship creation if push notification fails
+    }
+    
     return NextResponse.json({ success: true, data: created }, { status: 201 });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message || 'Server error' }, { status: 500 });
