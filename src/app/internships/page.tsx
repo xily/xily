@@ -111,7 +111,11 @@ export default function InternshipsPage() {
       const response = await fetch('/api/saved');
       if (response.ok) {
         const data = await response.json();
-        const savedIds = new Set(data.savedInternships.map((item: any) => item.internshipId._id));
+        const savedIds = new Set(
+          data.savedInternships
+            .filter((item: any) => item.internshipId && item.internshipId._id)
+            .map((item: any) => item.internshipId._id)
+        );
         setSavedInternships(savedIds);
       }
     } catch (error) {
@@ -175,7 +179,11 @@ export default function InternshipsPage() {
       const res = await fetch('/api/alerts');
       const data = await res.json();
       if (res.ok && data.success) {
-        const activeFilterIds = new Set(data.alerts.map((alert: any) => alert.filterId._id));
+        const activeFilterIds = new Set(
+          data.alerts
+            .filter((alert: any) => alert.filterId && alert.filterId._id)
+            .map((alert: any) => alert.filterId._id)
+        );
         setAlertPreferences(activeFilterIds);
       }
     } catch (err) {
