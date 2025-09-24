@@ -2,13 +2,15 @@
 
 import React from 'react';
 import { formatDeadlineDate, getDeadlineCountdown, isDeadlinePassed } from '@/app/lib/dateUtils';
+import IndustryBadge from './IndustryBadge';
+import { IndustryType } from '@/models/Internship';
 
 interface Internship {
   _id: string;
   title: string;
   company: string;
   location?: string;
-  industry?: string;
+  industry: IndustryType;
   graduationYear?: number;
   season?: string;
   deadline?: string;
@@ -100,13 +102,13 @@ export default function InternshipCard({
       <p className="mb-1 text-sm font-medium text-gray-700">{internship.company}</p>
       
       {/* Details */}
-      <div className="mb-4 space-y-1">
+      <div className="mb-4 space-y-2">
         {internship.location && (
           <p className="text-sm text-gray-600">📍 {internship.location}</p>
         )}
-        {internship.industry && (
-          <p className="text-sm text-gray-600">🏢 {internship.industry}</p>
-        )}
+        <div className="flex items-center gap-2">
+          <IndustryBadge industry={internship.industry} />
+        </div>
         {internship.graduationYear && (
           <p className="text-sm text-gray-600">🎓 Class of {internship.graduationYear}</p>
         )}

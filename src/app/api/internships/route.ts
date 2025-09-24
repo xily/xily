@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/app/lib/mongodb';
-import Internship from '@/models/Internship';
+import Internship, { INDUSTRY_OPTIONS, IndustryType } from '@/models/Internship';
 import PushSubscription from '@/models/PushSubscription';
 import { sendPushNotificationToAll } from '@/lib/push';
 
@@ -26,9 +26,12 @@ export async function GET(request: NextRequest) {
       filter.location = { $regex: searchParams.get('location'), $options: 'i' };
     }
     
-    // Filter by industry (case-insensitive)
+    // Filter by industry (exact match)
     if (searchParams.get('industry')) {
-      filter.industry = { $regex: searchParams.get('industry'), $options: 'i' };
+      const industry = searchParams.get('industry') as IndustryType;
+      if (INDUSTRY_OPTIONS.includes(industry)) {
+        filter.industry = industry;
+      }
     }
     
     const internships = await Internship.find(filter).sort({ createdAt: -1 }).lean();
@@ -42,6 +45,12 @@ export async function POST(req: NextRequest) {
   try {
     await connectDB();
     const body = await req.json();
+    
+    // Validate industry if provided
+    if (body.industry && !INDUSTRY_OPTIONS.includes(body.industry)) {
+      body.industry = 'Other'; // Fallback to 'Other' for invalid industries
+    }
+    
     const created = await Internship.create(body);
     
     // Send push notification to all subscribed users

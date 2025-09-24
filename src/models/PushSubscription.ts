@@ -37,4 +37,4 @@ const PushSubscriptionSchema = new Schema<IPushSubscription>({
   },
 });
 
-export default mongoose.models.PushSubscription || mongoose.model<IPushSubscription>('PushSubscription', PushSubscriptionSchema);
+export default (typeof window === 'undefined' && mongoose.models && mongoose.models.PushSubscription) || mongoose.model<IPushSubscription>('PushSubscription', PushSubscriptionSchema);

@@ -26,4 +26,4 @@ const SavedInternshipSchema = new Schema<ISavedInternship>({
 // Create compound index to prevent duplicate saves
 SavedInternshipSchema.index({ userId: 1, internshipId: 1 }, { unique: true });
 
-export default mongoose.models.SavedInternship || mongoose.model<ISavedInternship>('SavedInternship', SavedInternshipSchema);
+export default (typeof window === 'undefined' && mongoose.models && mongoose.models.SavedInternship) || mongoose.model<ISavedInternship>('SavedInternship', SavedInternshipSchema);

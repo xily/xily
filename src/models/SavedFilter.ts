@@ -1,11 +1,12 @@
 import mongoose, { Document, Schema, Types } from 'mongoose';
+import { IndustryType, INDUSTRY_OPTIONS } from './Internship';
 
 export interface ISavedFilter extends Document {
   userId: Types.ObjectId;
   graduationYear?: number;
   season?: string;
   location?: string;
-  industry?: string;
+  industry?: IndustryType;
   createdAt: Date;
 }
 
@@ -34,6 +35,7 @@ const SavedFilterSchema = new Schema<ISavedFilter>({
     type: String,
     required: false,
     trim: true,
+    enum: INDUSTRY_OPTIONS,
   },
   createdAt: {
     type: Date,
@@ -41,6 +43,6 @@ const SavedFilterSchema = new Schema<ISavedFilter>({
   },
 });
 
-export default mongoose.models.SavedFilter || mongoose.model<ISavedFilter>('SavedFilter', SavedFilterSchema);
+export default (typeof window === 'undefined' && mongoose.models && mongoose.models.SavedFilter) || mongoose.model<ISavedFilter>('SavedFilter', SavedFilterSchema);
 
 

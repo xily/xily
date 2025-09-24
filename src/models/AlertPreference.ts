@@ -33,4 +33,4 @@ const AlertPreferenceSchema = new Schema<IAlertPreference>({
 // Ensure one alert preference per user per filter
 AlertPreferenceSchema.index({ userId: 1, filterId: 1 }, { unique: true });
 
-export default mongoose.models.AlertPreference || mongoose.model<IAlertPreference>('AlertPreference', AlertPreferenceSchema);
+export default (typeof window === 'undefined' && mongoose.models && mongoose.models.AlertPreference) || mongoose.model<IAlertPreference>('AlertPreference', AlertPreferenceSchema);

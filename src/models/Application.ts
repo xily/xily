@@ -44,4 +44,4 @@ ApplicationSchema.pre('save', function(next) {
   next();
 });
 
-export default mongoose.models.Application || mongoose.model<IApplication>('Application', ApplicationSchema);
+export default (typeof window === 'undefined' && mongoose.models && mongoose.models.Application) || mongoose.model<IApplication>('Application', ApplicationSchema);

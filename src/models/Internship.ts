@@ -1,10 +1,23 @@
 import mongoose, { Schema, Model, Document } from 'mongoose';
 
+export const INDUSTRY_OPTIONS = [
+  'Tech',
+  'Finance', 
+  'Marketing',
+  'Healthcare',
+  'Consulting',
+  'Education',
+  'Government',
+  'Other'
+] as const;
+
+export type IndustryType = typeof INDUSTRY_OPTIONS[number];
+
 export interface InternshipDocument extends Document {
   title: string;
   company: string;
   location?: string;
-  industry?: string;
+  industry: IndustryType;
   graduationYear?: number;
   season?: string;
   deadline?: Date;
@@ -18,7 +31,12 @@ const InternshipSchema = new Schema<InternshipDocument>(
     title: { type: String, required: true },
     company: { type: String, required: true },
     location: { type: String },
-    industry: { type: String },
+    industry: { 
+      type: String, 
+      required: true,
+      enum: INDUSTRY_OPTIONS,
+      default: 'Other'
+    },
     graduationYear: { type: Number },
     season: { type: String },
     deadline: { type: Date },
@@ -33,7 +51,7 @@ const InternshipSchema = new Schema<InternshipDocument>(
 );
 
 const Internship: Model<InternshipDocument> =
-  mongoose.models.Internship || mongoose.model<InternshipDocument>('Internship', InternshipSchema);
+  (typeof window === 'undefined' && mongoose.models && mongoose.models.Internship) || mongoose.model<InternshipDocument>('Internship', InternshipSchema);
 
 export default Internship;
 

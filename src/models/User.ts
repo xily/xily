@@ -31,4 +31,4 @@ const UserSchema = new Schema<IUser>({
   },
 });
 
-export default mongoose.models.User || mongoose.model<IUser>('User', UserSchema);
+export default (typeof window === 'undefined' && mongoose.models && mongoose.models.User) || mongoose.model<IUser>('User', UserSchema);

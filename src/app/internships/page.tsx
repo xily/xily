@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { formatDeadlineDate, getDeadlineCountdown, isDeadlinePassed } from '@/app/lib/dateUtils';
 import InternshipCard from '@/app/components/InternshipCard';
+import { INDUSTRY_OPTIONS } from '@/models/Internship';
 
 interface Internship {
   _id: string;
@@ -390,11 +391,11 @@ export default function InternshipsPage() {
             className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
           >
             <option value="">All Industries</option>
-            <option value="Tech">Tech</option>
-            <option value="Finance">Finance</option>
-            <option value="Marketing">Marketing</option>
-            <option value="Healthcare">Healthcare</option>
-            <option value="Other">Other</option>
+            {INDUSTRY_OPTIONS.map((industry) => (
+              <option key={industry} value={industry}>
+                {industry}
+              </option>
+            ))}
           </select>
         </div>
 
@@ -505,11 +506,11 @@ export default function InternshipsPage() {
               className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
             >
               <option value="">All Industries</option>
-              <option value="Tech">Tech</option>
-              <option value="Finance">Finance</option>
-              <option value="Marketing">Marketing</option>
-              <option value="Healthcare">Healthcare</option>
-              <option value="Other">Other</option>
+              {INDUSTRY_OPTIONS.map((industry) => (
+                <option key={industry} value={industry}>
+                  {industry}
+                </option>
+              ))}
             </select>
           </div>
         </div>
