@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import ApplicationTrackerCard from '@/app/components/ApplicationTrackerCard';
 import StatusBadge from '@/app/components/StatusBadge';
+import toast from 'react-hot-toast';
 
 // Convert VAPID key from base64 to Uint8Array
 function urlBase64ToUint8Array(base64String: string): Uint8Array {
@@ -158,11 +159,14 @@ export default function DashboardPage() {
             return [...prev, data.application];
           }
         });
+        toast.success('Application updated successfully');
       } else {
-        setError('Failed to update application');
+        const data = await response.json();
+        toast.error(data.error || 'Failed to update application');
       }
     } catch (err) {
-      setError('Error updating application');
+      console.error('Error updating application:', err);
+      toast.error('Error updating application');
     } finally {
       setUpdating(prev => {
         const newSet = new Set(prev);
@@ -191,11 +195,14 @@ export default function DashboardPage() {
         setApplications(prev => 
           prev.filter(app => app.internshipId._id !== internshipId)
         );
+        toast.success('Internship removed successfully');
       } else {
-        setError('Failed to remove internship');
+        const data = await savedResponse.json();
+        toast.error(data.error || 'Failed to remove internship');
       }
     } catch (err) {
-      setError('Error removing internship');
+      console.error('Error removing internship:', err);
+      toast.error('Error removing internship');
     }
   };
 
@@ -219,7 +226,7 @@ export default function DashboardPage() {
 
   const enableNotifications = async () => {
     if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
-      setError('Push notifications are not supported in this browser');
+      toast.error('Push notifications are not supported in this browser');
       return;
     }
 
@@ -230,7 +237,7 @@ export default function DashboardPage() {
       setNotificationPermission(permission);
 
       if (permission !== 'granted') {
-        setError('Notification permission denied');
+        toast.error('Notification permission denied. Please enable notifications in your browser settings.');
         return;
       }
 
@@ -241,7 +248,7 @@ export default function DashboardPage() {
       // Get VAPID public key
       const vapidPublicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
       if (!vapidPublicKey) {
-        setError('VAPID public key not configured. Please check your environment variables.');
+        toast.error('VAPID public key not configured. Please check your environment variables.');
         return;
       }
 
@@ -266,13 +273,14 @@ export default function DashboardPage() {
       if (response.ok) {
         setIsSubscribed(true);
         setError('');
+        toast.success('Push notifications enabled successfully!');
       } else {
         const errorData = await response.json();
-        setError(errorData.error || 'Failed to enable notifications');
+        toast.error(errorData.error || 'Failed to enable notifications');
       }
     } catch (error) {
       console.error('Error enabling notifications:', error);
-      setError(`Failed to enable notifications: ${error.message || error}`);
+      toast.error(`Failed to enable notifications: ${error.message || error}`);
     } finally {
       setSubscriptionLoading(false);
     }
@@ -301,15 +309,19 @@ export default function DashboardPage() {
           if (response.ok) {
             setIsSubscribed(false);
             setError('');
+            toast.success('Push notifications disabled successfully');
           } else {
             const errorData = await response.json();
-            setError(errorData.error || 'Failed to disable notifications');
+            toast.error(errorData.error || 'Failed to disable notifications');
           }
+        } else {
+          toast.info('No active subscription found');
+          setIsSubscribed(false);
         }
       }
     } catch (error) {
       console.error('Error disabling notifications:', error);
-      setError('Failed to disable notifications');
+      toast.error('Failed to disable notifications');
     } finally {
       setSubscriptionLoading(false);
     }
@@ -387,12 +399,14 @@ export default function DashboardPage() {
                           });
                           if (response.ok) {
                             setError('');
+                            toast.success('Test notification sent!');
                           } else {
                             const errorData = await response.json();
-                            setError(errorData.error || 'Failed to send test notification');
+                            toast.error(errorData.error || 'Failed to send test notification');
                           }
                         } catch (error) {
-                          setError('Failed to send test notification');
+                          console.error('Error sending test notification:', error);
+                          toast.error('Failed to send test notification');
                         }
                       }}
                       className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-sm"

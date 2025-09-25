@@ -1,34 +1,10 @@
-import mongoose from 'mongoose';
-import connectDB from '../src/app/lib/mongodb';
-import AlertPreference from '../src/models/AlertPreference';
-import SavedFilter from '../src/models/SavedFilter';
-import Internship from '../src/models/Internship';
-import User from '../src/models/User';
-import { sendInternshipAlert } from '../src/lib/mailer';
-
-interface InternshipDoc {
-  _id: string;
-  title: string;
-  company: string;
-  location?: string;
-  industry?: string;
-  applyLink?: string;
-  createdAt: Date;
-}
-
-interface FilterDoc {
-  _id: string;
-  graduationYear?: number;
-  season?: string;
-  location?: string;
-  industry?: string;
-}
-
-interface UserDoc {
-  _id: string;
-  name: string;
-  email: string;
-}
+const mongoose = require('mongoose');
+const connectDB = require('../src/app/lib/mongodb').default;
+const AlertPreference = require('../src/models/AlertPreference').default;
+const SavedFilter = require('../src/models/SavedFilter').default;
+const Internship = require('../src/models/Internship').default;
+const User = require('../src/models/User').default;
+const { sendInternshipAlert } = require('../src/lib/mailer');
 
 async function checkAlerts() {
   try {
@@ -39,7 +15,7 @@ async function checkAlerts() {
     console.log('✅ Connected to database');
 
     // Get all active alert preferences with populated filter and user data
-    const alerts = await (AlertPreference as any).find({ active: true })
+    const alerts = await AlertPreference.find({ active: true })
       .populate('filterId')
       .populate('userId')
       .lean();
@@ -47,8 +23,8 @@ async function checkAlerts() {
     console.log(`📧 Found ${alerts.length} active alert preferences`);
 
     for (const alert of alerts) {
-      const filter = alert.filterId as FilterDoc;
-      const user = alert.userId as UserDoc;
+      const filter = alert.filterId;
+      const user = alert.userId;
 
       if (!filter || !user) {
         console.log(`⚠️ Skipping alert ${alert._id} - missing filter or user data`);
@@ -58,7 +34,7 @@ async function checkAlerts() {
       console.log(`🔍 Checking alerts for user ${user.email} with filter ${filter._id}`);
 
       // Build query based on filter criteria
-      const query: any = {};
+      const query = {};
       
       if (filter.graduationYear) {
         query.graduationYear = filter.graduationYear;
@@ -79,7 +55,7 @@ async function checkAlerts() {
       
       query.createdAt = { $gte: yesterday };
 
-      const matchingInternships = await (Internship as any).find(query).lean();
+      const matchingInternships = await Internship.find(query).lean();
 
       console.log(`📊 Found ${matchingInternships.length} new internships matching filter`);
 
@@ -97,7 +73,7 @@ async function checkAlerts() {
           user.email,
           user.name,
           filterName,
-          matchingInternships.map((internship: any) => ({
+          matchingInternships.map(internship => ({
             title: internship.title,
             company: internship.company,
             location: internship.location,
@@ -139,4 +115,4 @@ if (require.main === module) {
     });
 }
 
-export default checkAlerts;
+module.exports = checkAlerts;

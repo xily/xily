@@ -7,6 +7,7 @@ import { useSession } from 'next-auth/react';
 import { formatDeadlineDate, getDeadlineCountdown, isDeadlinePassed } from '@/app/lib/dateUtils';
 import InternshipCard from '@/app/components/InternshipCard';
 import { INDUSTRY_OPTIONS } from '@/models/Internship';
+import toast from 'react-hot-toast';
 
 interface Internship {
   _id: string;
@@ -142,16 +143,14 @@ export default function InternshipsPage() {
 
       if (response.ok) {
         setSavedInternships(prev => new Set(prev).add(internshipId));
-        setMessage('Internship saved successfully!');
-        setTimeout(() => setMessage(''), 3000);
+        toast.success('Internship saved successfully!');
       } else {
         const data = await response.json();
-        setMessage(data.error || 'Failed to save internship');
-        setTimeout(() => setMessage(''), 3000);
+        toast.error(data.error || 'Failed to save internship');
       }
     } catch (error) {
-      setMessage('Error saving internship');
-      setTimeout(() => setMessage(''), 3000);
+      console.error('Error saving internship:', error);
+      toast.error('Error saving internship');
     } finally {
       setSaving(prev => {
         const newSet = new Set(prev);
@@ -196,6 +195,14 @@ export default function InternshipsPage() {
       router.push('/login');
       return;
     }
+    
+    // Check if any filters are selected
+    const hasFilters = filters.graduationYear || filters.season || filters.location || filters.industry;
+    if (!hasFilters) {
+      toast.error('Please select at least one filter to save');
+      return;
+    }
+
     try {
       const res = await fetch('/api/filters', {
         method: 'POST',
@@ -209,16 +216,18 @@ export default function InternshipsPage() {
       });
       const data = await res.json();
       if (res.ok && data.success) {
-        setMessage('Filters saved');
-        setSavedFilters((prev) => [data.filter, ...prev]);
-        setTimeout(() => setMessage(''), 2500);
+        if (data.duplicate) {
+          toast.success('Filter already saved');
+        } else {
+          toast.success('Filters saved successfully');
+          setSavedFilters((prev) => [data.filter, ...prev]);
+        }
       } else {
-        setError(data.error || 'Failed to save filters');
-        setTimeout(() => setError(''), 2500);
+        toast.error(data.error || 'Failed to save filters');
       }
     } catch (err) {
-      setError('Error saving filters');
-      setTimeout(() => setError(''), 2500);
+      console.error('Error saving filters:', err);
+      toast.error('Error saving filters');
     }
   };
 
@@ -243,13 +252,13 @@ export default function InternshipsPage() {
           newSet.delete(id);
           return newSet;
         });
+        toast.success('Filter deleted successfully');
       } else {
-        setError(data.error || 'Failed to delete saved filter');
-        setTimeout(() => setError(''), 2500);
+        toast.error(data.error || 'Failed to delete saved filter');
       }
     } catch (err) {
-      setError('Error deleting saved filter');
-      setTimeout(() => setError(''), 2500);
+      console.error('Error deleting saved filter:', err);
+      toast.error('Error deleting saved filter');
     }
   };
 
@@ -264,15 +273,13 @@ export default function InternshipsPage() {
       const data = await res.json();
       if (res.ok && data.success) {
         setAlertPreferences((prev) => new Set(prev).add(filterId));
-        setMessage('Email alerts enabled for this filter');
-        setTimeout(() => setMessage(''), 2500);
+        toast.success('Email alerts enabled for this filter');
       } else {
-        setError(data.error || 'Failed to enable alerts');
-        setTimeout(() => setError(''), 2500);
+        toast.error(data.error || 'Failed to enable alerts');
       }
     } catch (err) {
-      setError('Error enabling alerts');
-      setTimeout(() => setError(''), 2500);
+      console.error('Error enabling alerts:', err);
+      toast.error('Error enabling alerts');
     }
   };
 
@@ -286,15 +293,13 @@ export default function InternshipsPage() {
           newSet.delete(filterId);
           return newSet;
         });
-        setMessage('Email alerts disabled for this filter');
-        setTimeout(() => setMessage(''), 2500);
+        toast.success('Email alerts disabled for this filter');
       } else {
-        setError(data.error || 'Failed to disable alerts');
-        setTimeout(() => setError(''), 2500);
+        toast.error(data.error || 'Failed to disable alerts');
       }
     } catch (err) {
-      setError('Error disabling alerts');
-      setTimeout(() => setError(''), 2500);
+      console.error('Error disabling alerts:', err);
+      toast.error('Error disabling alerts');
     }
   };
 
