@@ -544,13 +544,21 @@ export default function DashboardPage() {
         )}
 
         {/* No applications message for timeline */}
-        {applications.length === 0 && savedInternships.length > 0 && (
+        {applications.length === 0 && (
           <div className="mt-16 text-center py-12">
             <div className="text-6xl mb-4">📅</div>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">No applications yet</h2>
             <p className="text-gray-600 mb-6">
-              Start applying to internships to see your timeline here!
+              {savedInternships.length > 0 
+                ? "Start applying to internships to see your timeline here!"
+                : "Save some internships and start applying to see your timeline here!"
+              }
             </p>
+            {savedInternships.length > 0 && (
+              <p className="text-sm text-gray-500">
+                You have {savedInternships.length} saved internship(s). Click on them to change their status to "Applied" and they'll appear in your timeline.
+              </p>
+            )}
           </div>
         )}
       </div>
