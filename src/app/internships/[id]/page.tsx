@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { formatDeadlineDate, getDeadlineCountdown, isDeadlinePassed } from '@/app/lib/dateUtils';
+import ReviewsSection from './reviews-section';
 
 interface Internship {
   _id: string;
@@ -172,6 +173,7 @@ export default async function InternshipDetailPage({ params }: PageProps) {
         </div>
       </div>
       </div>
+      <ReviewsSection internshipId={id} company={internship.company} />
     </div>
   );
 }
