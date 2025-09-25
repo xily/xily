@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import ApplicationTrackerCard from '@/app/components/ApplicationTrackerCard';
+import StatusBadge from '@/app/components/StatusBadge';
 
 // Convert VAPID key from base64 to Uint8Array
 function urlBase64ToUint8Array(base64String: string): Uint8Array {
@@ -19,6 +20,20 @@ function urlBase64ToUint8Array(base64String: string): Uint8Array {
     outputArray[i] = rawData.charCodeAt(i);
   }
   return outputArray;
+}
+
+// Format date for timeline display
+function formatTimelineDate(dateString: string): string {
+  try {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: '2-digit',
+      year: 'numeric'
+    });
+  } catch {
+    return 'Invalid Date';
+  }
 }
 
 interface SavedInternship {
@@ -443,6 +458,99 @@ export default function DashboardPage() {
                 );
               })}
             </div>
+          </div>
+        )}
+
+        {/* Application Timeline Section */}
+        {applications.length > 0 && (
+          <div className="mt-16">
+            <div className="mb-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                Application Timeline
+              </h2>
+              <p className="text-gray-600">
+                Your application history in chronological order.
+              </p>
+            </div>
+            
+            <div className="max-w-3xl mx-auto">
+              <div className="relative">
+                {/* Timeline line */}
+                <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gray-200"></div>
+                
+                {/* Timeline entries */}
+                <div className="space-y-8">
+                  {applications.map((application, index) => (
+                    <div key={application._id} className="relative flex items-start">
+                      {/* Timeline dot */}
+                      <div className="relative z-10 flex-shrink-0 w-12 h-12 bg-white rounded-full border-4 border-blue-600 flex items-center justify-center">
+                        <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
+                      </div>
+                      
+                      {/* Timeline content */}
+                      <div className="ml-6 flex-1">
+                        <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm hover:shadow-md transition-shadow">
+                          <div className="flex items-start justify-between mb-3">
+                            <div className="flex-1">
+                              <h3 className="font-bold text-gray-900 text-lg mb-1">
+                                {application.internshipId.title}
+                              </h3>
+                              <p className="text-gray-700 font-medium">
+                                {application.internshipId.company}
+                              </p>
+                              {application.internshipId.location && (
+                                <p className="text-sm text-gray-600 mt-1">
+                                  📍 {application.internshipId.location}
+                                </p>
+                              )}
+                            </div>
+                            <div className="flex flex-col items-end space-y-2">
+                              <StatusBadge status={application.status} size="sm" />
+                              <span className="text-xs text-gray-500">
+                                {formatTimelineDate(application.updatedAt)}
+                              </span>
+                            </div>
+                          </div>
+                          
+                          {application.notes && (
+                            <div className="mt-3 p-3 bg-gray-50 rounded-md">
+                              <p className="text-sm text-gray-700">
+                                <span className="font-medium">Notes:</span> {application.notes}
+                              </p>
+                            </div>
+                          )}
+                          
+                          <div className="mt-3 flex items-center justify-between text-xs text-gray-500">
+                            <span>Updated {formatTimelineDate(application.updatedAt)}</span>
+                            {application.internshipId.applyLink && (
+                              <a
+                                href={application.internshipId.applyLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-600 hover:text-blue-800 font-medium"
+                              >
+                                View Application →
+                              </a>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* No applications message for timeline */}
+        {applications.length === 0 && savedInternships.length > 0 && (
+          <div className="mt-16 text-center py-12">
+            <div className="text-6xl mb-4">📅</div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">No applications yet</h2>
+            <p className="text-gray-600 mb-6">
+              Start applying to internships to see your timeline here!
+            </p>
           </div>
         )}
       </div>
