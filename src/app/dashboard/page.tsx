@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import ApplicationTrackerCard from '@/app/components/ApplicationTrackerCard';
 import StatusBadge from '@/app/components/StatusBadge';
+import ResumeCard from '@/app/components/ResumeCard';
 import toast from 'react-hot-toast';
 
 // Convert VAPID key from base64 to Uint8Array
@@ -75,17 +76,35 @@ interface Application {
   updatedAt: string;
 }
 
+interface Resume {
+  _id: string;
+  title: string;
+  resumeUrl: string;
+  createdAt: string;
+  commentCount: number;
+  userId: {
+    _id: string;
+    name: string;
+    email: string;
+  };
+}
+
 export default function DashboardPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [savedInternships, setSavedInternships] = useState<SavedInternship[]>([]);
   const [applications, setApplications] = useState<Application[]>([]);
+  const [resumes, setResumes] = useState<Resume[]>([]);
+  const [userResume, setUserResume] = useState<Resume | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [updating, setUpdating] = useState<Set<string>>(new Set());
   const [notificationPermission, setNotificationPermission] = useState<NotificationPermission>('default');
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [subscriptionLoading, setSubscriptionLoading] = useState(false);
+  const [uploadingResume, setUploadingResume] = useState(false);
+  const [resumeTitle, setResumeTitle] = useState('');
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
 
   useEffect(() => {
     if (status === 'loading') return; // Still loading
@@ -96,6 +115,7 @@ export default function DashboardPage() {
     if (session) {
       fetchSavedInternships();
       fetchApplications();
+      fetchResumes();
       checkNotificationPermission();
       checkSubscriptionStatus();
     }
@@ -129,6 +149,125 @@ export default function DashboardPage() {
       }
     } catch (err) {
       console.error('Error fetching applications:', err);
+    }
+  };
+
+  const fetchResumes = async () => {
+    try {
+      const response = await fetch('/api/resumes');
+      if (response.ok) {
+        const data = await response.json();
+        setResumes(data);
+        
+        // Find user's resume
+        const userResumeData = data.find((resume: Resume) => resume.userId._id === session?.user?.id);
+        setUserResume(userResumeData || null);
+        
+        // Pre-fill form if user has existing resume
+        if (userResumeData) {
+          setResumeTitle(userResumeData.title);
+        }
+      } else {
+        console.error('Failed to fetch resumes');
+      }
+    } catch (err) {
+      console.error('Error fetching resumes:', err);
+    }
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.type !== 'application/pdf') {
+        toast.error('Please upload a PDF file only');
+        return;
+      }
+      if (file.size > 10 * 1024 * 1024) { // 10MB limit
+        toast.error('File size must be less than 10MB');
+        return;
+      }
+      setResumeFile(file);
+    }
+  };
+
+  const handleUploadResume = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!resumeFile || !resumeTitle.trim()) {
+      toast.error('Please provide both a file and title');
+      return;
+    }
+
+    setUploadingResume(true);
+    
+    try {
+      // For MVP, we'll create a simple file URL
+      // In production, you'd upload to Cloudinary/S3
+      const resumeUrl = URL.createObjectURL(resumeFile);
+      
+      const response = await fetch('/api/resumes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          resumeUrl,
+          title: resumeTitle.trim()
+        }),
+      });
+
+      if (response.ok) {
+        const resumeData = await response.json();
+        
+        if (userResume) {
+          // Update existing resume
+          setResumes(prev => prev.map(resume => 
+            resume._id === resumeData._id ? resumeData : resume
+          ));
+          setUserResume(resumeData);
+          toast.success('Resume updated successfully!');
+        } else {
+          // Add new resume
+          setResumes(prev => [resumeData, ...prev]);
+          setUserResume(resumeData);
+          toast.success('Resume uploaded successfully!');
+        }
+        
+        setResumeTitle('');
+        setResumeFile(null);
+        // Reset file input
+        const fileInput = document.getElementById('resume-file') as HTMLInputElement;
+        if (fileInput) fileInput.value = '';
+      } else {
+        const data = await response.json();
+        toast.error(data.error || 'Failed to upload resume');
+      }
+    } catch (err) {
+      console.error('Error uploading resume:', err);
+      toast.error('Error uploading resume');
+    } finally {
+      setUploadingResume(false);
+    }
+  };
+
+  const handleDeleteResume = async (resumeId: string) => {
+    try {
+      const response = await fetch(`/api/resumes?id=${resumeId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        setResumes(prev => prev.filter(resume => resume._id !== resumeId));
+        setUserResume(null);
+        setResumeTitle('');
+        toast.success('Resume deleted successfully');
+      } else {
+        const data = await response.json();
+        toast.error(data.error || 'Failed to delete resume');
+      }
+    } catch (err) {
+      console.error('Error deleting resume:', err);
+      toast.error('Error deleting resume');
     }
   };
 
@@ -575,6 +714,99 @@ export default function DashboardPage() {
             )}
           </div>
         )}
+
+        {/* Resume Review Section */}
+        <div className="mt-16">
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              Resume Review
+            </h2>
+            <p className="text-gray-600">
+              Upload your resume and get feedback from peers, or review others' resumes.
+            </p>
+          </div>
+
+          {/* Upload Resume Form */}
+          <div className="border p-4 rounded-lg mb-6 bg-white">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+              {userResume ? 'Update Your Resume' : 'Upload Resume'}
+            </h3>
+            <form onSubmit={handleUploadResume} className="space-y-4">
+              <div>
+                <label htmlFor="resume-title" className="block text-sm font-medium text-gray-700 mb-2">
+                  Resume Title
+                </label>
+                <input
+                  type="text"
+                  id="resume-title"
+                  value={resumeTitle}
+                  onChange={(e) => setResumeTitle(e.target.value)}
+                  placeholder="e.g., Software Intern Resume"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  required
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="resume-file" className="block text-sm font-medium text-gray-700 mb-2">
+                  PDF File
+                </label>
+                <input
+                  type="file"
+                  id="resume-file"
+                  accept=".pdf"
+                  onChange={handleFileChange}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  required
+                />
+                <p className="text-xs text-gray-500 mt-1">PDF files only, max 10MB</p>
+              </div>
+              
+              <button
+                type="submit"
+                disabled={uploadingResume || !resumeFile || !resumeTitle.trim()}
+                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+              >
+                {uploadingResume ? (userResume ? 'Updating...' : 'Uploading...') : (userResume ? 'Update Resume' : 'Upload Resume')}
+              </button>
+            </form>
+          </div>
+
+          {/* User's Current Resume */}
+          {userResume && (
+            <div className="border p-4 rounded-lg mb-6 bg-blue-50">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Your Current Resume</h3>
+              <ResumeCard
+                resume={userResume}
+                currentUserId={session?.user?.id}
+                onDelete={handleDeleteResume}
+              />
+            </div>
+          )}
+
+          {/* Other Resumes List */}
+          {resumes.filter(resume => resume.userId._id !== session?.user?.id).length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📄</div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">No resumes uploaded yet</h3>
+              <p className="text-gray-600">Be the first to upload a resume and start getting feedback!</p>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold text-gray-900">
+                Other Resumes ({resumes.filter(resume => resume.userId._id !== session?.user?.id).length})
+              </h3>
+              {resumes.filter(resume => resume.userId._id !== session?.user?.id).map((resume) => (
+                <ResumeCard
+                  key={resume._id}
+                  resume={resume}
+                  currentUserId={session?.user?.id}
+                  onDelete={handleDeleteResume}
+                />
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
