@@ -559,6 +559,24 @@ export default function DashboardPage() {
           </div>
         </div>
 
+        {/* Dashboard Navigation */}
+        <div className="mb-8">
+          <nav className="flex space-x-8">
+            <a
+              href="/dashboard"
+              className="text-blue-600 border-b-2 border-blue-600 pb-2 text-sm font-medium"
+            >
+              Overview
+            </a>
+            <a
+              href="/dashboard/analytics"
+              className="text-gray-700 hover:text-blue-600 pb-2 text-sm font-medium transition-colors"
+            >
+              Analytics
+            </a>
+          </nav>
+        </div>
+
         {error && (
           <div className="mb-6 bg-red-50 border border-red-200 rounded-md p-4">
             <p className="text-red-800">{error}</p>
