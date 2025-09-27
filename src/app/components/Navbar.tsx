@@ -9,6 +9,7 @@ const publicNavItems = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About' },
   { href: '/internships', label: 'Internships' },
+  { href: '/advice', label: 'Advice Board' },
   { href: '/contact', label: 'Contact' },
 ];
 
