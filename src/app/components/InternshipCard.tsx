@@ -3,6 +3,7 @@
 import React from 'react';
 import { formatDeadlineDate, getDeadlineCountdown, isDeadlinePassed } from '@/app/lib/dateUtils';
 import IndustryBadge from './IndustryBadge';
+import FeaturedBadge from './FeaturedBadge';
 import { IndustryType } from '@/models/Internship';
 
 interface Internship {
@@ -16,6 +17,7 @@ interface Internship {
   deadline?: string;
   applyLink?: string;
   verified: boolean;
+  featured?: boolean;
   createdAt: string;
 }
 
@@ -96,7 +98,10 @@ export default function InternshipCard({
       )}
       
       {/* Title */}
-      <h2 className="mb-2 text-xl font-bold text-gray-900 pr-20">{internship.title}</h2>
+      <div className="mb-2 flex items-center gap-2 pr-20">
+        <h2 className="text-xl font-bold text-gray-900">{internship.title}</h2>
+        {internship.featured && <FeaturedBadge />}
+      </div>
       
       {/* Company */}
       <p className="mb-1 text-sm font-medium text-gray-700">{internship.company}</p>

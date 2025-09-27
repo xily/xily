@@ -34,7 +34,13 @@ export async function GET(request: NextRequest) {
       }
     }
     
-    const internships = await Internship.find(filter).sort({ createdAt: -1 }).lean();
+    // Filter by featured status
+    if (searchParams.get('featured') === 'true') {
+      filter.featured = true;
+    }
+    
+    // Sort: featured first, then by creation date
+    const internships = await Internship.find(filter).sort({ featured: -1, createdAt: -1 }).lean();
     return NextResponse.json({ success: true, data: internships });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message || 'Server error' }, { status: 500 });

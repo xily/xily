@@ -23,6 +23,8 @@ export interface InternshipDocument extends Document {
   deadline?: Date;
   applyLink?: string;
   verified: boolean;
+  recruiterId?: mongoose.Types.ObjectId;
+  featured: boolean;
   createdAt: Date;
 }
 
@@ -42,6 +44,12 @@ const InternshipSchema = new Schema<InternshipDocument>(
     deadline: { type: Date },
     applyLink: { type: String },
     verified: { type: Boolean, default: true },
+    recruiterId: { 
+      type: Schema.Types.ObjectId, 
+      ref: 'Recruiter',
+      required: false
+    },
+    featured: { type: Boolean, default: false },
     createdAt: { type: Date, default: Date.now },
   },
   {

@@ -63,6 +63,16 @@ const Navbar: React.FC = () => {
                 >
                   Dashboard
                 </Link>
+                <Link
+                  href="/recruiter"
+                  className={`text-sm font-medium transition-colors ${
+                    pathname === '/recruiter'
+                      ? 'text-blue-600 border-b-2 border-blue-600 pb-1'
+                      : 'text-gray-700 hover:text-blue-600'
+                  }`}
+                >
+                  Recruiter
+                </Link>
                 <button
                   onClick={handleSignOut}
                   className="text-sm font-medium text-gray-700 transition-colors hover:text-blue-600"
@@ -154,6 +164,17 @@ const Navbar: React.FC = () => {
                   onClick={closeMenu}
                 >
                   Dashboard
+                </Link>
+                <Link
+                  href="/recruiter"
+                  className={`px-4 py-2 text-sm font-medium transition-colors ${
+                    pathname === '/recruiter'
+                      ? 'bg-blue-50 text-blue-600'
+                      : 'text-gray-700 hover:bg-gray-50 hover:text-blue-600'
+                  }`}
+                  onClick={closeMenu}
+                >
+                  Recruiter
                 </Link>
                 <button
                   onClick={() => {

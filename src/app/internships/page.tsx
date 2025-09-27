@@ -20,6 +20,7 @@ interface Internship {
   deadline?: string;
   applyLink?: string;
   verified: boolean;
+  featured?: boolean;
   createdAt: string;
 }
 
@@ -653,17 +654,47 @@ export default function InternshipsPage() {
               <p className="text-lg text-gray-600">Try adjusting your filters or check back soon!</p>
             </div>
           ) : internships.length > 0 ? (
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {internships.map((internship) => (
-                <InternshipCard
-                  key={internship._id}
-                  internship={internship}
-                  showSaveButton={true}
-                  onSave={handleSave}
-                  isSaved={savedInternships.has(internship._id)}
-                />
-              ))}
-            </div>
+            <>
+              {/* Featured Internships */}
+              {internships.filter(internship => internship.featured).length > 0 && (
+                <div className="mb-8">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                    ⭐ Featured Internships
+                  </h2>
+                  <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    {internships
+                      .filter(internship => internship.featured)
+                      .map((internship) => (
+                        <InternshipCard
+                          key={internship._id}
+                          internship={internship}
+                          showSaveButton={true}
+                          onSave={handleSave}
+                          isSaved={savedInternships.has(internship._id)}
+                        />
+                      ))}
+                  </div>
+                </div>
+              )}
+
+              {/* All Internships */}
+              <div>
+                {internships.filter(internship => internship.featured).length > 0 && (
+                  <h2 className="text-2xl font-bold text-gray-900 mb-4">All Internships</h2>
+                )}
+                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                  {internships.map((internship) => (
+                    <InternshipCard
+                      key={internship._id}
+                      internship={internship}
+                      showSaveButton={true}
+                      onSave={handleSave}
+                      isSaved={savedInternships.has(internship._id)}
+                    />
+                  ))}
+                </div>
+              </div>
+            </>
           ) : null}
 
         </div>
