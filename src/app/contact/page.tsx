@@ -8,16 +8,16 @@ export default function ContactPage(): JSX.Element {
         
         <div className="prose prose-lg max-w-none text-gray-700">
           <p className="text-lg text-gray-600 mb-6">
-            Have questions about Internly? We'd love to hear from you. Send us a 
+            Have questions about Mr.Intern? We'd love to hear from you. Send us a 
             message and we'll respond as soon as possible.
           </p>
           
           <div className="bg-gray-50 rounded-lg p-6 mb-8">
             <h2 className="text-xl font-semibold text-gray-900 mb-4">Get in Touch</h2>
             <div className="space-y-2">
-              <p><strong>Email:</strong> hello@internly.com</p>
-              <p><strong>Support:</strong> support@internly.com</p>
-              <p><strong>Business:</strong> business@internly.com</p>
+              <p><strong>Email:</strong> hello@mrintern.com</p>
+              <p><strong>Support:</strong> support@mrintern.com</p>
+              <p><strong>Business:</strong> business@mrintern.com</p>
             </div>
           </div>
           

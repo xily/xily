@@ -33,7 +33,7 @@ export default function AdvicePostCard({ post, currentUserId, onDelete }: Advice
           <h3 className="text-lg font-semibold text-gray-900 mb-2">
             <Link 
               href={`/advice/${post._id}`}
-              className="hover:text-blue-600 transition-colors"
+              className="hover:text-purple-600 transition-colors"
             >
               {post.title}
             </Link>

@@ -174,7 +174,7 @@ export default function AdviceDetailPage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="flex items-center space-x-2">
-          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
+          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-purple-600"></div>
           <div className="text-lg text-gray-600">Loading...</div>
         </div>
       </div>
@@ -190,7 +190,7 @@ export default function AdviceDetailPage() {
           <p className="text-gray-600 mb-6">{error}</p>
           <button
             onClick={() => router.push('/advice')}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
+            className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors"
           >
             Back to Advice Board
           </button>
@@ -208,7 +208,7 @@ export default function AdviceDetailPage() {
         <div className="mb-8">
           <button
             onClick={() => router.back()}
-            className="text-blue-600 hover:text-blue-800 mb-4 flex items-center"
+            className="text-purple-600 hover:text-purple-700 mb-4 flex items-center"
           >
             ← Back
           </button>
@@ -265,7 +265,7 @@ export default function AdviceDetailPage() {
                   onChange={(e) => setNewComment(e.target.value)}
                   placeholder="Share your thoughts or additional advice..."
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                   maxLength={1000}
                   required
                 />
@@ -276,7 +276,7 @@ export default function AdviceDetailPage() {
               <button
                 type="submit"
                 disabled={submittingComment || !newComment.trim()}
-                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+                className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
               >
                 {submittingComment ? 'Posting...' : 'Post Comment'}
               </button>
@@ -284,7 +284,7 @@ export default function AdviceDetailPage() {
           ) : (
             <div className="mb-6 p-4 bg-gray-50 rounded-md">
               <p className="text-gray-600 text-sm">
-                <a href="/login" className="text-blue-600 hover:text-blue-800">
+                <a href="/login" className="text-purple-600 hover:text-purple-700">
                   Log in
                 </a> to add comments and share your thoughts.
               </p>

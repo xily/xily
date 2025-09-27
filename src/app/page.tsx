@@ -16,15 +16,15 @@ export default async function Home() {
         <div className="mx-auto max-w-7xl px-6 py-12">
           <div className="text-center">
             <h1 className="text-5xl font-extrabold tracking-tight text-gray-900 sm:text-6xl">
-              Internly
+              Mr.Intern
             </h1>
             <p className="mt-4 text-lg text-gray-700">
-              Internship Discovery Made Simple
+              Your Internship Discovery Partner
             </p>
             <div className="mt-8">
               <Link
                 href="/internships"
-                className="inline-flex items-center justify-center rounded-lg bg-blue-600 px-6 py-3 text-white shadow-sm transition-colors hover:bg-blue-700"
+                className="inline-flex items-center justify-center rounded-lg bg-purple-600 px-6 py-3 text-white shadow-sm transition-colors hover:bg-purple-700"
               >
                 Browse Internships
               </Link>
@@ -45,7 +45,23 @@ export default async function Home() {
               </p>
             </div>
             <div className="flex items-center justify-center">
-              <div className="h-48 w-full max-w-md rounded-xl border border-gray-200 bg-gray-50" />
+              <div 
+                className="h-48 w-full max-w-md rounded-xl border-2 shadow-lg flex items-center justify-center"
+                style={{
+                  backgroundColor: '#E9D5FF',
+                  borderColor: '#C4B5FD'
+                }}
+              >
+                <div className="text-center">
+                  <div className="text-6xl mb-2">🎯</div>
+                  <div 
+                    className="font-semibold text-lg"
+                    style={{ color: '#7C3AED' }}
+                  >
+                    Find Your Path
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -58,10 +74,10 @@ export default async function Home() {
             <div className="mb-3 text-3xl" aria-hidden>
               🎯
             </div>
-            <h2 className="text-2xl font-semibold text-gray-900">Why Internly?</h2>
+            <h2 className="text-2xl font-semibold text-gray-900">Why Mr.Intern?</h2>
             <p className="mt-4 text-gray-700">
-              Internly is your real-time internship radar. We filter opportunities by graduation year,
-              industry, season, and location—so you only see what’s open and relevant.
+              Mr.Intern is your real-time internship radar. We filter opportunities by graduation year,
+              industry, season, and location—so you only see what's open and relevant.
             </p>
           </div>
         </div>
@@ -77,7 +93,7 @@ export default async function Home() {
             <div className="mt-6">
               <Link
                 href={ctaHref}
-                className="inline-flex items-center justify-center rounded-lg bg-blue-600 px-6 py-3 text-white shadow-sm transition-colors hover:bg-blue-700"
+                className="inline-flex items-center justify-center rounded-lg bg-purple-600 px-6 py-3 text-white shadow-sm transition-colors hover:bg-purple-700"
               >
                 Get Started
               </Link>

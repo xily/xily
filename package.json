@@ -1,12 +1,13 @@
 {
-  "name": "internly",
+  "name": "mr-intern",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "dev:https": "next dev --experimental-https",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "check-alerts": "tsx scripts/checkAlerts.ts"
   },
   "dependencies": {
     "@types/bcrypt": "^6.0.0",

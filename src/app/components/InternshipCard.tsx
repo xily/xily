@@ -144,7 +144,7 @@ export default function InternshipCard({
             href={internship.applyLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center rounded bg-blue-600 px-6 py-3 text-white font-medium transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            className="inline-flex items-center justify-center rounded bg-purple-600 px-6 py-3 text-white font-medium transition-colors hover:bg-purple-600-dark focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2"
             onClick={(e) => e.stopPropagation()}
           >
             Apply Now

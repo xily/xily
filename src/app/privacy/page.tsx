@@ -8,9 +8,8 @@ export default function PrivacyPage(): JSX.Element {
         
         <div className="prose prose-lg max-w-none text-gray-700">
           <p className="text-lg text-gray-600 mb-6">
-            This is a placeholder privacy policy page. In a production application, 
-            this would contain detailed information about how we collect, use, and 
-            protect your personal information.
+            This privacy policy describes how Mr.Intern collects, uses, and protects 
+            your personal information when you use our platform.
           </p>
           
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">Information We Collect</h2>

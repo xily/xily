@@ -56,7 +56,7 @@ export default async function InternshipDetailPage({ params }: PageProps) {
       {/* Back Button */}
       <Link 
         href="/internships" 
-        className="mb-6 inline-flex items-center text-blue-600 hover:text-blue-700"
+        className="mb-6 inline-flex items-center text-purple-600 hover:text-purple-700"
       >
         ← Back to Internships
       </Link>
@@ -119,7 +119,7 @@ export default async function InternshipDetailPage({ params }: PageProps) {
               <p className={`text-sm font-medium ${
                 isDeadlinePassed(new Date(internship.deadline))
                   ? 'text-red-600 font-semibold'
-                  : 'text-blue-600'
+                  : 'text-purple-600'
               }`}>
                 {isDeadlinePassed(new Date(internship.deadline))
                   ? '❌ Closed'
@@ -154,7 +154,7 @@ export default async function InternshipDetailPage({ params }: PageProps) {
               href={internship.applyLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded bg-blue-600 px-6 py-3 text-white font-medium transition-colors hover:bg-blue-700"
+              className="inline-flex items-center justify-center rounded bg-purple-600 px-6 py-3 text-white font-medium transition-colors hover:bg-purple-700"
             >
               Apply Now
             </Link>

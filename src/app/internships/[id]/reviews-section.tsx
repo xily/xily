@@ -3,6 +3,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import ReviewCard from '@/app/components/ReviewCard';
+import LoadingSpinner from '@/app/components/LoadingSpinner';
 
 type Review = {
   _id: string;
@@ -36,6 +37,12 @@ export default function ReviewsSection({ internshipId, company }: { internshipId
     return [...reviews].sort((a, b) => new Date(String(b.createdAt)).getTime() - new Date(String(a.createdAt)).getTime());
   }, [reviews]);
 
+  const averageRating = useMemo(() => {
+    if (reviews.length === 0) return 0;
+    const sum = reviews.reduce((acc, review) => acc + review.rating, 0);
+    return Math.round((sum / reviews.length) * 10) / 10; // Round to 1 decimal place
+  }, [reviews]);
+
   const fetchReviews = async () => {
     setLoading(true);
     try {
@@ -56,6 +63,21 @@ export default function ReviewsSection({ internshipId, company }: { internshipId
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validation
+    if (!pros.trim()) {
+      alert('Please provide pros for your review');
+      return;
+    }
+    if (!cons.trim()) {
+      alert('Please provide cons for your review');
+      return;
+    }
+    if (rating < 1 || rating > 5) {
+      alert('Please select a valid rating');
+      return;
+    }
+    
     setLoading(true);
     try {
       const isEditing = Boolean(editingId);
@@ -104,14 +126,43 @@ export default function ReviewsSection({ internshipId, company }: { internshipId
     }
   };
 
+  const renderStars = (rating: number) => {
+    return Array.from({ length: 5 }, (_, i) => (
+      <span key={i} className={i < rating ? 'text-yellow-400' : 'text-gray-300'}>
+        ★
+      </span>
+    ));
+  };
+
   return (
     <section className="max-w-3xl mx-auto py-8">
-      <h2 className="text-2xl font-bold mb-4">Reviews</h2>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-2xl font-bold">Reviews</h2>
+        {reviews.length > 0 && (
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1">
+              {renderStars(Math.round(averageRating))}
+              <span className="ml-1 text-sm font-medium text-gray-700">
+                {averageRating.toFixed(1)}
+              </span>
+            </div>
+            <span className="text-sm text-gray-500">
+              ({reviews.length} review{reviews.length !== 1 ? 's' : ''})
+            </span>
+          </div>
+        )}
+      </div>
 
       {loading && reviews.length === 0 ? (
-        <div className="text-gray-500 mb-4">Loading reviews…</div>
+        <div className="flex items-center justify-center py-8">
+          <LoadingSpinner size="md" className="mr-2" />
+          <span className="text-gray-500">Loading reviews…</span>
+        </div>
       ) : reviews.length === 0 ? (
-        <div className="text-gray-500 mb-4">No reviews yet.</div>
+        <div className="text-center py-8">
+          <div className="text-4xl mb-2">⭐</div>
+          <p className="text-gray-500 text-lg">No reviews yet. Be the first!</p>
+        </div>
       ) : (
         <div className="mb-6">
           {sortedReviews.map((review) => (
@@ -125,7 +176,7 @@ export default function ReviewsSection({ internshipId, company }: { internshipId
                     setPros(review.pros);
                     setCons(review.cons);
                     setAdvice(review.advice || '');
-                  }} className="text-sm text-blue-600 hover:text-blue-700">Edit</button>
+                  }} className="text-sm text-purple-600 hover:text-purple-700">Edit</button>
                   <button onClick={() => onDelete(review._id)} className="text-sm text-red-600 hover:text-red-700">Delete</button>
                 </div>
               )}
@@ -182,7 +233,7 @@ export default function ReviewsSection({ internshipId, company }: { internshipId
           <button
             type="submit"
             disabled={loading}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-50"
+            className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 disabled:opacity-50"
           >
             {loading ? 'Saving…' : editingId ? 'Save Changes' : 'Submit Review'}
           </button>

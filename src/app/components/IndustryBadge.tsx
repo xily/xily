@@ -6,7 +6,7 @@ interface IndustryBadgeProps {
 }
 
 const industryColors: Record<IndustryType, string> = {
-  Tech: 'bg-blue-100 text-blue-800 border-blue-200',
+  Tech: 'bg-purple-600-light text-purple-600 border-purple-600',
   Finance: 'bg-green-100 text-green-800 border-green-200',
   Marketing: 'bg-pink-100 text-pink-800 border-pink-200',
   Healthcare: 'bg-red-100 text-red-800 border-red-200',

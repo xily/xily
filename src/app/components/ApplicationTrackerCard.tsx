@@ -148,7 +148,7 @@ export default function ApplicationTrackerCard({
                     e.stopPropagation();
                     setIsEditing(true);
                   }}
-                  className="text-blue-600 text-sm hover:text-blue-700"
+                  className="text-purple-600 text-sm hover:text-purple-600-dark"
                 >
                   Edit
                 </button>
@@ -182,7 +182,7 @@ export default function ApplicationTrackerCard({
                     e.stopPropagation();
                     setIsEditing(true);
                   }}
-                  className="text-blue-600 text-sm hover:text-blue-700 mt-1"
+                  className="text-purple-600 text-sm hover:text-purple-600-dark mt-1"
                 >
                   {notes ? 'Edit notes' : 'Add notes'}
                 </button>
@@ -199,7 +199,7 @@ export default function ApplicationTrackerCard({
                   handleSave();
                 }}
                 disabled={isUpdating}
-                className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 disabled:opacity-50 text-sm"
+                className="bg-purple-600 text-white px-3 py-1 rounded hover:bg-purple-600-dark disabled:opacity-50 text-sm"
               >
                 {isUpdating ? 'Saving...' : 'Save'}
               </button>

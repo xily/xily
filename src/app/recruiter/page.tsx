@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import RecruiterInternshipCard from '@/app/components/RecruiterInternshipCard';
+import LoadingSpinner from '@/app/components/LoadingSpinner';
 import toast from 'react-hot-toast';
 
 interface RecruiterProfile {
@@ -223,7 +224,7 @@ export default function RecruiterPage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="flex items-center space-x-2">
-          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
+          <LoadingSpinner size="md" />
           <div className="text-lg text-gray-600">Loading...</div>
         </div>
       </div>
@@ -243,7 +244,7 @@ export default function RecruiterPage() {
           <p className="text-gray-600 mb-6">{error}</p>
           <button
             onClick={() => router.push('/dashboard')}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
+            className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-600-dark transition-colors"
           >
             Back to Dashboard
           </button>
@@ -259,7 +260,7 @@ export default function RecruiterPage() {
         <div className="mb-8">
           <button
             onClick={() => router.back()}
-            className="text-blue-600 hover:text-blue-800 mb-4 flex items-center"
+            className="text-purple-600 hover:text-purple-600-dark mb-4 flex items-center"
           >
             ← Back
           </button>
@@ -286,7 +287,7 @@ export default function RecruiterPage() {
                     id="companyName"
                     value={recruiterFormData.companyName}
                     onChange={(e) => setRecruiterFormData(prev => ({ ...prev, companyName: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                     required
                   />
                 </div>
@@ -299,7 +300,7 @@ export default function RecruiterPage() {
                     id="website"
                     value={recruiterFormData.website}
                     onChange={(e) => setRecruiterFormData(prev => ({ ...prev, website: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                     required
                   />
                 </div>
@@ -307,7 +308,7 @@ export default function RecruiterPage() {
               <button
                 type="submit"
                 disabled={creating}
-                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+                className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-600-dark disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
               >
                 {creating ? 'Creating...' : 'Create Profile'}
               </button>
@@ -326,7 +327,7 @@ export default function RecruiterPage() {
                 <div>
                   <span className="text-sm font-medium text-gray-500">Website</span>
                   <p className="text-lg text-gray-900">
-                    <a href={recruiter.website} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800">
+                    <a href={recruiter.website} target="_blank" rel="noopener noreferrer" className="text-purple-600 hover:text-purple-600-dark">
                       {recruiter.website}
                     </a>
                   </p>
@@ -340,7 +341,7 @@ export default function RecruiterPage() {
                 <h2 className="text-lg font-semibold text-gray-900">Internship Listings</h2>
                 <button
                   onClick={() => setShowCreateForm(!showCreateForm)}
-                  className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
+                  className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-600-dark transition-colors"
                 >
                   {showCreateForm ? 'Cancel' : 'Add New Internship'}
                 </button>
@@ -360,7 +361,7 @@ export default function RecruiterPage() {
                         id="title"
                         value={internshipFormData.title}
                         onChange={(e) => setInternshipFormData(prev => ({ ...prev, title: e.target.value }))}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                         required
                       />
                     </div>
@@ -373,7 +374,7 @@ export default function RecruiterPage() {
                         id="company"
                         value={internshipFormData.company}
                         onChange={(e) => setInternshipFormData(prev => ({ ...prev, company: e.target.value }))}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                         required
                       />
                     </div>
@@ -386,7 +387,7 @@ export default function RecruiterPage() {
                         id="location"
                         value={internshipFormData.location}
                         onChange={(e) => setInternshipFormData(prev => ({ ...prev, location: e.target.value }))}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                       />
                     </div>
                     <div>
@@ -397,7 +398,7 @@ export default function RecruiterPage() {
                         id="industry"
                         value={internshipFormData.industry}
                         onChange={(e) => setInternshipFormData(prev => ({ ...prev, industry: e.target.value }))}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                         required
                       >
                         <option value="Tech">Tech</option>
@@ -419,7 +420,7 @@ export default function RecruiterPage() {
                         id="graduationYear"
                         value={internshipFormData.graduationYear}
                         onChange={(e) => setInternshipFormData(prev => ({ ...prev, graduationYear: e.target.value }))}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                       />
                     </div>
                     <div>
@@ -432,7 +433,7 @@ export default function RecruiterPage() {
                         value={internshipFormData.season}
                         onChange={(e) => setInternshipFormData(prev => ({ ...prev, season: e.target.value }))}
                         placeholder="e.g., Summer 2024"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                       />
                     </div>
                     <div>
@@ -444,7 +445,7 @@ export default function RecruiterPage() {
                         id="deadline"
                         value={internshipFormData.deadline}
                         onChange={(e) => setInternshipFormData(prev => ({ ...prev, deadline: e.target.value }))}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                       />
                     </div>
                     <div>
@@ -456,7 +457,7 @@ export default function RecruiterPage() {
                         id="applyLink"
                         value={internshipFormData.applyLink}
                         onChange={(e) => setInternshipFormData(prev => ({ ...prev, applyLink: e.target.value }))}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                       />
                     </div>
                   </div>
@@ -466,7 +467,7 @@ export default function RecruiterPage() {
                       id="featured"
                       checked={internshipFormData.featured}
                       onChange={(e) => setInternshipFormData(prev => ({ ...prev, featured: e.target.checked }))}
-                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-purple-600 focus:ring-purple-600 border-gray-300 rounded"
                     />
                     <label htmlFor="featured" className="text-sm font-medium text-gray-700">
                       Feature this internship (show at top of listings)
@@ -476,7 +477,7 @@ export default function RecruiterPage() {
                     <button
                       type="submit"
                       disabled={creating}
-                      className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+                      className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-600-dark disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
                     >
                       {creating ? 'Creating...' : 'Create Internship'}
                     </button>

@@ -8,25 +8,25 @@ export default function TermsPage(): JSX.Element {
         
         <div className="prose prose-lg max-w-none text-gray-700">
           <p className="text-lg text-gray-600 mb-6">
-            This is a placeholder terms of service page. In a production application, 
-            this would contain detailed terms and conditions for using our platform.
+            These terms of service govern your use of Mr.Intern and our platform. 
+            Please read these terms carefully before using our services.
           </p>
           
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">Acceptance of Terms</h2>
           <p className="mb-4">
-            By accessing and using Internly, you accept and agree to be bound by the 
+            By accessing and using Mr.Intern, you accept and agree to be bound by the 
             terms and provision of this agreement.
           </p>
           
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">Use License</h2>
           <p className="mb-4">
-            Permission is granted to temporarily download one copy of Internly for 
+            Permission is granted to temporarily download one copy of Mr.Intern for 
             personal, non-commercial transitory viewing only.
           </p>
           
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">Disclaimer</h2>
           <p className="mb-4">
-            The materials on Internly are provided on an 'as is' basis. Internly makes 
+            The materials on Mr.Intern are provided on an 'as is' basis. Mr.Intern makes 
             no warranties, expressed or implied, and hereby disclaims and negates all 
             other warranties including without limitation, implied warranties or 
             conditions of merchantability, fitness for a particular purpose, or 

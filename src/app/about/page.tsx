@@ -7,18 +7,41 @@ export default function AboutPage(): JSX.Element {
       {/* Header Section */}
       <section className="border-b border-gray-200">
         <div className="mx-auto max-w-7xl px-6 py-12">
-          <h1 className="mb-2 text-3xl font-bold text-gray-900">About Internly</h1>
-          <p className="text-gray-700">A modern, clean platform built to make internships simple.</p>
+          <h1 className="mb-2 text-3xl font-bold text-gray-900">About Mr.Intern</h1>
+          <p className="text-gray-700">Your trusted partner in finding the perfect internship opportunity.</p>
         </div>
       </section>
 
       {/* Mission Statement Section */}
       <section className="border-b border-gray-200">
         <div className="mx-auto max-w-7xl px-6 py-12">
-          <h2 className="mb-4 text-3xl font-bold text-gray-900">🧭 Mission Statement</h2>
-          <p className="max-w-3xl text-gray-700">
-            Our mission is to centralize and streamline early-career opportunity access, starting with internships built for the class of tomorrow.
-          </p>
+          <div className="flex flex-col lg:flex-row items-center gap-8">
+            <div className="flex-1">
+              <h2 className="mb-4 text-3xl font-bold text-gray-900">🧭 Mission Statement</h2>
+              <p className="max-w-3xl text-gray-700">
+                Our mission is to centralize and streamline early-career opportunity access, starting with internships built for the class of tomorrow.
+              </p>
+            </div>
+            <div className="flex-shrink-0">
+              <div 
+                className="w-64 h-48 rounded-lg flex items-center justify-center shadow-lg"
+                style={{
+                  backgroundColor: '#E9D5FF',
+                  border: '2px solid #C4B5FD'
+                }}
+              >
+                <div className="text-center">
+                  <div className="text-6xl mb-2">🎯</div>
+                  <div 
+                    className="font-semibold text-lg"
+                    style={{ color: '#7C3AED' }}
+                  >
+                    Find Your Path
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -28,7 +51,7 @@ export default function AboutPage(): JSX.Element {
           <h2 className="mb-4 text-3xl font-bold text-gray-900">💡 Core Idea</h2>
           <div className="max-w-4xl text-gray-700">
             <p>
-              Internly is a centralized platform that shows only currently open internships filtered by graduation year, industry, season, and location—solving the messy experience of digging through outdated or irrelevant job boards.
+              Mr.Intern is a centralized platform that shows only currently open internships filtered by graduation year, industry, season, and location—solving the messy experience of digging through outdated or irrelevant job boards.
             </p>
             <p className="mt-4">
               Think of it as a ‘real-time internship radar’ built for students and early-career applicants.
@@ -97,7 +120,7 @@ export default function AboutPage(): JSX.Element {
         <div className="mx-auto max-w-7xl px-6 py-12">
           <h2 className="mb-4 text-3xl font-bold text-gray-900">🧠 Why Now?</h2>
           <p className="max-w-4xl text-gray-700">
-            Students are frustrated with LinkedIn, Handshake, and Indeed—all bloated, outdated, or unfiltered. Recruiting seasons start earlier than ever. There’s no real-time, deadline-first, class-year-aware internship dashboard. Internly fills that gap.
+            Students are frustrated with LinkedIn, Handshake, and Indeed—all bloated, outdated, or unfiltered. Recruiting seasons start earlier than ever. There's no real-time, deadline-first, class-year-aware internship dashboard. Mr.Intern fills that gap.
           </p>
         </div>
       </section>

@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import AdvicePostCard from '@/app/components/AdvicePostCard';
+import LoadingSpinner from '@/app/components/LoadingSpinner';
 import toast from 'react-hot-toast';
 
 interface AdvicePost {
@@ -119,7 +120,7 @@ export default function AdvicePage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="flex items-center space-x-2">
-          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
+          <LoadingSpinner size="md" />
           <div className="text-lg text-gray-600">Loading...</div>
         </div>
       </div>
@@ -160,7 +161,7 @@ export default function AdvicePage() {
                   value={newPostTitle}
                   onChange={(e) => setNewPostTitle(e.target.value)}
                   placeholder="Enter a descriptive title..."
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                   maxLength={200}
                   required
                 />
@@ -179,7 +180,7 @@ export default function AdvicePage() {
                   onChange={(e) => setNewPostContent(e.target.value)}
                   placeholder="Share your career tips, experiences, or ask for advice..."
                   rows={6}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                   maxLength={5000}
                   required
                 />
@@ -191,16 +192,16 @@ export default function AdvicePage() {
               <button
                 type="submit"
                 disabled={submittingPost || !newPostTitle.trim() || !newPostContent.trim()}
-                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+                className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-600-dark disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
               >
                 {submittingPost ? 'Creating...' : 'Create Post'}
               </button>
             </form>
           </div>
         ) : (
-          <div className="border p-4 rounded-lg mb-6 bg-blue-50">
+          <div className="border p-4 rounded-lg mb-6 bg-purple-600-light">
             <p className="text-gray-700">
-              <a href="/login" className="text-blue-600 hover:text-blue-800 font-medium">
+              <a href="/login" className="text-purple-600 hover:text-purple-600-dark font-medium">
                 Log in
               </a> to create posts and share your career advice.
             </p>

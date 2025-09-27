@@ -17,8 +17,25 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Internly - Internship Discovery Made Simple",
-  description: "Find your perfect internship opportunity with Internly",
+  title: "Mr.Intern - Your Internship Discovery Partner",
+  description: "Find your perfect internship opportunity with Mr.Intern. Track applications, get career advice, and connect with recruiters.",
+  keywords: "internships, career, students, applications, tracking, reviews, advice",
+  authors: [{ name: "Mr.Intern Team" }],
+  openGraph: {
+    title: "Mr.Intern - Your Internship Discovery Partner",
+    description: "Find your perfect internship opportunity with Mr.Intern",
+    type: "website",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Mr.Intern - Your Internship Discovery Partner",
+    description: "Find your perfect internship opportunity with Mr.Intern",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({

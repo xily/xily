@@ -1,36 +1,159 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mr.Intern - Your Internship Discovery Partner
 
-## Getting Started
+A comprehensive platform for students to discover internships, track applications, and connect with recruiters. Built with Next.js 15, TypeScript, Tailwind CSS, and MongoDB.
 
-First, run the development server:
+## 🚀 Features
+
+### Core Student Features
+- **Internship Discovery**: Browse internships with advanced filters (graduation year, season, location, industry)
+- **Application Tracker**: Track application status with notes and timeline
+- **Deadline Tracker**: Real-time countdown to application deadlines
+- **Saved Internships**: Save interesting opportunities for later
+
+### Growth Features
+- **Saved Filters**: Save and reuse search criteria
+- **Email Alerts**: Get notified about new matching internships
+- **Push Notifications**: Browser notifications for updates
+- **Analytics Dashboard**: Track application progress and insights
+
+### Community Features
+- **Company Reviews**: Rate and review internship experiences
+- **Resume Review**: Upload and get peer feedback on resumes
+- **Advice Board**: Share career tips and experiences
+- **Recruiter Dashboard**: Companies can post and manage internships
+
+## 🛠️ Tech Stack
+
+- **Frontend**: Next.js 15, React, TypeScript, Tailwind CSS
+- **Backend**: Next.js API Routes, MongoDB, Mongoose
+- **Authentication**: NextAuth.js
+- **Email**: Nodemailer
+- **Push Notifications**: Web Push API
+- **Charts**: Recharts
+
+## 📋 Prerequisites
+
+- Node.js 18+ 
+- MongoDB database
+- Email service (Gmail, SendGrid, etc.)
+
+## 🚀 Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone <repository-url>
+cd internly
+```
+
+### 2. Install Dependencies
+
+```bash
+npm install
+```
+
+### 3. Environment Setup
+
+Create a `.env.local` file in the root directory:
+
+```env
+# Database
+MONGODB_URI=mongodb://localhost:27017/mr-intern
+# or MongoDB Atlas
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/mr-intern
+
+# NextAuth.js
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your-secret-key-here
+
+# Email Configuration
+EMAIL_SERVER_HOST=smtp.gmail.com
+EMAIL_SERVER_PORT=587
+EMAIL_SERVER_USER=your-email@gmail.com
+EMAIL_SERVER_PASSWORD=your-app-password
+EMAIL_FROM=your-email@gmail.com
+
+# Push Notifications (Optional)
+VAPID_PUBLIC_KEY=your-vapid-public-key
+VAPID_PRIVATE_KEY=your-vapid-private-key
+VAPID_EMAIL=your-email@example.com
+```
+
+### 4. Database Setup
+
+Ensure MongoDB is running and accessible. The application will automatically create the necessary collections.
+
+### 5. Run the Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📱 User Flows
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Student Journey
+1. **Register/Login** → Create account or sign in
+2. **Browse Internships** → Use filters to find relevant opportunities
+3. **Save Filters** → Save search criteria for future use
+4. **Apply to Internships** → Track applications with status updates
+5. **Community Engagement** → Post reviews, upload resume, share advice
 
-## Learn More
+### Recruiter Journey
+1. **Register as Recruiter** → Create recruiter profile
+2. **Post Internships** → Add internship listings with details
+3. **Manage Listings** → Edit, feature, or delete internships
+4. **Monitor Applications** → Track student applications
 
-To learn more about Next.js, take a look at the following resources:
+## 🔧 API Endpoints
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Public Endpoints
+- `GET /api/internships` - List internships with filters
+- `GET /api/advice-posts` - Get advice board posts
+- `GET /api/reviews` - Get company reviews
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Authenticated Endpoints
+- `POST /api/applications` - Create/update application
+- `POST /api/saved` - Save/unsave internship
+- `POST /api/filters` - Save search filters
+- `POST /api/recruiter-internships` - Manage internship listings
 
-## Deploy on Vercel
+## 🚀 Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Vercel (Recommended)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Push code to GitHub
+2. Connect repository to Vercel
+3. Add environment variables in Vercel dashboard
+4. Deploy automatically
+
+### Other Platforms
+
+The app can be deployed to any platform supporting Next.js:
+- Netlify
+- Railway
+- DigitalOcean App Platform
+- AWS Amplify
+
+## 📊 Monitoring
+
+- **Email Alerts**: Run `npm run check-alerts` to send email notifications
+- **Push Notifications**: Configure VAPID keys for browser notifications
+- **Analytics**: Built-in application tracking dashboard
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+## 🆘 Support
+
+For support, email support@mrintern.com or create an issue in the repository.

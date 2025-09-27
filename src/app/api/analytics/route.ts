@@ -64,7 +64,7 @@ export async function GET(request: NextRequest) {
     
     // Status distribution for pie chart
     const statusData = [
-      { name: 'Saved', value: statusCounts['Saved'] || 0, color: '#3B82F6' },
+      { name: 'Saved', value: statusCounts['Saved'] || 0, color: '#7C3AED' },
       { name: 'Applied', value: statusCounts['Applied'] || 0, color: '#10B981' },
       { name: 'Interviewing', value: statusCounts['Interviewing'] || 0, color: '#F59E0B' },
       { name: 'Offer', value: statusCounts['Offer'] || 0, color: '#8B5CF6' },

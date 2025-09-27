@@ -341,7 +341,7 @@ export default function InternshipsPage() {
           <select
             value={filters.graduationYear}
             onChange={(e) => updateFilters({ graduationYear: e.target.value })}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-colors duration-200"
           >
             <option value="">All Years</option>
             <option value="2025">2025</option>
@@ -358,7 +358,7 @@ export default function InternshipsPage() {
           <select
             value={filters.season}
             onChange={(e) => updateFilters({ season: e.target.value })}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-colors duration-200"
           >
             <option value="">All Seasons</option>
             <option value="Summer 2025">Summer 2025</option>
@@ -378,7 +378,7 @@ export default function InternshipsPage() {
           <select
             value={filters.location}
             onChange={(e) => updateFilters({ location: e.target.value })}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-colors duration-200"
           >
             <option value="">All Locations</option>
             <option value="New York">New York, NY</option>
@@ -402,7 +402,7 @@ export default function InternshipsPage() {
           <select
             value={filters.industry}
             onChange={(e) => updateFilters({ industry: e.target.value })}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-colors duration-200"
           >
             <option value="">All Industries</option>
             {INDUSTRY_OPTIONS.map((industry) => (
@@ -436,7 +436,7 @@ export default function InternshipsPage() {
   const MobileFilterButton = () => (
     <button
       onClick={() => setShowMobileFilters(!showMobileFilters)}
-      className="mb-4 rounded-lg bg-blue-600 px-4 py-3 text-white font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200 lg:hidden"
+      className="mb-4 rounded-lg bg-purple-600 px-4 py-3 text-white font-medium hover:bg-purple-600-dark focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 transition-colors duration-200 lg:hidden"
     >
       {showMobileFilters ? 'Hide Filters' : 'Show Filters'}
     </button>
@@ -456,7 +456,7 @@ export default function InternshipsPage() {
             <select
               value={filters.graduationYear}
               onChange={(e) => updateFilters({ graduationYear: e.target.value })}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-colors duration-200"
             >
               <option value="">All Years</option>
               <option value="2025">2025</option>
@@ -473,7 +473,7 @@ export default function InternshipsPage() {
             <select
               value={filters.season}
               onChange={(e) => updateFilters({ season: e.target.value })}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-colors duration-200"
             >
               <option value="">All Seasons</option>
               <option value="Summer 2025">Summer 2025</option>
@@ -493,7 +493,7 @@ export default function InternshipsPage() {
             <select
               value={filters.location}
               onChange={(e) => updateFilters({ location: e.target.value })}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-colors duration-200"
             >
               <option value="">All Locations</option>
               <option value="New York">New York, NY</option>
@@ -517,7 +517,7 @@ export default function InternshipsPage() {
             <select
               value={filters.industry}
               onChange={(e) => updateFilters({ industry: e.target.value })}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-colors duration-200"
             >
               <option value="">All Industries</option>
               {INDUSTRY_OPTIONS.map((industry) => (
@@ -545,7 +545,7 @@ export default function InternshipsPage() {
         <div className="text-center">
           <h1 className="mb-4 text-3xl font-bold text-gray-900">Internships</h1>
           <div className="flex items-center justify-center space-x-2">
-            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
+            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-purple-600"></div>
             <p className="text-lg text-gray-600">Loading internships...</p>
           </div>
         </div>
@@ -603,7 +603,7 @@ export default function InternshipsPage() {
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => applySavedFilter(f)}
-                            className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
+                            className="bg-purple-600 text-white px-3 py-1 rounded hover:bg-purple-600-dark"
                           >
                             Apply
                           </button>
