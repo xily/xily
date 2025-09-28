@@ -16,7 +16,7 @@ export default async function Home() {
         <div className="mx-auto max-w-7xl px-6 py-12">
           <div className="text-center">
             <h1 className="text-5xl font-extrabold tracking-tight text-gray-900 sm:text-6xl">
-              Mr.Intern
+              Ms Intern
             </h1>
             <p className="mt-4 text-lg text-gray-700">
               Your Internship Discovery Partner
@@ -74,9 +74,9 @@ export default async function Home() {
             <div className="mb-3 text-3xl" aria-hidden>
               🎯
             </div>
-            <h2 className="text-2xl font-semibold text-gray-900">Why Mr.Intern?</h2>
+            <h2 className="text-2xl font-semibold text-gray-900">Why Ms Intern?</h2>
             <p className="mt-4 text-gray-700">
-              Mr.Intern is your real-time internship radar. We filter opportunities by graduation year,
+              Ms Intern is your real-time internship radar. We filter opportunities by graduation year,
               industry, season, and location—so you only see what's open and relevant.
             </p>
           </div>

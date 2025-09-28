@@ -7,7 +7,7 @@ export default function AboutPage(): JSX.Element {
       {/* Header Section */}
       <section className="border-b border-gray-200">
         <div className="mx-auto max-w-7xl px-6 py-12">
-          <h1 className="mb-2 text-3xl font-bold text-gray-900">About Mr.Intern</h1>
+          <h1 className="mb-2 text-3xl font-bold text-gray-900">About Ms Intern</h1>
           <p className="text-gray-700">Your trusted partner in finding the perfect internship opportunity.</p>
         </div>
       </section>
@@ -51,7 +51,7 @@ export default function AboutPage(): JSX.Element {
           <h2 className="mb-4 text-3xl font-bold text-gray-900">💡 Core Idea</h2>
           <div className="max-w-4xl text-gray-700">
             <p>
-              Mr.Intern is a centralized platform that shows only currently open internships filtered by graduation year, industry, season, and location—solving the messy experience of digging through outdated or irrelevant job boards.
+              Ms Intern is a centralized platform that shows only currently open internships filtered by graduation year, industry, season, and location—solving the messy experience of digging through outdated or irrelevant job boards.
             </p>
             <p className="mt-4">
               Think of it as a ‘real-time internship radar’ built for students and early-career applicants.
@@ -120,7 +120,7 @@ export default function AboutPage(): JSX.Element {
         <div className="mx-auto max-w-7xl px-6 py-12">
           <h2 className="mb-4 text-3xl font-bold text-gray-900">🧠 Why Now?</h2>
           <p className="max-w-4xl text-gray-700">
-            Students are frustrated with LinkedIn, Handshake, and Indeed—all bloated, outdated, or unfiltered. Recruiting seasons start earlier than ever. There's no real-time, deadline-first, class-year-aware internship dashboard. Mr.Intern fills that gap.
+            Students are frustrated with LinkedIn, Handshake, and Indeed—all bloated, outdated, or unfiltered. Recruiting seasons start earlier than ever. There's no real-time, deadline-first, class-year-aware internship dashboard. Ms Intern fills that gap.
           </p>
         </div>
       </section>

@@ -28,7 +28,7 @@ export const sendEmail = async (options: EmailOptions): Promise<boolean> => {
     const transporter = createTransporter();
     
     const mailOptions = {
-      from: `"Mr.Intern" <${process.env.SMTP_USER}>`,
+      from: `"Ms Intern" <${process.env.SMTP_USER}>`,
       to: options.to,
       subject: options.subject,
       text: options.text,
@@ -82,7 +82,7 @@ export const sendInternshipAlert = async (
       
       <p style="color: #6b7280; font-size: 14px;">
         <a href="${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/internships" style="color: #2563eb;">
-          View all internships on Mr.Intern
+          View all internships on Ms Intern
         </a>
       </p>
       

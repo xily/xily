@@ -8,7 +8,7 @@ export default function PrivacyPage(): JSX.Element {
         
         <div className="prose prose-lg max-w-none text-gray-700">
           <p className="text-lg text-gray-600 mb-6">
-            This privacy policy describes how Mr.Intern collects, uses, and protects 
+            This privacy policy describes how Ms Intern collects, uses, and protects 
             your personal information when you use our platform.
           </p>
           

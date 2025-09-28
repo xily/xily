@@ -31,7 +31,7 @@ const Navbar: React.FC = () => {
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
             <Link href="/" className="select-none text-xl font-semibold tracking-tight text-gray-800 hover:text-purple-600">
-              Mr.Intern
+              Ms Intern
             </Link>
           </div>
 

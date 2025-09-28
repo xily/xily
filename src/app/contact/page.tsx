@@ -8,7 +8,7 @@ export default function ContactPage(): JSX.Element {
         
         <div className="prose prose-lg max-w-none text-gray-700">
           <p className="text-lg text-gray-600 mb-6">
-            Have questions about Mr.Intern? We'd love to hear from you. Send us a 
+            Have questions about Ms Intern? We'd love to hear from you. Send us a 
             message and we'll respond as soon as possible.
           </p>
           

@@ -1,4 +1,4 @@
-# Mr.Intern - Your Internship Discovery Partner
+# Ms Intern - Your Internship Discovery Partner
 
 A comprehensive platform for students to discover internships, track applications, and connect with recruiters. Built with Next.js 15, TypeScript, Tailwind CSS, and MongoDB.
 
@@ -58,9 +58,9 @@ Create a `.env.local` file in the root directory:
 
 ```env
 # Database
-MONGODB_URI=mongodb://localhost:27017/mr-intern
+MONGODB_URI=mongodb://localhost:27017/ms-intern
 # or MongoDB Atlas
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/mr-intern
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/ms-intern
 
 # NextAuth.js
 NEXTAUTH_URL=http://localhost:3000

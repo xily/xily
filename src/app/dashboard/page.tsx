@@ -537,7 +537,7 @@ export default function DashboardPage() {
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({
                               title: 'Test Notification',
-                              body: 'This is a test push notification from Mr.Intern!'
+                              body: 'This is a test push notification from Ms Intern!'
                             })
                           });
                           if (response.ok) {

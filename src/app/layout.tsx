@@ -17,20 +17,20 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Mr.Intern - Your Internship Discovery Partner",
-  description: "Find your perfect internship opportunity with Mr.Intern. Track applications, get career advice, and connect with recruiters.",
+  title: "Ms Intern - Your Internship Discovery Partner",
+  description: "Find your perfect internship opportunity with Ms Intern. Track applications, get career advice, and connect with recruiters.",
   keywords: "internships, career, students, applications, tracking, reviews, advice",
-  authors: [{ name: "Mr.Intern Team" }],
+  authors: [{ name: "Ms Intern Team" }],
   openGraph: {
-    title: "Mr.Intern - Your Internship Discovery Partner",
-    description: "Find your perfect internship opportunity with Mr.Intern",
+    title: "Ms Intern - Your Internship Discovery Partner",
+    description: "Find your perfect internship opportunity with Ms Intern",
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mr.Intern - Your Internship Discovery Partner",
-    description: "Find your perfect internship opportunity with Mr.Intern",
+    title: "Ms Intern - Your Internship Discovery Partner",
+    description: "Find your perfect internship opportunity with Ms Intern",
   },
   robots: {
     index: true,
