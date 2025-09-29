@@ -1,26 +1,44 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #F9FAFB;
+  --foreground: #111827;
+  --color-primary: #EAD4FB;
+  --color-accent: #9333EA;
 }
 
 @theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-purpleBrand: #7C3AED;
-  --color-purpleBrand-light: #C4B5FD;
-  --color-purpleBrand-dark: #5B21B6;
-  --color-primary: #7C3AED;
-  --color-primary-light: #C4B5FD;
-  --color-primary-dark: #5B21B6;
-  --color-accent: #C4B5FD;
+  --color-purpleBrand: #EAD4FB;
+  --color-purpleBrand-light: #F3E8FF;
+  --color-purpleBrand-dark: #C084FC;
+  --color-primary: var(--color-primary);
+  --color-primary-light: var(--color-purpleBrand-light);
+  --color-primary-dark: var(--color-purpleBrand-dark);
+  --color-accent: var(--color-accent);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 body {
   background: #F9FAFB;
-  color: #111827;
+  color: #6B7280;
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #111827;
+}
+
+/* Form focus default */
+input, select, textarea {
+  border-color: #D1D5DB;
+}
+
+input:focus, select:focus, textarea:focus {
+  --tw-ring-color: #9333EA;
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  border-color: #9333EA;
 }

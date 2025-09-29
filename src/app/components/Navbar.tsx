@@ -30,7 +30,7 @@ const Navbar: React.FC = () => {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
-            <Link href="/" className="select-none text-xl font-semibold tracking-tight text-gray-800 hover:text-purple-600">
+            <Link href="/" className="select-none text-xl font-semibold tracking-tight text-gray-800 hover:text-purpleBrand-accent">
               Ms Intern
             </Link>
           </div>
@@ -43,8 +43,8 @@ const Navbar: React.FC = () => {
                 href={item.href}
                 className={`text-sm font-medium transition-colors ${
                   pathname === item.href
-                    ? 'text-purple-600 border-b-2 border-purple-600 pb-1'
-                    : 'text-gray-700 hover:text-purple-600'
+                    ? 'text-gray-900 border-b-2 border-purpleBrand-accent pb-1'
+                    : 'text-gray-700 hover:text-purpleBrand-accent'
                 }`}
               >
                 {item.label}
@@ -57,8 +57,8 @@ const Navbar: React.FC = () => {
                   href="/dashboard"
                   className={`text-sm font-medium transition-colors ${
                     pathname === '/dashboard'
-                      ? 'text-purple-600 border-b-2 border-purple-600 pb-1'
-                      : 'text-gray-700 hover:text-purple-600'
+                      ? 'text-gray-900 border-b-2 border-purpleBrand-accent pb-1'
+                      : 'text-gray-700 hover:text-purpleBrand-accent'
                   }`}
                 >
                   Dashboard
@@ -67,15 +67,15 @@ const Navbar: React.FC = () => {
                   href="/recruiter"
                   className={`text-sm font-medium transition-colors ${
                     pathname === '/recruiter'
-                      ? 'text-purple-600 border-b-2 border-purple-600 pb-1'
-                      : 'text-gray-700 hover:text-purple-600'
+                      ? 'text-gray-900 border-b-2 border-purpleBrand-accent pb-1'
+                      : 'text-gray-700 hover:text-purpleBrand-accent'
                   }`}
                 >
                   Recruiter
                 </Link>
                 <button
                   onClick={handleSignOut}
-                  className="text-sm font-medium text-gray-700 transition-colors hover:text-purple-600"
+                  className="text-sm font-medium text-gray-700 transition-colors hover:text-purpleBrand-accent"
                 >
                   Logout
                 </button>
@@ -84,13 +84,13 @@ const Navbar: React.FC = () => {
               <>
                 <Link
                   href="/login"
-                  className="text-sm font-medium text-gray-700 transition-colors hover:text-purple-600"
+                  className="text-sm font-medium text-gray-700 transition-colors hover:text-purpleBrand-accent"
                 >
                   Login
                 </Link>
                 <Link
                   href="/register"
-                  className="text-sm font-medium text-gray-700 transition-colors hover:text-purple-600"
+                  className="text-sm font-medium text-gray-700 transition-colors hover:text-purpleBrand-accent"
                 >
                   Register
                 </Link>
@@ -104,7 +104,7 @@ const Navbar: React.FC = () => {
             aria-label="Toggle navigation menu"
             aria-expanded={isOpen}
             onClick={toggleMenu}
-            className="inline-flex items-center justify-center rounded-md p-2 text-gray-700 transition hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-600 md:hidden"
+            className="inline-flex items-center justify-center rounded-md p-2 text-gray-700 transition hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-purpleBrand-accent md:hidden"
           >
             <svg
               className={`h-6 w-6 transition-transform ${isOpen ? 'rotate-90' : ''}`}
@@ -143,8 +143,8 @@ const Navbar: React.FC = () => {
                 href={item.href}
                 className={`px-4 py-2 text-sm font-medium transition-colors ${
                   pathname === item.href
-                    ? 'bg-purple-600-light text-purple-600'
-                    : 'text-gray-700 hover:bg-gray-50 hover:text-purple-600'
+                    ? 'bg-purpleBrand-light text-purpleBrand-accent'
+                    : 'text-gray-700 hover:bg-gray-50 hover:text-purpleBrand-accent'
                 }`}
                 onClick={closeMenu}
               >
@@ -158,8 +158,8 @@ const Navbar: React.FC = () => {
                   href="/dashboard"
                   className={`px-4 py-2 text-sm font-medium transition-colors ${
                     pathname === '/dashboard'
-                      ? 'bg-purple-600-light text-purple-600'
-                      : 'text-gray-700 hover:bg-gray-50 hover:text-purple-600'
+                      ? 'bg-purpleBrand-light text-purpleBrand-accent'
+                      : 'text-gray-700 hover:bg-gray-50 hover:text-purpleBrand-accent'
                   }`}
                   onClick={closeMenu}
                 >
@@ -169,8 +169,8 @@ const Navbar: React.FC = () => {
                   href="/recruiter"
                   className={`px-4 py-2 text-sm font-medium transition-colors ${
                     pathname === '/recruiter'
-                      ? 'bg-purple-600-light text-purple-600'
-                      : 'text-gray-700 hover:bg-gray-50 hover:text-purple-600'
+                      ? 'bg-purpleBrand-light text-purpleBrand-accent'
+                      : 'text-gray-700 hover:bg-gray-50 hover:text-purpleBrand-accent'
                   }`}
                   onClick={closeMenu}
                 >
@@ -181,7 +181,7 @@ const Navbar: React.FC = () => {
                     handleSignOut();
                     closeMenu();
                   }}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-purple-600 text-left"
+                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-purpleBrand-accent text-left"
                 >
                   Logout
                 </button>
@@ -190,14 +190,14 @@ const Navbar: React.FC = () => {
               <>
                 <Link
                   href="/login"
-                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-purple-600"
+                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-purpleBrand-accent"
                   onClick={closeMenu}
                 >
                   Login
                 </Link>
                 <Link
                   href="/register"
-                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-purple-600"
+                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-purpleBrand-accent"
                   onClick={closeMenu}
                 >
                   Register

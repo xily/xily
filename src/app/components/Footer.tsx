@@ -8,11 +8,11 @@ const Footer: React.FC = () => {
         <div className="flex flex-col items-center gap-3 text-center">
           <p className="text-sm text-gray-600">© 2025 Ms Intern. All rights reserved.</p>
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-gray-600">
-            <Link href="/privacy" className="transition hover:text-purple-600">Privacy Policy</Link>
+            <Link href="/privacy" className="transition hover:text-purpleBrand-accent">Privacy Policy</Link>
             <span className="text-gray-300">|</span>
-            <Link href="/terms" className="transition hover:text-purple-600">Terms of Service</Link>
+            <Link href="/terms" className="transition hover:text-purpleBrand-accent">Terms of Service</Link>
             <span className="text-gray-300">|</span>
-            <Link href="/contact" className="transition hover:text-purple-600">Contact</Link>
+            <Link href="/contact" className="transition hover:text-purpleBrand-accent">Contact</Link>
           </div>
         </div>
       </div>

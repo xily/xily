@@ -9,13 +9,12 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        purpleBrand: '#7C3AED',
-        'purpleBrand-light': '#C4B5FD',
-        'purpleBrand-dark': '#5B21B6',
-        primary: '#7C3AED',
-        'primary-light': '#C4B5FD',
-        'primary-dark': '#5B21B6',
-        accent: '#C4B5FD',
+        purpleBrand: {
+          DEFAULT: '#EAD4FB',
+          dark: '#C084FC',
+          light: '#F3E8FF',
+          accent: '#9333EA',
+        },
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

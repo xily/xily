@@ -12,7 +12,7 @@ export default async function Home() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-blue-50 to-white">
+      <section className="bg-gradient-to-b from-purpleBrand-light via-white to-white">
         <div className="mx-auto max-w-7xl px-6 py-12">
           <div className="text-center">
             <h1 className="text-5xl font-extrabold tracking-tight text-gray-900 sm:text-6xl">
@@ -24,7 +24,7 @@ export default async function Home() {
             <div className="mt-8">
               <Link
                 href="/internships"
-                className="inline-flex items-center justify-center rounded-lg bg-purple-600 px-6 py-3 text-white shadow-sm transition-colors hover:bg-purple-700"
+                className="inline-flex items-center justify-center rounded-lg bg-purpleBrand text-black px-6 py-3 shadow-sm transition-colors hover:bg-purpleBrand-dark"
               >
                 Browse Internships
               </Link>
@@ -46,17 +46,12 @@ export default async function Home() {
             </div>
             <div className="flex items-center justify-center">
               <div 
-                className="h-48 w-full max-w-md rounded-xl border-2 shadow-lg flex items-center justify-center"
-                style={{
-                  backgroundColor: '#E9D5FF',
-                  borderColor: '#C4B5FD'
-                }}
+                className="h-48 w-full max-w-md rounded-xl border-2 border-gray-200 bg-white shadow-lg flex items-center justify-center"
               >
                 <div className="text-center">
                   <div className="text-6xl mb-2">🎯</div>
                   <div 
-                    className="font-semibold text-lg"
-                    style={{ color: '#7C3AED' }}
+                    className="font-semibold text-lg text-purpleBrand-accent"
                   >
                     Find Your Path
                   </div>
@@ -93,7 +88,7 @@ export default async function Home() {
             <div className="mt-6">
               <Link
                 href={ctaHref}
-                className="inline-flex items-center justify-center rounded-lg bg-purple-600 px-6 py-3 text-white shadow-sm transition-colors hover:bg-purple-700"
+                className="inline-flex items-center justify-center rounded-lg bg-purpleBrand text-black px-6 py-3 shadow-sm transition-colors hover:bg-purpleBrand-dark"
               >
                 Get Started
               </Link>

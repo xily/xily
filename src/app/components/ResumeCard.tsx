@@ -28,7 +28,7 @@ export default function ResumeCard({ resume, currentUserId, onDelete }: ResumeCa
           <h3 className="text-lg font-semibold text-gray-900 mb-2">
             <Link 
               href={`/resumes/${resume._id}`}
-              className="hover:text-purple-600 transition-colors"
+              className="hover:text-purpleBrand-accent transition-colors"
             >
               {resume.title}
             </Link>
@@ -47,7 +47,7 @@ export default function ResumeCard({ resume, currentUserId, onDelete }: ResumeCa
               href={resume.resumeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-purple-600 hover:text-purple-600-dark text-sm font-medium"
+              className="text-purpleBrand-accent hover:opacity-80 text-sm font-medium"
             >
               View Resume PDF
             </Link>

@@ -60,7 +60,7 @@ export default function InternshipCard({
 
   return (
     <div 
-      className="relative rounded-xl bg-white p-6 shadow-md transition-all duration-200 hover:shadow-lg hover:scale-[1.02] cursor-pointer border border-gray-100"
+      className="relative rounded-xl bg-white p-6 shadow-md transition-all duration-200 hover:shadow-md hover:scale-[1.01] cursor-pointer border border-gray-200"
       onClick={handleCardClick}
     >
       {/* Verified badge */}
@@ -87,7 +87,7 @@ export default function InternshipCard({
               className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
                 isSaved 
                   ? 'bg-gray-500 text-white cursor-not-allowed' 
-                  : 'bg-green-600 text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2'
+                  : 'bg-purpleBrand text-black hover:bg-purpleBrand-dark focus:outline-none focus:ring-2 focus:ring-purpleBrand-accent focus:ring-offset-2'
               }`}
               disabled={isSaved}
             >
@@ -144,7 +144,7 @@ export default function InternshipCard({
             href={internship.applyLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center rounded bg-purple-600 px-6 py-3 text-white font-medium transition-colors hover:bg-purple-600-dark focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2"
+            className="inline-flex items-center justify-center rounded bg-purpleBrand text-black px-6 py-3 font-medium transition-colors hover:bg-purpleBrand-dark focus:outline-none focus:ring-2 focus:ring-purpleBrand-accent focus:ring-offset-2"
             onClick={(e) => e.stopPropagation()}
           >
             Apply Now

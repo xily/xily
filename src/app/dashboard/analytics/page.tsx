@@ -63,7 +63,7 @@ export default function AnalyticsPage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="flex items-center space-x-2">
-          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-purple-600"></div>
+          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-purpleBrand-accent"></div>
           <div className="text-lg text-gray-600">Loading analytics...</div>
         </div>
       </div>
@@ -83,7 +83,7 @@ export default function AnalyticsPage() {
           <p className="text-gray-600 mb-6">{error}</p>
           <button
             onClick={() => router.push('/dashboard')}
-            className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-600-dark transition-colors"
+            className="bg-purpleBrand text-black px-4 py-2 rounded hover:bg-purpleBrand-dark transition-colors"
           >
             Back to Dashboard
           </button>
@@ -101,7 +101,7 @@ export default function AnalyticsPage() {
           <p className="text-gray-600 mb-6">Unable to load your application analytics.</p>
           <button
             onClick={() => router.push('/dashboard')}
-            className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-600-dark transition-colors"
+            className="bg-purpleBrand text-black px-4 py-2 rounded hover:bg-purpleBrand-dark transition-colors"
           >
             Back to Dashboard
           </button>
@@ -119,7 +119,7 @@ export default function AnalyticsPage() {
         <div className="mb-8">
           <button
             onClick={() => router.back()}
-            className="text-purple-600 hover:text-purple-600-dark mb-4 flex items-center"
+            className="text-purpleBrand-accent hover:opacity-80 mb-4 flex items-center"
           >
             ← Back to Dashboard
           </button>
@@ -136,13 +136,13 @@ export default function AnalyticsPage() {
           <nav className="flex space-x-8">
             <a
               href="/dashboard"
-              className="text-gray-700 hover:text-purple-600 pb-2 text-sm font-medium transition-colors"
+              className="text-gray-700 hover:text-purpleBrand-accent pb-2 text-sm font-medium transition-colors"
             >
               Overview
             </a>
             <a
               href="/dashboard/analytics"
-              className="text-purple-600 border-b-2 border-purple-600 pb-2 text-sm font-medium"
+              className="text-gray-900 border-b-2 border-purpleBrand-accent pb-2 text-sm font-medium"
             >
               Analytics
             </a>
@@ -158,7 +158,7 @@ export default function AnalyticsPage() {
             </p>
             <button
               onClick={() => router.push('/internships')}
-              className="bg-purple-600 text-white px-6 py-3 rounded hover:bg-purple-600-dark transition-colors"
+              className="bg-purpleBrand text-black px-6 py-3 rounded hover:bg-purpleBrand-dark transition-colors"
             >
               Browse Internships
             </button>
@@ -168,7 +168,7 @@ export default function AnalyticsPage() {
             {/* Summary Stats */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
               <div className="bg-white border rounded-lg p-4 shadow-sm">
-                <div className="text-2xl font-bold text-purple-600">{analytics.totalApplications}</div>
+                <div className="text-2xl font-bold text-purpleBrand-accent">{analytics.totalApplications}</div>
                 <div className="text-sm text-gray-600">Total Applications</div>
               </div>
               <div className="bg-white border rounded-lg p-4 shadow-sm">
@@ -180,7 +180,7 @@ export default function AnalyticsPage() {
                 <div className="text-sm text-gray-600">Interviewing</div>
               </div>
               <div className="bg-white border rounded-lg p-4 shadow-sm">
-                <div className="text-2xl font-bold text-purple-600">{analytics.statusCounts['Offer'] || 0}</div>
+                <div className="text-2xl font-bold text-purpleBrand-accent">{analytics.statusCounts['Offer'] || 0}</div>
                 <div className="text-sm text-gray-600">Offers</div>
               </div>
             </div>
@@ -226,7 +226,7 @@ export default function AnalyticsPage() {
                       />
                       <YAxis />
                       <Tooltip />
-                      <Bar dataKey="count" fill="#7C3AED" />
+                      <Bar dataKey="count" fill="#F3E8FF" />
                     </BarChart>
                   </ResponsiveContainer>
                 </ChartContainer>
@@ -245,9 +245,9 @@ export default function AnalyticsPage() {
                     <Line 
                       type="monotone" 
                       dataKey="count" 
-                      stroke="#7C3AED" 
+                      stroke="#9333EA" 
                       strokeWidth={2}
-                      dot={{ fill: '#7C3AED', strokeWidth: 2, r: 4 }}
+                      dot={{ fill: '#9333EA', strokeWidth: 2, r: 4 }}
                     />
                   </LineChart>
                 </ResponsiveContainer>

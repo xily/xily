@@ -474,7 +474,7 @@ export default function DashboardPage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="flex items-center space-x-2">
-          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-purple-600"></div>
+          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-purpleBrand-accent"></div>
           <div className="text-lg text-gray-600">Loading...</div>
         </div>
       </div>
@@ -552,7 +552,7 @@ export default function DashboardPage() {
                           toast.error('Failed to send test notification');
                         }
                       }}
-                      className="bg-purple-600 text-white px-3 py-1 rounded hover:bg-purple-600-dark text-sm"
+                      className="bg-purpleBrand text-black px-3 py-1 rounded hover:bg-purpleBrand-dark text-sm"
                     >
                       Test Notification
                     </button>
@@ -568,13 +568,13 @@ export default function DashboardPage() {
           <nav className="flex space-x-8">
             <a
               href="/dashboard"
-              className="text-purple-600 border-b-2 border-purple-600 pb-2 text-sm font-medium"
+              className="text-gray-900 border-b-2 border-purpleBrand-accent pb-2 text-sm font-medium"
             >
               Overview
             </a>
             <a
               href="/dashboard/analytics"
-              className="text-gray-700 hover:text-purple-600 pb-2 text-sm font-medium transition-colors"
+              className="text-gray-700 hover:text-purpleBrand-accent pb-2 text-sm font-medium transition-colors"
             >
               Analytics
             </a>
@@ -590,7 +590,7 @@ export default function DashboardPage() {
         {loading ? (
           <div className="flex items-center justify-center py-12">
             <div className="flex items-center space-x-2">
-              <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-purple-600"></div>
+              <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-purpleBrand-accent"></div>
               <div className="text-lg text-gray-600">Loading your applications...</div>
             </div>
           </div>
@@ -603,7 +603,7 @@ export default function DashboardPage() {
             </p>
             <a
               href="/internships"
-              className="inline-flex items-center justify-center rounded bg-purple-600 px-6 py-3 text-white font-medium transition-colors hover:bg-purple-600-dark"
+              className="inline-flex items-center justify-center rounded bg-purpleBrand px-6 py-3 text-black font-medium transition-colors hover:bg-purpleBrand-dark"
             >
               Browse Internships
             </a>
@@ -658,8 +658,8 @@ export default function DashboardPage() {
                   {applications.map((application, index) => (
                     <div key={application._id} className="relative flex items-start">
                       {/* Timeline dot */}
-                      <div className="relative z-10 flex-shrink-0 w-12 h-12 bg-white rounded-full border-4 border-purple-600 flex items-center justify-center">
-                        <div className="w-3 h-3 bg-purple-600 rounded-full"></div>
+                      <div className="relative z-10 flex-shrink-0 w-12 h-12 bg-white rounded-full border-4 border-purpleBrand-accent flex items-center justify-center">
+                        <div className="w-3 h-3 bg-purpleBrand-accent rounded-full"></div>
                       </div>
                       
                       {/* Timeline content */}
@@ -702,7 +702,7 @@ export default function DashboardPage() {
                                 href={application.internshipId.applyLink}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-purple-600 hover:text-purple-600-dark font-medium"
+                                className="text-purpleBrand-accent hover:opacity-80 font-medium"
                               >
                                 View Application →
                               </a>
@@ -764,7 +764,7 @@ export default function DashboardPage() {
                   value={resumeTitle}
                   onChange={(e) => setResumeTitle(e.target.value)}
                   placeholder="e.g., Software Intern Resume"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purpleBrand-accent focus:border-transparent"
                   required
                 />
               </div>
@@ -778,7 +778,7 @@ export default function DashboardPage() {
                   id="resume-file"
                   accept=".pdf"
                   onChange={handleFileChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purpleBrand-accent focus:border-transparent"
                   required
                 />
                 <p className="text-xs text-gray-500 mt-1">PDF files only, max 10MB</p>
@@ -787,7 +787,7 @@ export default function DashboardPage() {
               <button
                 type="submit"
                 disabled={uploadingResume || !resumeFile || !resumeTitle.trim()}
-                className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-600-dark disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+                className="bg-purpleBrand text-black px-4 py-2 rounded hover:bg-purpleBrand-dark disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
               >
                 {uploadingResume ? (userResume ? 'Updating...' : 'Uploading...') : (userResume ? 'Update Resume' : 'Upload Resume')}
               </button>
@@ -796,7 +796,7 @@ export default function DashboardPage() {
 
           {/* User's Current Resume */}
           {userResume && (
-            <div className="border p-4 rounded-lg mb-6 bg-purple-600-light">
+            <div className="border p-4 rounded-lg mb-6 bg-purpleBrand-light">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Your Current Resume</h3>
               <ResumeCard
                 resume={userResume}
