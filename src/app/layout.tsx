@@ -17,24 +17,33 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Ms Intern - Your Internship Discovery Partner",
-  description: "Find your perfect internship opportunity with Ms Intern. Track applications, get career advice, and connect with recruiters.",
-  keywords: "internships, career, students, applications, tracking, reviews, advice",
-  authors: [{ name: "Ms Intern Team" }],
+  title: "Internly",
+  description: "The all-in-one internship dashboard that helps students find the right opportunities at the right time.",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
   openGraph: {
-    title: "Ms Intern - Your Internship Discovery Partner",
-    description: "Find your perfect internship opportunity with Ms Intern",
+    title: "Internly",
+    description: "The all-in-one internship dashboard for students.",
+    url: "https://yourdomain.com",
+    siteName: "Internly",
+    images: [
+      {
+        url: "/logo.png",
+        width: 512,
+        height: 512,
+        alt: "Internly Logo",
+      },
+    ],
     type: "website",
-    locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ms Intern - Your Internship Discovery Partner",
-    description: "Find your perfect internship opportunity with Ms Intern",
-  },
-  robots: {
-    index: true,
-    follow: true,
+    title: "Internly",
+    description: "A real-time internship radar for students.",
+    images: ["/logo.png"],
   },
 };
 

@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import RecruiterInternshipCard from '@/app/components/RecruiterInternshipCard';
 import LoadingSpinner from '@/app/components/LoadingSpinner';
 import toast from 'react-hot-toast';
+import Image from 'next/image';
 
 interface RecruiterProfile {
   _id: string;
@@ -264,9 +265,10 @@ export default function RecruiterPage() {
           >
             ← Back
           </button>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Recruiter Dashboard
-          </h1>
+          <div className="flex items-center mb-2">
+            <Image src="/logo.png" alt="Internly logo" width={32} height={32} className="mr-2" />
+            <h1 className="text-3xl font-bold text-gray-900">Recruiter Dashboard</h1>
+          </div>
           <p className="text-gray-600">
             Manage your company's internship listings and feature roles.
           </p>

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useSession, signOut } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
 
@@ -30,7 +31,8 @@ const Navbar: React.FC = () => {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
-            <Link href="/" className="select-none text-xl font-semibold tracking-tight text-gray-800 hover:text-purpleBrand-accent">
+            <Link href="/" className="flex items-center select-none text-xl font-semibold tracking-tight text-gray-800 hover:text-purpleBrand-accent">
+              <Image src="/logo.png" alt="Internly logo" width={32} height={32} className="mr-2" />
               Ms Intern
             </Link>
           </div>

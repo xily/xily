@@ -3,6 +3,7 @@
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import ApplicationTrackerCard from '@/app/components/ApplicationTrackerCard';
 import StatusBadge from '@/app/components/StatusBadge';
 import ResumeCard from '@/app/components/ResumeCard';
@@ -491,11 +492,12 @@ export default function DashboardPage() {
         <div className="mb-8">
           <div className="flex justify-between items-start">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                Welcome back, {session.user?.name}!
-              </h1>
+              <div className="flex items-center mb-2">
+                <Image src="/logo.png" alt="Internly logo" width={32} height={32} className="mr-2" />
+                <h1 className="text-3xl font-bold text-gray-900">Internly Dashboard</h1>
+              </div>
               <p className="text-gray-600">
-                Track your internship applications and manage your saved opportunities.
+                Welcome back, {session.user?.name}!
               </p>
             </div>
             <div className="flex flex-col items-end space-y-2">

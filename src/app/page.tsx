@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { cookies } from 'next/headers';
 
 export default async function Home() {
@@ -15,6 +16,9 @@ export default async function Home() {
       <section className="bg-gradient-to-b from-purpleBrand-light via-white to-white">
         <div className="mx-auto max-w-7xl px-6 py-12">
           <div className="text-center">
+            <div className="flex items-center justify-center mb-4">
+              <Image src="/logo.png" alt="Internly logo" width={48} height={48} />
+            </div>
             <h1 className="text-5xl font-extrabold tracking-tight text-gray-900 sm:text-6xl">
               Ms Intern
             </h1>
@@ -26,6 +30,7 @@ export default async function Home() {
                 href="/internships"
                 className="inline-flex items-center justify-center rounded-lg bg-purpleBrand text-black px-6 py-3 shadow-sm transition-colors hover:bg-purpleBrand-dark"
               >
+                <Image src="/logo.png" alt="Internly logo" width={24} height={24} className="mr-2 hidden sm:inline" />
                 Browse Internships
               </Link>
             </div>
