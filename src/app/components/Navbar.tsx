@@ -43,7 +43,7 @@ const Navbar: React.FC = () => {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`text-sm font-medium transition-colors ${
+                className={`text-sm font-semibold transition-colors ${
                   pathname === item.href
                     ? 'text-gray-900 border-b-2 border-purpleBrand-accent pb-1'
                     : 'text-gray-700 hover:text-purpleBrand-accent'
@@ -57,7 +57,7 @@ const Navbar: React.FC = () => {
               <>
                 <Link
                   href="/dashboard"
-                  className={`text-sm font-medium transition-colors ${
+                  className={`text-sm font-semibold transition-colors ${
                     pathname === '/dashboard'
                       ? 'text-gray-900 border-b-2 border-purpleBrand-accent pb-1'
                       : 'text-gray-700 hover:text-purpleBrand-accent'
@@ -67,7 +67,7 @@ const Navbar: React.FC = () => {
                 </Link>
                 <Link
                   href="/recruiter"
-                  className={`text-sm font-medium transition-colors ${
+                  className={`text-sm font-semibold transition-colors ${
                     pathname === '/recruiter'
                       ? 'text-gray-900 border-b-2 border-purpleBrand-accent pb-1'
                       : 'text-gray-700 hover:text-purpleBrand-accent'
@@ -77,7 +77,7 @@ const Navbar: React.FC = () => {
                 </Link>
                 <button
                   onClick={handleSignOut}
-                  className="text-sm font-medium text-gray-700 transition-colors hover:text-purpleBrand-accent"
+                  className="text-sm font-semibold text-gray-700 transition-colors hover:text-purpleBrand-accent"
                 >
                   Logout
                 </button>
@@ -86,13 +86,13 @@ const Navbar: React.FC = () => {
               <>
                 <Link
                   href="/login"
-                  className="text-sm font-medium text-gray-700 transition-colors hover:text-purpleBrand-accent"
+                  className="text-sm font-semibold text-gray-700 transition-colors hover:text-purpleBrand-accent"
                 >
                   Login
                 </Link>
                 <Link
                   href="/register"
-                  className="text-sm font-medium text-gray-700 transition-colors hover:text-purpleBrand-accent"
+                  className="text-sm font-semibold text-gray-700 transition-colors hover:text-purpleBrand-accent"
                 >
                   Register
                 </Link>

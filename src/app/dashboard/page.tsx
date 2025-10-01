@@ -642,7 +642,7 @@ export default function DashboardPage() {
         {applications.length > 0 && (
           <div className="mt-16">
             <div className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-2">
                 Application Timeline
               </h2>
               <p className="text-gray-600">
@@ -724,7 +724,7 @@ export default function DashboardPage() {
         {applications.length === 0 && (
           <div className="mt-16 text-center py-12">
             <div className="text-6xl mb-4">📅</div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">No applications yet</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mb-2">No applications yet</h2>
             <p className="text-gray-600 mb-6">
               {savedInternships.length > 0 
                 ? "Start applying to internships to see your timeline here!"
@@ -742,7 +742,7 @@ export default function DashboardPage() {
         {/* Resume Review Section */}
         <div className="mt-16">
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-2">
               Resume Review
             </h2>
             <p className="text-gray-600">
@@ -812,7 +812,7 @@ export default function DashboardPage() {
           {resumes.filter(resume => resume.userId._id !== session?.user?.id).length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📄</div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">No resumes uploaded yet</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">No resumes uploaded yet</h3>
               <p className="text-gray-600">Be the first to upload a resume and start getting feedback!</p>
             </div>
           ) : (

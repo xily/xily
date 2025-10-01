@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-josefin)", "sans-serif"],
+      },
       colors: {
         purpleBrand: {
           DEFAULT: '#EAD4FB',
