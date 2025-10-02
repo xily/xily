@@ -16,8 +16,6 @@ export default function ContactPage(): JSX.Element {
             <h2 className="text-xl font-semibold text-gray-900 mb-4">Get in Touch</h2>
             <div className="space-y-2">
               <p><strong>Email:</strong> xilyofficial@gmail.com</p>
-              <p><strong>Support:</strong> xilyofficial@gmail.com</p>
-              <p><strong>Business:</strong> xilyofficial@gmail.com</p>
             </div>
           </div>
           
