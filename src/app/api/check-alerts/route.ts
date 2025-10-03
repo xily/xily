@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
     await connectDB();
     console.log('Starting alert check...');
 
-    const activeAlerts = await AlertPreference.find({ active: true }).populate('userId').populate('filterId');
+    const activeAlerts = await (AlertPreference as any).find({ active: true }).populate('userId').populate('filterId');
 
     for (const alert of activeAlerts) {
       const user = alert.userId as any;
@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
 
       // Find internships created in the last 24 hours that match the filter criteria
       const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
-      const newInternships = await Internship.find({
+      const newInternships = await (Internship as any).find({
         ...filterCriteria,
         createdAt: { $gte: twentyFourHoursAgo },
       });
