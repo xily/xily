@@ -19,7 +19,7 @@ export const authOptions: NextAuthOptions = {
 
         try {
           await connectDB();
-          const user = await User.findOne({ email: credentials.email });
+          const user = await (User as any).findOne({ email: credentials.email });
           if (!user) return null;
 
           const isPasswordValid = await bcrypt.compare(credentials.password, user.password);
