@@ -4,7 +4,6 @@ import { authOptions } from '@/app/api/auth/options';
 import connectDB from '@/app/lib/mongodb';
 import AlertPreference from '@/models/AlertPreference';
 import SavedFilter from '@/models/SavedFilter';
-import mongoose from 'mongoose';
 
 export async function GET() {
   try {
@@ -14,8 +13,8 @@ export async function GET() {
     }
 
     await connectDB();
-    const userId = new mongoose.Types.ObjectId(session.user.id);
-    const alerts = await AlertPreference.find({ userId, active: true })
+    const userId = session.user.id;
+    const alerts = await (AlertPreference as any).find({ userId, active: true })
       .populate('filterId')
       .sort({ createdAt: -1 });
 
@@ -35,7 +34,7 @@ export async function POST(req: NextRequest) {
 
     const body = await req.json();
     const { filterId } = body || {};
-    const userId = new mongoose.Types.ObjectId(session.user.id);
+    const userId = session.user.id;
 
     if (!filterId) {
       return NextResponse.json({ success: false, error: 'Filter ID is required' }, { status: 400 });
@@ -44,13 +43,13 @@ export async function POST(req: NextRequest) {
     await connectDB();
 
     // Verify the filter belongs to the user
-    const filter = await SavedFilter.findOne({ _id: filterId, userId });
+    const filter = await (SavedFilter as any).findOne({ _id: filterId, userId });
     if (!filter) {
       return NextResponse.json({ success: false, error: 'Filter not found' }, { status: 404 });
     }
 
     // Create or update alert preference
-    const alert = await AlertPreference.findOneAndUpdate(
+    const alert = await (AlertPreference as any).findOneAndUpdate(
       { userId, filterId },
       { active: true },
       { upsert: true, new: true }
@@ -72,14 +71,14 @@ export async function DELETE(req: NextRequest) {
 
     const { searchParams } = new URL(req.url);
     const filterId = searchParams.get('filterId');
-    const userId = new mongoose.Types.ObjectId(session.user.id);
+    const userId = session.user.id;
     
     if (!filterId) {
       return NextResponse.json({ success: false, error: 'Filter ID is required' }, { status: 400 });
     }
 
     await connectDB();
-    const result = await AlertPreference.deleteOne({ 
+    const result = await (AlertPreference as any).deleteOne({ 
       userId, 
       filterId 
     });
