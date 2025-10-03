@@ -4,6 +4,7 @@ import { authOptions } from '@/app/api/auth/options';
 import connectDB from '@/app/lib/mongodb';
 import AlertPreference from '@/models/AlertPreference';
 import SavedFilter from '@/models/SavedFilter';
+import mongoose from 'mongoose';
 
 export async function GET() {
   try {
@@ -13,7 +14,7 @@ export async function GET() {
     }
 
     await connectDB();
-    const userId = session.user.id;
+    const userId = new mongoose.Types.ObjectId(session.user.id);
     const alerts = await AlertPreference.find({ userId, active: true })
       .populate('filterId')
       .sort({ createdAt: -1 });
@@ -34,7 +35,7 @@ export async function POST(req: NextRequest) {
 
     const body = await req.json();
     const { filterId } = body || {};
-    const userId = session.user.id;
+    const userId = new mongoose.Types.ObjectId(session.user.id);
 
     if (!filterId) {
       return NextResponse.json({ success: false, error: 'Filter ID is required' }, { status: 400 });
@@ -71,7 +72,7 @@ export async function DELETE(req: NextRequest) {
 
     const { searchParams } = new URL(req.url);
     const filterId = searchParams.get('filterId');
-    const userId = session.user.id;
+    const userId = new mongoose.Types.ObjectId(session.user.id);
     
     if (!filterId) {
       return NextResponse.json({ success: false, error: 'Filter ID is required' }, { status: 400 });
