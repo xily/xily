@@ -50,7 +50,7 @@ export async function GET(request: NextRequest) {
       });
     
     // Most applied industries
-    const industryCounts = applications.reduce((acc, app) => {
+    const industryCounts = applications.reduce((acc: Record<string, number>, app: any) => {
       const industry = app.internshipId.industry || 'Other';
       acc[industry] = (acc[industry] || 0) + 1;
       return acc;
@@ -58,8 +58,8 @@ export async function GET(request: NextRequest) {
     
     // Convert to array and sort by count
     const industryArray = Object.entries(industryCounts)
-      .map(([industry, count]) => ({ industry, count }))
-      .sort((a, b) => b.count - a.count)
+      .map(([industry, count]: [string, number]) => ({ industry, count }))
+      .sort((a: { industry: string; count: number }, b: { industry: string; count: number }) => b.count - a.count)
       .slice(0, 10); // Top 10 industries
     
     // Status distribution for pie chart
