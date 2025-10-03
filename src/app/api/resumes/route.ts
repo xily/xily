@@ -23,8 +23,8 @@ export async function GET(request: NextRequest) {
     
     // Get comment counts for each resume
     const resumesWithComments = await Promise.all(
-      resumes.map(async (resume) => {
-        const commentCount = await ResumeComment.countDocuments({ resumeId: resume._id });
+      resumes.map(async (resume: any) => {
+        const commentCount = await (ResumeComment as any).countDocuments({ resumeId: resume._id });
         return {
           ...resume.toObject(),
           commentCount
@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
     }
     
     // Check if user already has a resume
-    const existingResume = await Resume.findOne({ userId: session.user.id });
+    const existingResume = await (Resume as any).findOne({ userId: session.user.id });
     
     if (existingResume) {
       // Update existing resume
@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(existingResume, { status: 200 });
     } else {
       // Create new resume
-      const resume = new Resume({
+      const resume = new (Resume as any)({
         userId: session.user.id,
         resumeUrl,
         title
@@ -102,7 +102,7 @@ export async function DELETE(request: NextRequest) {
     }
     
     // Check if user owns the resume
-    const resume = await Resume.findById(resumeId);
+    const resume = await (Resume as any).findById(resumeId);
     if (!resume) {
       return NextResponse.json({ error: 'Resume not found' }, { status: 404 });
     }
@@ -112,10 +112,10 @@ export async function DELETE(request: NextRequest) {
     }
     
     // Delete associated comments
-    await ResumeComment.deleteMany({ resumeId });
+    await (ResumeComment as any).deleteMany({ resumeId });
     
     // Delete the resume
-    await Resume.findByIdAndDelete(resumeId);
+    await (Resume as any).findByIdAndDelete(resumeId);
     
     return NextResponse.json({ message: 'Resume deleted successfully' });
   } catch (error) {
