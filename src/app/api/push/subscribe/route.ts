@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
     await connectDB();
 
     // Check if subscription already exists
-    const existingSubscription = await PushSubscription.findOne({ endpoint });
+    const existingSubscription = await (PushSubscription as any).findOne({ endpoint });
     
     if (existingSubscription) {
       // Update the userId if it's different
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Create new subscription
-    const subscription = new PushSubscription({
+    const subscription = new (PushSubscription as any)({
       userId: session.user.id,
       endpoint,
       keys,
@@ -65,7 +65,7 @@ export async function DELETE(request: NextRequest) {
     await connectDB();
 
     // Delete subscription by endpoint and userId for security
-    const result = await PushSubscription.deleteOne({
+    const result = await (PushSubscription as any).deleteOne({
       endpoint,
       userId: session.user.id,
     });
