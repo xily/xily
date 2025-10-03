@@ -15,8 +15,8 @@ export async function GET(request: NextRequest) {
     
     // Get comment counts for each post
     const postsWithComments = await Promise.all(
-      posts.map(async (post) => {
-        const commentCount = await AdviceComment.countDocuments({ postId: post._id });
+      posts.map(async (post: any) => {
+        const commentCount = await (AdviceComment as any).countDocuments({ postId: post._id });
         return {
           ...post.toObject(),
           commentCount
@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Content must be 5000 characters or less' }, { status: 400 });
     }
     
-    const post = new AdvicePost({
+    const post = new (AdvicePost as any)({
       userId: session.user.id,
       title: title.trim(),
       content: content.trim()
@@ -89,7 +89,7 @@ export async function DELETE(request: NextRequest) {
     }
     
     // Check if user owns the post
-    const post = await AdvicePost.findById(postId);
+    const post = await (AdvicePost as any).findById(postId);
     if (!post) {
       return NextResponse.json({ error: 'Post not found' }, { status: 404 });
     }
@@ -99,10 +99,10 @@ export async function DELETE(request: NextRequest) {
     }
     
     // Delete associated comments
-    await AdviceComment.deleteMany({ postId });
+    await (AdviceComment as any).deleteMany({ postId });
     
     // Delete the post
-    await AdvicePost.findByIdAndDelete(postId);
+    await (AdvicePost as any).findByIdAndDelete(postId);
     
     return NextResponse.json({ message: 'Post deleted successfully' });
   } catch (error) {
