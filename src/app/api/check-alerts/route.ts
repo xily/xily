@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
           .join(', ') || 'All Internships';
         
         // Format internships for email
-        const formattedInternships = newInternships.map(internship => ({
+        const formattedInternships = newInternships.map((internship: any) => ({
           title: internship.title,
           company: internship.company,
           location: internship.location,
