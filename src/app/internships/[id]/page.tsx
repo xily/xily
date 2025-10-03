@@ -19,9 +19,9 @@ interface Internship {
 }
 
 interface PageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 async function getInternship(id: string): Promise<Internship | null> {
@@ -43,7 +43,8 @@ async function getInternship(id: string): Promise<Internship | null> {
 }
 
 export default async function InternshipDetailPage({ params }: PageProps) {
-  const { id } = await params;
+  const resolvedParams = await params;
+  const { id } = resolvedParams;
   const internship = await getInternship(id);
 
   if (!internship) {

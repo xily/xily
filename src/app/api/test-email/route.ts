@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../auth/[...nextauth]/route';
+import { authOptions } from '../auth/options';
 import { sendInternshipAlert } from '@/lib/mailer';
 
 export async function POST(request: NextRequest) {
