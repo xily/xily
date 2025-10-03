@@ -57,9 +57,9 @@ export async function GET(request: NextRequest) {
     }, {} as Record<string, number>);
     
     // Convert to array and sort by count
-    const industryArray = Object.entries(industryCounts)
-      .map(([industry, count]: [string, number]) => ({ industry, count }))
-      .sort((a: { industry: string; count: number }, b: { industry: string; count: number }) => b.count - a.count)
+    const industryArray = (Object.entries(industryCounts) as [string, number][])
+      .map(([industry, count]) => ({ industry, count }))
+      .sort((a, b) => b.count - a.count)
       .slice(0, 10); // Top 10 industries
     
     // Status distribution for pie chart
