@@ -13,7 +13,8 @@ export async function GET() {
     }
 
     await connectDB();
-    const alerts = await AlertPreference.find({ userId: session.user.id, active: true })
+    const userId = session.user.id;
+    const alerts = await AlertPreference.find({ userId, active: true })
       .populate('filterId')
       .sort({ createdAt: -1 });
 
@@ -33,6 +34,7 @@ export async function POST(req: NextRequest) {
 
     const body = await req.json();
     const { filterId } = body || {};
+    const userId = session.user.id;
 
     if (!filterId) {
       return NextResponse.json({ success: false, error: 'Filter ID is required' }, { status: 400 });
@@ -41,14 +43,14 @@ export async function POST(req: NextRequest) {
     await connectDB();
 
     // Verify the filter belongs to the user
-    const filter = await SavedFilter.findOne({ _id: filterId, userId: session.user.id });
+    const filter = await SavedFilter.findOne({ _id: filterId, userId });
     if (!filter) {
       return NextResponse.json({ success: false, error: 'Filter not found' }, { status: 404 });
     }
 
     // Create or update alert preference
     const alert = await AlertPreference.findOneAndUpdate(
-      { userId: session.user.id, filterId },
+      { userId, filterId },
       { active: true },
       { upsert: true, new: true }
     );
@@ -69,13 +71,15 @@ export async function DELETE(req: NextRequest) {
 
     const { searchParams } = new URL(req.url);
     const filterId = searchParams.get('filterId');
+    const userId = session.user.id;
+    
     if (!filterId) {
       return NextResponse.json({ success: false, error: 'Filter ID is required' }, { status: 400 });
     }
 
     await connectDB();
     const result = await AlertPreference.deleteOne({ 
-      userId: session.user.id, 
+      userId, 
       filterId 
     });
 
