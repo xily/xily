@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function PrivacyPage(): JSX.Element {
+export default function PrivacyPage() {
   return (
     <div className="mx-auto max-w-7xl px-6 py-12">
       <div className="max-w-3xl mx-auto">

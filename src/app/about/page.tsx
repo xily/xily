@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function AboutPage(): JSX.Element {
+export default function AboutPage() {
 
   return (
     <div className="flex flex-col">

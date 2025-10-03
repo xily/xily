@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function TermsPage(): JSX.Element {
+export default function TermsPage() {
   return (
     <div className="mx-auto max-w-7xl px-6 py-12">
       <div className="max-w-3xl mx-auto">
