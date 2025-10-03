@@ -42,8 +42,8 @@ export async function GET(request: NextRequest) {
     }, {} as Record<string, { month: string; count: number }>);
     
     // Convert to array and sort by month
-    const applicationsOverTimeArray = Object.values(applicationsOverTime)
-      .sort((a: { month: string; count: number }, b: { month: string; count: number }) => {
+    const applicationsOverTimeArray = (Object.values(applicationsOverTime) as Array<{ month: string; count: number }>)
+      .sort((a, b) => {
         const aDate = new Date(a.month + ' 1');
         const bDate = new Date(b.month + ' 1');
         return aDate.getTime() - bDate.getTime();
