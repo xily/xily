@@ -20,7 +20,7 @@ export async function GET() {
     await connectDB();
 
     // Find all applications for the user with populated internship data
-    const applications = await Application.find({ userId: session.user.id })
+    const applications = await (Application as any).find({ userId: session.user.id })
       .populate('internshipId')
       .sort({ updatedAt: -1 });
 
@@ -76,7 +76,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Find existing application or create new one
-    const existingApplication = await Application.findOne({
+    const existingApplication = await (Application as any).findOne({
       userId: session.user.id,
       internshipId: internshipId,
     });
@@ -84,7 +84,7 @@ export async function POST(request: NextRequest) {
     let application;
     if (existingApplication) {
       // Update existing application
-      application = await Application.findByIdAndUpdate(
+      application = await (Application as any).findByIdAndUpdate(
         existingApplication._id,
         { status, notes },
         { new: true }
@@ -142,7 +142,7 @@ export async function DELETE(request: NextRequest) {
     await connectDB();
 
     // Find and delete the application
-    const deletedApplication = await Application.findOneAndDelete({
+    const deletedApplication = await (Application as any).findOneAndDelete({
       userId: session.user.id,
       internshipId: internshipId,
     });
