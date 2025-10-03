@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     // Create user
-    const user = new User({
+    const user = new (User as any)({
       name,
       email,
       password: hashedPassword,

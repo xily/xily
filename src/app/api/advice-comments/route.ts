@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Post ID is required' }, { status: 400 });
     }
     
-    const comments = await AdviceComment.find({ postId })
+    const comments = await (AdviceComment as any).find({ postId })
       .populate('userId', 'name email')
       .sort({ createdAt: -1 });
     

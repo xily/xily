@@ -20,7 +20,7 @@ export async function GET() {
     await connectDB();
 
     // Find all saved internships for the user with populated internship data
-    const savedInternships = await SavedInternship.find({ userId: session.user.id })
+    const savedInternships = await (SavedInternship as any).find({ userId: session.user.id })
       .populate('internshipId')
       .sort({ savedAt: -1 });
 

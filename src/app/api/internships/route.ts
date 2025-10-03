@@ -40,7 +40,7 @@ export async function GET(request: NextRequest) {
     }
     
     // Sort: featured first, then by creation date
-    const internships = await Internship.find(filter).sort({ featured: -1, createdAt: -1 }).lean();
+    const internships = await (Internship as any).find(filter).sort({ featured: -1, createdAt: -1 }).lean();
     return NextResponse.json({ success: true, data: internships });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message || 'Server error' }, { status: 500 });
@@ -57,11 +57,11 @@ export async function POST(req: NextRequest) {
       body.industry = 'Other'; // Fallback to 'Other' for invalid industries
     }
     
-    const created = await Internship.create(body);
+    const created = await (Internship as any).create(body);
     
     // Send push notification to all subscribed users
     try {
-      const subscriptions = await PushSubscription.find({});
+      const subscriptions = await (PushSubscription as any).find({});
       if (subscriptions.length > 0) {
         const payload = {
           title: 'New Internship Posted!',

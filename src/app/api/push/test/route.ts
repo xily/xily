@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
     await connectDB();
 
     // Get all push subscriptions for the current user
-    const subscriptions = await PushSubscription.find({ userId: session.user.id });
+    const subscriptions = await (PushSubscription as any).find({ userId: session.user.id });
 
     if (subscriptions.length === 0) {
       return NextResponse.json({ error: 'No push subscriptions found' }, { status: 404 });

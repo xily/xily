@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
     }
     
     // Fetch internships for this recruiter
-    const internships = await Internship.find({ recruiterId: recruiter._id })
+    const internships = await (Internship as any).find({ recruiterId: recruiter._id })
       .sort({ featured: -1, createdAt: -1 })
       .lean();
     

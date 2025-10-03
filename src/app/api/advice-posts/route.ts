@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
   try {
     await connectDB();
     
-    const posts = await AdvicePost.find()
+    const posts = await (AdvicePost as any).find()
       .populate('userId', 'name email')
       .sort({ createdAt: -1 });
     

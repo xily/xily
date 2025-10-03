@@ -91,7 +91,7 @@ export async function POST(request: NextRequest) {
       ).populate('internshipId');
     } else {
       // Create new application
-      application = new Application({
+      application = new (Application as any)({
         userId: session.user.id,
         internshipId: internshipId,
         status,

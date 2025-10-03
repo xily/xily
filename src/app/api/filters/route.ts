@@ -12,7 +12,7 @@ export async function GET() {
     }
 
     await connectDB();
-    const filters = await SavedFilter.find({ userId: session.user.id }).sort({ createdAt: -1 });
+    const filters = await (SavedFilter as any).find({ userId: session.user.id }).sort({ createdAt: -1 });
     return NextResponse.json({ success: true, filters });
   } catch (error) {
     console.error('GET /api/filters error:', error);
@@ -47,12 +47,12 @@ export async function POST(req: NextRequest) {
     if (location) exactQuery.location = location; else exactQuery.location = { $in: [undefined, null] };
     if (industry) exactQuery.industry = industry; else exactQuery.industry = { $in: [undefined, null] };
 
-    const existing = await SavedFilter.findOne(exactQuery);
+    const existing = await (SavedFilter as any).findOne(exactQuery);
     if (existing) {
       return NextResponse.json({ success: true, filter: existing, duplicate: true }, { status: 200 });
     }
 
-    const created = await SavedFilter.create({
+    const created = await (SavedFilter as any).create({
       userId: session.user.id,
       graduationYear: graduationYear ? Number(graduationYear) : undefined,
       season: season || undefined,
@@ -81,7 +81,7 @@ export async function DELETE(req: NextRequest) {
     }
 
     await connectDB();
-    const result = await SavedFilter.deleteOne({ _id: id, userId: session.user.id });
+    const result = await (SavedFilter as any).deleteOne({ _id: id, userId: session.user.id });
     if (result.deletedCount === 0) {
       return NextResponse.json({ success: false, error: 'Filter not found' }, { status: 404 });
     }

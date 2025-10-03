@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
     if (company) query.company = company;
     if (internshipId) query.internshipId = internshipId;
 
-    const reviews = await Review.find(query)
+    const reviews = await (Review as any).find(query)
       .populate('userId', 'name')
       .sort({ createdAt: -1 })
       .lean();

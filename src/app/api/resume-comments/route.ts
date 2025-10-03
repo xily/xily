@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Resume ID is required' }, { status: 400 });
     }
     
-    const comments = await ResumeComment.find({ resumeId })
+    const comments = await (ResumeComment as any).find({ resumeId })
       .populate('userId', 'name email')
       .sort({ createdAt: -1 });
     

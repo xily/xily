@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
       query = { userId };
     }
     
-    const resumes = await Resume.find(query)
+    const resumes = await (Resume as any).find(query)
       .populate('userId', 'name email')
       .sort({ createdAt: -1 });
     
