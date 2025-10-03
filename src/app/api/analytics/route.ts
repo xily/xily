@@ -23,13 +23,13 @@ export async function GET(request: NextRequest) {
     const totalApplications = applications.length;
     
     // Applications by status
-    const statusCounts = applications.reduce((acc, app) => {
+    const statusCounts = applications.reduce((acc: Record<string, number>, app: any) => {
       acc[app.status] = (acc[app.status] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
     
     // Applications over time (grouped by month)
-    const applicationsOverTime = applications.reduce((acc, app) => {
+    const applicationsOverTime = applications.reduce((acc: Record<string, { month: string; count: number }>, app: any) => {
       const date = new Date(app.createdAt);
       const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
       const monthName = date.toLocaleDateString('en-US', { year: 'numeric', month: 'short' });
