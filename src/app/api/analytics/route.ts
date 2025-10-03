@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
     await connectDB();
     
     // Get all applications for the user
-    const applications = await Application.find({ userId: session.user.id })
+    const applications = await (Application as any).find({ userId: session.user.id })
       .populate('internshipId', 'industry')
       .sort({ createdAt: -1 });
     
