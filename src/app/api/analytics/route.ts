@@ -77,7 +77,7 @@ export async function GET(request: NextRequest) {
       statusData,
       applicationsOverTime: applicationsOverTimeArray,
       industryData: industryArray,
-      recentApplications: applications.slice(0, 5).map(app => ({
+      recentApplications: applications.slice(0, 5).map((app: any) => ({
         id: app._id,
         title: app.internshipId.title,
         company: app.internshipId.company,
