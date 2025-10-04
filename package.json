@@ -31,6 +31,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/web-push": "^3.6.4",
     "mkcert": "^3.2.0",
     "tailwindcss": "^4",
     "ts-node": "^10.9.2",
