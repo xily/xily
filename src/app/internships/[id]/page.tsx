@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { formatDeadlineDate, getDeadlineCountdown, isDeadlinePassed } from '@/app/lib/dateUtils';
+import { IndustryType } from '@/models/Internship';
 import ReviewsSection from './reviews-section';
 
 interface Internship {
@@ -9,7 +10,7 @@ interface Internship {
   title: string;
   company: string;
   location?: string;
-  industry?: string;
+  industry: IndustryType;
   graduationYear?: number;
   season?: string;
   deadline?: string;

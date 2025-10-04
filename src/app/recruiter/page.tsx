@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import RecruiterInternshipCard from '@/app/components/RecruiterInternshipCard';
 import LoadingSpinner from '@/app/components/LoadingSpinner';
+import { IndustryType } from '@/models/Internship';
 import toast from 'react-hot-toast';
 import Image from 'next/image';
 
@@ -20,7 +21,7 @@ interface Internship {
   title: string;
   company: string;
   location?: string;
-  industry: string;
+  industry: IndustryType;
   graduationYear?: number;
   season?: string;
   deadline?: string;
