@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { formatDeadlineDate, getDeadlineCountdown, isDeadlinePassed } from '@/app/lib/dateUtils';
 import InternshipCard from '@/app/components/InternshipCard';
-import { INDUSTRY_OPTIONS } from '@/models/Internship';
+import { INDUSTRY_OPTIONS, IndustryType } from '@/models/Internship';
 import toast from 'react-hot-toast';
 
 interface Internship {
@@ -14,7 +14,7 @@ interface Internship {
   title: string;
   company: string;
   location?: string;
-  industry?: string;
+  industry: IndustryType;
   graduationYear?: number;
   season?: string;
   deadline?: string;
