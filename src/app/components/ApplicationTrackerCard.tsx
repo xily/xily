@@ -130,7 +130,7 @@ export default function ApplicationTrackerCard({
             {isEditing ? (
               <select
                 value={status}
-                onChange={(e) => setStatus(e.target.value)}
+                onChange={(e) => setStatus(e.target.value as 'Saved' | 'Applied' | 'Interviewing' | 'Offer' | 'Rejected')}
                 className="border rounded px-2 py-1 w-full"
                 onClick={(e) => e.stopPropagation()}
               >
