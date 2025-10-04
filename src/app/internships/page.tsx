@@ -113,7 +113,7 @@ export default function InternshipsPage() {
       const response = await fetch('/api/saved');
       if (response.ok) {
         const data = await response.json();
-        const savedIds = new Set(
+        const savedIds = new Set<string>(
           data.savedInternships
             .filter((item: any) => item.internshipId && item.internshipId._id)
             .map((item: any) => item.internshipId._id as string)
@@ -179,7 +179,7 @@ export default function InternshipsPage() {
       const res = await fetch('/api/alerts');
       const data = await res.json();
       if (res.ok && data.success) {
-        const activeFilterIds = new Set(
+        const activeFilterIds = new Set<string>(
           data.alerts
             .filter((alert: any) => alert.filterId && alert.filterId._id)
             .map((alert: any) => alert.filterId._id as string)
