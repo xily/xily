@@ -157,7 +157,7 @@ export default function RecruiterInternshipCard({
               <label className="block text-sm font-medium text-gray-700 mb-1">Industry *</label>
               <select
                 value={editData.industry}
-                onChange={(e) => setEditData(prev => ({ ...prev, industry: e.target.value }))}
+                onChange={(e) => setEditData(prev => ({ ...prev, industry: e.target.value as IndustryType }))}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600"
                 required
               >
