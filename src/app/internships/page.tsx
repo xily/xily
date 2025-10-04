@@ -116,7 +116,7 @@ export default function InternshipsPage() {
         const savedIds = new Set(
           data.savedInternships
             .filter((item: any) => item.internshipId && item.internshipId._id)
-            .map((item: any) => item.internshipId._id)
+            .map((item: any) => item.internshipId._id as string)
         );
         setSavedInternships(savedIds);
       }
