@@ -424,7 +424,7 @@ export default function DashboardPage() {
       }
     } catch (error) {
       console.error('Error enabling notifications:', error);
-      toast.error(`Failed to enable notifications: ${error.message || error}`);
+      toast.error(`Failed to enable notifications: ${error instanceof Error ? error.message : String(error)}`);
     } finally {
       setSubscriptionLoading(false);
     }
