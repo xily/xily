@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import FeaturedBadge from './FeaturedBadge';
 import IndustryBadge from './IndustryBadge';
+import { IndustryType } from '@/models/Internship';
 import toast from 'react-hot-toast';
 
 interface RecruiterInternshipCardProps {
@@ -9,7 +10,7 @@ interface RecruiterInternshipCardProps {
     title: string;
     company: string;
     location?: string;
-    industry: string;
+    industry: IndustryType;
     graduationYear?: number;
     season?: string;
     deadline?: string;
@@ -267,7 +268,7 @@ export default function RecruiterInternshipCard({
           </div>
           
           <div className="flex items-center gap-2 mb-3">
-            <IndustryBadge industry={internship.industry || 'Other'} />
+            <IndustryBadge industry={internship.industry} />
             {internship.deadline && (
               <span className="text-sm text-gray-500">
                 Deadline: {new Date(internship.deadline).toLocaleDateString()}
