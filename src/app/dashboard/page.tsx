@@ -459,7 +459,7 @@ export default function DashboardPage() {
             toast.error(errorData.error || 'Failed to disable notifications');
           }
         } else {
-          toast.info('No active subscription found');
+          toast.success('No active subscription found');
           setIsSubscribed(false);
         }
       }
