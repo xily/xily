@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if already saved
-    const existingSave = await SavedInternship.findOne({
+    const existingSave = await (SavedInternship as any).findOne({
       userId: session.user.id,
       internshipId: internshipId,
     });
@@ -125,7 +125,7 @@ export async function DELETE(request: NextRequest) {
     await connectDB();
 
     // Find and delete the saved internship
-    const deletedSave = await SavedInternship.findOneAndDelete({
+    const deletedSave = await (SavedInternship as any).findOneAndDelete({
       userId: session.user.id,
       internshipId: internshipId,
     });
