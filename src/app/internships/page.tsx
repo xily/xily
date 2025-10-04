@@ -182,7 +182,7 @@ export default function InternshipsPage() {
         const activeFilterIds = new Set(
           data.alerts
             .filter((alert: any) => alert.filterId && alert.filterId._id)
-            .map((alert: any) => alert.filterId._id)
+            .map((alert: any) => alert.filterId._id as string)
         );
         setAlertPreferences(activeFilterIds);
       }
