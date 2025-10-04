@@ -402,7 +402,7 @@ export default function DashboardPage() {
       // Subscribe to push notifications
       const subscription = await registration.pushManager.subscribe({
         userVisibleOnly: true,
-        applicationServerKey: applicationServerKey,
+        applicationServerKey: applicationServerKey as PushSubscriptionOptionsInit['applicationServerKey'],
       });
 
       // Send subscription to server
