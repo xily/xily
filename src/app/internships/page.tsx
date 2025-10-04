@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
@@ -44,7 +44,7 @@ function formatDate(dateString: string): string {
   }
 }
 
-export default function InternshipsPage() {
+function InternshipsPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { data: session } = useSession();
@@ -700,5 +700,13 @@ export default function InternshipsPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function InternshipsPage() {
+  return (
+    <Suspense fallback={<div className="flex justify-center items-center min-h-screen"><div className="animate-spin rounded-full h-32 w-32 border-b-2 border-purple-600"></div></div>}>
+      <InternshipsPageContent />
+    </Suspense>
   );
 }
