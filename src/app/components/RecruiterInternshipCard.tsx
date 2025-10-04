@@ -267,7 +267,7 @@ export default function RecruiterInternshipCard({
           </div>
           
           <div className="flex items-center gap-2 mb-3">
-            <IndustryBadge industry={internship.industry} />
+            <IndustryBadge industry={internship.industry || 'Other'} />
             {internship.deadline && (
               <span className="text-sm text-gray-500">
                 Deadline: {new Date(internship.deadline).toLocaleDateString()}
