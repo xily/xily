@@ -42,12 +42,16 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async redirect({ url, baseUrl }) {
-      // If user is signing in, redirect to dashboard
-      if (url === baseUrl || url === `${baseUrl}/`) {
-        return `${baseUrl}/dashboard`;
+      // Handle relative URLs
+      if (url.startsWith('/')) {
+        return `${baseUrl}${url}`;
       }
-      // Otherwise, use the provided URL
-      return url.startsWith(baseUrl) ? url : baseUrl;
+      // Handle absolute URLs
+      if (url.startsWith(baseUrl)) {
+        return url;
+      }
+      // Default redirect to dashboard
+      return `${baseUrl}/dashboard`;
     },
     async jwt({ token, user }) {
       if (user) {
@@ -65,6 +69,7 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: '/login',
   },
+  debug: process.env.NODE_ENV === 'development',
 };
 
 export default authOptions;

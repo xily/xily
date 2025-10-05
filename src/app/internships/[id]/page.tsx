@@ -4,6 +4,8 @@ import { notFound } from 'next/navigation';
 import { formatDeadlineDate, getDeadlineCountdown, isDeadlinePassed } from '@/app/lib/dateUtils';
 import { IndustryType } from '@/models/Internship';
 import ReviewsSection from './reviews-section';
+import connectDB from '@/app/lib/mongodb';
+import Internship from '@/models/Internship';
 
 interface Internship {
   _id: string;
@@ -27,16 +29,9 @@ interface PageProps {
 
 async function getInternship(id: string): Promise<Internship | null> {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/internships/${id}`, {
-      cache: 'no-store', // Ensure fresh data
-    });
-    
-    if (!response.ok) {
-      return null;
-    }
-    
-    const data = await response.json();
-    return data.success ? data.data : null;
+    await connectDB();
+    const internship = await (Internship as any).findById(id).lean();
+    return internship;
   } catch (error) {
     console.error('Error fetching internship:', error);
     return null;

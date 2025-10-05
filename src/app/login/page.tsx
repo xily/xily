@@ -42,13 +42,9 @@ function LoginPageContent() {
 
       if (result?.error) {
         setError('Invalid email or password');
-      } else {
-        // Check if session was created successfully
-        const session = await getSession();
-        if (session) {
-          router.push('/dashboard');
-          router.refresh();
-        }
+      } else if (result?.ok) {
+        // Force a page refresh to ensure session is properly set
+        window.location.href = '/dashboard';
       }
     } catch (error) {
       setError('An error occurred during login');
