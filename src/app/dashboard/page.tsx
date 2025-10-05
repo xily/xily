@@ -87,7 +87,7 @@ interface Resume {
     _id: string;
     name: string;
     email: string;
-  };
+  } | null;
 }
 
 export default function DashboardPage() {
@@ -161,7 +161,7 @@ export default function DashboardPage() {
         setResumes(data);
         
         // Find user's resume
-        const userResumeData = data.find((resume: Resume) => resume.userId._id === session?.user?.id);
+        const userResumeData = data.find((resume: Resume) => resume.userId && resume.userId._id === session?.user?.id);
         setUserResume(userResumeData || null);
         
         // Pre-fill form if user has existing resume
@@ -809,7 +809,7 @@ export default function DashboardPage() {
           )}
 
           {/* Other Resumes List */}
-          {resumes.filter(resume => resume.userId._id !== session?.user?.id).length === 0 ? (
+          {resumes.filter(resume => resume.userId && resume.userId._id !== session?.user?.id).length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📄</div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">No resumes uploaded yet</h3>
@@ -818,9 +818,9 @@ export default function DashboardPage() {
           ) : (
             <div className="space-y-4">
               <h3 className="text-lg font-semibold text-gray-900">
-                Other Resumes ({resumes.filter(resume => resume.userId._id !== session?.user?.id).length})
+                Other Resumes ({resumes.filter(resume => resume.userId && resume.userId._id !== session?.user?.id).length})
               </h3>
-              {resumes.filter(resume => resume.userId._id !== session?.user?.id).map((resume) => (
+              {resumes.filter(resume => resume.userId && resume.userId._id !== session?.user?.id).map((resume) => (
                 <ResumeCard
                   key={resume._id}
                   resume={resume}

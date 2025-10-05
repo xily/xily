@@ -12,14 +12,14 @@ interface ResumeCardProps {
       _id: string;
       name: string;
       email: string;
-    };
+    } | null;
   };
   currentUserId?: string;
   onDelete?: (resumeId: string) => void;
 }
 
 export default function ResumeCard({ resume, currentUserId, onDelete }: ResumeCardProps) {
-  const isOwner = currentUserId && resume.userId._id === currentUserId;
+  const isOwner = currentUserId && resume.userId && resume.userId._id === currentUserId;
 
   return (
     <div className="border rounded-lg p-4 mb-4 bg-white shadow-sm hover:shadow-md transition-shadow">
@@ -35,7 +35,7 @@ export default function ResumeCard({ resume, currentUserId, onDelete }: ResumeCa
           </h3>
           
           <div className="text-sm text-gray-600 mb-2">
-            <span className="font-medium">Uploaded by:</span> {resume.userId.name}
+            <span className="font-medium">Uploaded by:</span> {resume.userId ? resume.userId.name : 'Unknown User'}
           </div>
           
           <div className="text-sm text-gray-500 mb-3">

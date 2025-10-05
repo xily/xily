@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
       .populate('userId', 'name email')
       .sort({ createdAt: -1 });
     
-    // Get comment counts for each resume
+    // Get comment counts for each resume and filter out resumes with null userId
     const resumesWithComments = await Promise.all(
       resumes.map(async (resume: any) => {
         const commentCount = await (ResumeComment as any).countDocuments({ resumeId: resume._id });
@@ -32,7 +32,10 @@ export async function GET(request: NextRequest) {
       })
     );
     
-    return NextResponse.json(resumesWithComments);
+    // Filter out resumes where userId population failed (null userId)
+    const validResumes = resumesWithComments.filter(resume => resume.userId !== null);
+    
+    return NextResponse.json(validResumes);
   } catch (error) {
     console.error('Error fetching resumes:', error);
     return NextResponse.json({ error: 'Failed to fetch resumes' }, { status: 500 });

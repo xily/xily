@@ -16,7 +16,7 @@ interface Resume {
     _id: string;
     name: string;
     email: string;
-  };
+  } | null;
 }
 
 interface Comment {
@@ -191,7 +191,7 @@ export default function ResumeDetailPage() {
           </button>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">{resume.title}</h1>
           <div className="text-gray-600">
-            <span className="font-medium">Uploaded by:</span> {resume.userId.name}
+            <span className="font-medium">Uploaded by:</span> {resume.userId ? resume.userId.name : 'Unknown User'}
           </div>
           <div className="text-sm text-gray-500 mt-1">
             {new Date(resume.createdAt).toLocaleDateString('en-US', {
