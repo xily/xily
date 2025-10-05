@@ -41,6 +41,14 @@ export const authOptions: NextAuthOptions = {
     strategy: 'jwt',
   },
   callbacks: {
+    async redirect({ url, baseUrl }) {
+      // If user is signing in, redirect to dashboard
+      if (url === baseUrl || url === `${baseUrl}/`) {
+        return `${baseUrl}/dashboard`;
+      }
+      // Otherwise, use the provided URL
+      return url.startsWith(baseUrl) ? url : baseUrl;
+    },
     async jwt({ token, user }) {
       if (user) {
         (token as any).id = (user as any).id;

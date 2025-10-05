@@ -46,7 +46,7 @@ function LoginPageContent() {
         // Check if session was created successfully
         const session = await getSession();
         if (session) {
-          router.push('/');
+          router.push('/dashboard');
           router.refresh();
         }
       }
