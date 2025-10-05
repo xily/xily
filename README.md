@@ -74,9 +74,9 @@ EMAIL_SERVER_PASSWORD=your-app-password
 EMAIL_FROM=your-email@gmail.com
 
 # Push Notifications (Optional)
-VAPID_PUBLIC_KEY=your-vapid-public-key
+VAPID_SUBJECT=mailto:your-email@example.com
+NEXT_PUBLIC_VAPID_PUBLIC_KEY=your-vapid-public-key
 VAPID_PRIVATE_KEY=your-vapid-private-key
-VAPID_EMAIL=your-email@example.com
 ```
 
 ### 4. Database Setup
