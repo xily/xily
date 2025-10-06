@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+export const runtime = 'nodejs';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../auth/options';
 import connectDB from '@/app/lib/mongodb';

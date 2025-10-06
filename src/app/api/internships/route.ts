@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+export const runtime = 'nodejs';
 import connectDB from '@/app/lib/mongodb';
 import Internship, { INDUSTRY_OPTIONS, IndustryType } from '@/models/Internship';
 import PushSubscription from '@/models/PushSubscription';
