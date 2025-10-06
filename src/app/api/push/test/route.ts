@@ -46,11 +46,19 @@ export async function POST(request: NextRequest) {
     };
 
     try {
-      await sendPushNotificationToAll(subscriptions, payload);
-      
+      const summary = await sendPushNotificationToAll(subscriptions, payload);
+      if (summary.successes === 0) {
+        return NextResponse.json({
+          success: false,
+          error: 'Failed to deliver to any subscription',
+          details: summary,
+        }, { status: 502 });
+      }
+
       return NextResponse.json({ 
         success: true, 
-        message: `Push notification sent to ${subscriptions.length} device(s)` 
+        message: `Delivered to ${summary.successes}/${summary.total} device(s)` ,
+        details: summary,
       });
     } catch (pushError) {
       console.error('Push notification error:', pushError);

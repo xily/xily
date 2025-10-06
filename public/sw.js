@@ -5,7 +5,7 @@ self.addEventListener('push', function(event) {
   const data = event.data ? event.data.json() : {};
   const title = data.title || 'New Notification';
   const body = data.body || 'You have a new notification';
-  const icon = data.icon || '/icon.png';
+  const icon = data.icon || '/logo.png';
   const url = data.url || '/';
 
   const options = {

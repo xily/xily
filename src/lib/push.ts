@@ -54,15 +54,38 @@ export async function sendPushNotification(
   }
 }
 
+export interface PushSendSummary {
+  total: number;
+  successes: number;
+  failures: number;
+  failedEndpoints: string[];
+}
+
 export async function sendPushNotificationToAll(
   subscriptions: PushSubscriptionData[],
   payload: PushPayload
-): Promise<void> {
-  const promises = subscriptions.map(subscription =>
-    sendPushNotification(subscription, payload).catch(error => {
-      console.error(`Failed to send notification to ${subscription.endpoint}:`, error);
+): Promise<PushSendSummary> {
+  let successes = 0;
+  const failedEndpoints: string[] = [];
+
+  const results = await Promise.allSettled(
+    subscriptions.map(async (subscription) => {
+      try {
+        await sendPushNotification(subscription, payload);
+        successes += 1;
+      } catch (error) {
+        failedEndpoints.push(subscription.endpoint);
+        console.error(`Failed to send notification to ${subscription.endpoint}:`, error);
+      }
     })
   );
 
-  await Promise.allSettled(promises);
+  // Count any unhandled rejections as failures just in case
+  const failures = subscriptions.length - successes;
+  return {
+    total: subscriptions.length,
+    successes,
+    failures,
+    failedEndpoints,
+  };
 }

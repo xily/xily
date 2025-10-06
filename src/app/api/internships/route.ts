@@ -66,11 +66,14 @@ export async function POST(req: NextRequest) {
         const payload = {
           title: 'New Internship Posted!',
           body: `${created.company} - ${created.title}`,
-          icon: '/icon.png',
+          icon: '/logo.png',
           url: `/internships/${created._id}`,
         };
-        
-        await sendPushNotificationToAll(subscriptions, payload);
+
+        const summary = await sendPushNotificationToAll(subscriptions, payload);
+        if (summary.failures > 0) {
+          console.warn(`Push delivery issues: delivered ${summary.successes}/${summary.total}`, summary.failedEndpoints);
+        }
       }
     } catch (pushError) {
       console.error('Error sending push notification:', pushError);
