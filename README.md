@@ -13,7 +13,6 @@ A comprehensive platform for students to discover internships, track application
 ### Growth Features
 - **Saved Filters**: Save and reuse search criteria
 - **Email Alerts**: Get notified about new matching internships
-- **Push Notifications**: Browser notifications for updates
 - **Analytics Dashboard**: Track application progress and insights
 
 ### Community Features
@@ -28,7 +27,6 @@ A comprehensive platform for students to discover internships, track application
 - **Backend**: Next.js API Routes, MongoDB, Mongoose
 - **Authentication**: NextAuth.js
 - **Email**: Nodemailer
-- **Push Notifications**: Web Push API
 - **Charts**: Recharts
 
 ## 📋 Prerequisites
@@ -73,10 +71,6 @@ EMAIL_SERVER_USER=your-email@gmail.com
 EMAIL_SERVER_PASSWORD=your-app-password
 EMAIL_FROM=your-email@gmail.com
 
-# Push Notifications (Optional)
-VAPID_SUBJECT=mailto:your-email@example.com
-NEXT_PUBLIC_VAPID_PUBLIC_KEY=your-vapid-public-key
-VAPID_PRIVATE_KEY=your-vapid-private-key
 ```
 
 ### 4. Database Setup
@@ -139,7 +133,6 @@ The app can be deployed to any platform supporting Next.js:
 ## 📊 Monitoring
 
 - **Email Alerts**: Run `npm run check-alerts` to send email notifications
-- **Push Notifications**: Configure VAPID keys for browser notifications
 - **Analytics**: Built-in application tracking dashboard
 
 ## 🤝 Contributing

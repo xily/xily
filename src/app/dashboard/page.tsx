@@ -9,21 +9,6 @@ import StatusBadge from '@/app/components/StatusBadge';
 import ResumeCard from '@/app/components/ResumeCard';
 import toast from 'react-hot-toast';
 
-// Convert VAPID key from base64 to Uint8Array
-function urlBase64ToUint8Array(base64String: string): Uint8Array {
-  const padding = '='.repeat((4 - base64String.length % 4) % 4);
-  const base64 = (base64String + padding)
-    .replace(/-/g, '+')
-    .replace(/_/g, '/');
-
-  const rawData = window.atob(base64);
-  const outputArray = new Uint8Array(rawData.length);
-
-  for (let i = 0; i < rawData.length; ++i) {
-    outputArray[i] = rawData.charCodeAt(i);
-  }
-  return outputArray;
-}
 
 // Format date for timeline display
 function formatTimelineDate(dateString: string): string {
@@ -100,9 +85,6 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [updating, setUpdating] = useState<Set<string>>(new Set());
-  const [notificationPermission, setNotificationPermission] = useState<NotificationPermission>('default');
-  const [isSubscribed, setIsSubscribed] = useState(false);
-  const [subscriptionLoading, setSubscriptionLoading] = useState(false);
   const [uploadingResume, setUploadingResume] = useState(false);
   const [resumeTitle, setResumeTitle] = useState('');
   const [resumeFile, setResumeFile] = useState<File | null>(null);
@@ -117,8 +99,6 @@ export default function DashboardPage() {
       fetchSavedInternships();
       fetchApplications();
       fetchResumes();
-      checkNotificationPermission();
-      checkSubscriptionStatus();
     }
   }, [session]);
 
@@ -350,126 +330,6 @@ export default function DashboardPage() {
     }
   };
 
-  const checkNotificationPermission = () => {
-    if ('Notification' in window) {
-      setNotificationPermission(Notification.permission);
-    }
-  };
-
-  const checkSubscriptionStatus = async () => {
-    if ('serviceWorker' in navigator && 'PushManager' in window) {
-      try {
-        const registration = await navigator.serviceWorker.ready;
-        const subscription = await registration.pushManager.getSubscription();
-        setIsSubscribed(!!subscription);
-      } catch (error) {
-        console.error('Error checking subscription status:', error);
-      }
-    }
-  };
-
-  const enableNotifications = async () => {
-    if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
-      toast.error('Push notifications are not supported in this browser');
-      return;
-    }
-
-    setSubscriptionLoading(true);
-    try {
-      // Request notification permission
-      const permission = await Notification.requestPermission();
-      setNotificationPermission(permission);
-
-      if (permission !== 'granted') {
-        toast.error('Notification permission denied. Please enable notifications in your browser settings.');
-        return;
-      }
-
-      // Register service worker
-      const registration = await navigator.serviceWorker.register('/sw.js');
-      await navigator.serviceWorker.ready;
-
-      // Get VAPID public key
-      const vapidPublicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
-      if (!vapidPublicKey) {
-        toast.error('VAPID public key not configured. Please check your environment variables.');
-        return;
-      }
-
-      // Convert VAPID key to Uint8Array
-      const applicationServerKey = urlBase64ToUint8Array(vapidPublicKey);
-
-      // Subscribe to push notifications
-      const subscription = await registration.pushManager.subscribe({
-        userVisibleOnly: true,
-        applicationServerKey: applicationServerKey as PushSubscriptionOptionsInit['applicationServerKey'],
-      });
-
-      // Send subscription to server
-      const response = await fetch('/api/push/subscribe', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(subscription),
-      });
-
-      if (response.ok) {
-        setIsSubscribed(true);
-        setError('');
-        toast.success('Push notifications enabled successfully!');
-      } else {
-        const errorData = await response.json();
-        toast.error(errorData.error || 'Failed to enable notifications');
-      }
-    } catch (error) {
-      console.error('Error enabling notifications:', error);
-      toast.error(`Failed to enable notifications: ${error instanceof Error ? error.message : String(error)}`);
-    } finally {
-      setSubscriptionLoading(false);
-    }
-  };
-
-  const disableNotifications = async () => {
-    setSubscriptionLoading(true);
-    try {
-      if ('serviceWorker' in navigator && 'PushManager' in window) {
-        const registration = await navigator.serviceWorker.ready;
-        const subscription = await registration.pushManager.getSubscription();
-        
-        if (subscription) {
-          // Unsubscribe from push notifications
-          await subscription.unsubscribe();
-          
-          // Remove subscription from server
-          const response = await fetch('/api/push/subscribe', {
-            method: 'DELETE',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ endpoint: subscription.endpoint }),
-          });
-
-          if (response.ok) {
-            setIsSubscribed(false);
-            setError('');
-            toast.success('Push notifications disabled successfully');
-          } else {
-            const errorData = await response.json();
-            toast.error(errorData.error || 'Failed to disable notifications');
-          }
-        } else {
-          toast.success('No active subscription found');
-          setIsSubscribed(false);
-        }
-      }
-    } catch (error) {
-      console.error('Error disabling notifications:', error);
-      toast.error('Failed to disable notifications');
-    } finally {
-      setSubscriptionLoading(false);
-    }
-  };
 
   if (status === 'loading') {
     return (
@@ -499,68 +359,6 @@ export default function DashboardPage() {
               <p className="text-gray-600">
                 Welcome back, {session.user?.name}!
               </p>
-            </div>
-            <div className="flex flex-col items-end space-y-2">
-              <div className="text-sm text-gray-500">
-                {notificationPermission === 'granted' && isSubscribed ? (
-                  <span className="text-green-600">🔔 Notifications enabled</span>
-                ) : notificationPermission === 'denied' ? (
-                  <span className="text-red-600">🔕 Notifications blocked</span>
-                ) : (
-                  <span className="text-gray-500">🔔 Notifications disabled</span>
-                )}
-                <div className="text-xs text-gray-400 mt-1">
-                  Permission: {notificationPermission}
-                </div>
-              </div>
-              <div className="flex space-x-2">
-                {!isSubscribed ? (
-                  <button
-                    onClick={enableNotifications}
-                    disabled={subscriptionLoading || notificationPermission === 'denied'}
-                    className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-sm"
-                  >
-                    {subscriptionLoading ? 'Enabling...' : 'Enable Notifications'}
-                  </button>
-                ) : (
-                  <>
-                    <button
-                      onClick={disableNotifications}
-                      disabled={subscriptionLoading}
-                      className="bg-gray-500 text-white px-3 py-1 rounded hover:bg-gray-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-sm"
-                    >
-                      {subscriptionLoading ? 'Disabling...' : 'Disable Notifications'}
-                    </button>
-                    <button
-                      onClick={async () => {
-                        try {
-                          const response = await fetch('/api/push/test', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                              title: 'Test Notification',
-                              body: 'This is a test push notification from Ms Intern!'
-                            })
-                          });
-                          if (response.ok) {
-                            setError('');
-                            toast.success('Test notification sent!');
-                          } else {
-                            const errorData = await response.json();
-                            toast.error(errorData.error || 'Failed to send test notification');
-                          }
-                        } catch (error) {
-                          console.error('Error sending test notification:', error);
-                          toast.error('Failed to send test notification');
-                        }
-                      }}
-                      className="bg-purpleBrand text-black px-3 py-1 rounded hover:bg-purpleBrand-dark text-sm"
-                    >
-                      Test Notification
-                    </button>
-                  </>
-                )}
-              </div>
             </div>
           </div>
         </div>

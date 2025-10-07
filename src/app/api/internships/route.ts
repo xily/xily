@@ -2,8 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 export const runtime = 'nodejs';
 import connectDB from '@/app/lib/mongodb';
 import Internship, { INDUSTRY_OPTIONS, IndustryType } from '@/models/Internship';
-import PushSubscription from '@/models/PushSubscription';
-import { sendPushNotificationToAll } from '@/lib/push';
 
 export async function GET(request: NextRequest) {
   try {
@@ -60,26 +58,6 @@ export async function POST(req: NextRequest) {
     
     const created = await (Internship as any).create(body);
     
-    // Send push notification to all subscribed users
-    try {
-      const subscriptions = await (PushSubscription as any).find({});
-      if (subscriptions.length > 0) {
-        const payload = {
-          title: 'New Internship Posted!',
-          body: `${created.company} - ${created.title}`,
-          icon: '/logo.png',
-          url: `/internships/${created._id}`,
-        };
-
-        const summary = await sendPushNotificationToAll(subscriptions, payload);
-        if (summary.failures > 0) {
-          console.warn(`Push delivery issues: delivered ${summary.successes}/${summary.total}`, summary.failedEndpoints);
-        }
-      }
-    } catch (pushError) {
-      console.error('Error sending push notification:', pushError);
-      // Don't fail the internship creation if push notification fails
-    }
     
     return NextResponse.json({ success: true, data: created }, { status: 201 });
   } catch (error: any) {
