@@ -83,20 +83,12 @@ const Navbar: React.FC = () => {
                 </button>
               </>
             ) : (
-              <>
-                <Link
-                  href="/login"
-                  className="text-sm font-semibold text-gray-700 transition-colors hover:text-purpleBrand-accent"
-                >
-                  Login
-                </Link>
-                <Link
-                  href="/register"
-                  className="text-sm font-semibold text-gray-700 transition-colors hover:text-purpleBrand-accent"
-                >
-                  Register
-                </Link>
-              </>
+              <Link
+                href="/auth"
+                className="text-sm font-semibold text-gray-700 transition-colors hover:text-purpleBrand-accent"
+              >
+                Sign In
+              </Link>
             )}
           </div>
 
@@ -189,22 +181,13 @@ const Navbar: React.FC = () => {
                 </button>
               </>
             ) : (
-              <>
-                <Link
-                  href="/login"
-                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-purpleBrand-accent"
-                  onClick={closeMenu}
-                >
-                  Login
-                </Link>
-                <Link
-                  href="/register"
-                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-purpleBrand-accent"
-                  onClick={closeMenu}
-                >
-                  Register
-                </Link>
-              </>
+              <Link
+                href="/auth"
+                className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-purpleBrand-accent"
+                onClick={closeMenu}
+              >
+                Sign In
+              </Link>
             )}
           </div>
         </div>

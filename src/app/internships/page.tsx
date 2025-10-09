@@ -127,7 +127,7 @@ function InternshipsPageContent() {
 
   const handleSave = async (internshipId: string) => {
     if (!session) {
-      router.push('/login');
+      router.push('/auth');
       return;
     }
 
@@ -193,7 +193,7 @@ function InternshipsPageContent() {
 
   const saveCurrentFilters = async () => {
     if (!session) {
-      router.push('/login');
+      router.push('/auth');
       return;
     }
     
@@ -341,7 +341,7 @@ function InternshipsPageContent() {
           <select
             value={filters.graduationYear}
             onChange={(e) => updateFilters({ graduationYear: e.target.value })}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-colors duration-200"
+            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purpleBrand-accent focus:border-purpleBrand-accent transition-colors duration-200"
           >
             <option value="">All Years</option>
             <option value="2025">2025</option>
@@ -358,7 +358,7 @@ function InternshipsPageContent() {
           <select
             value={filters.season}
             onChange={(e) => updateFilters({ season: e.target.value })}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-colors duration-200"
+            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purpleBrand-accent focus:border-purpleBrand-accent transition-colors duration-200"
           >
             <option value="">All Seasons</option>
             <option value="Summer 2025">Summer 2025</option>
@@ -378,7 +378,7 @@ function InternshipsPageContent() {
           <select
             value={filters.location}
             onChange={(e) => updateFilters({ location: e.target.value })}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-colors duration-200"
+            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purpleBrand-accent focus:border-purpleBrand-accent transition-colors duration-200"
           >
             <option value="">All Locations</option>
             <option value="New York">New York, NY</option>
@@ -402,7 +402,7 @@ function InternshipsPageContent() {
           <select
             value={filters.industry}
             onChange={(e) => updateFilters({ industry: e.target.value })}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-colors duration-200"
+            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purpleBrand-accent focus:border-purpleBrand-accent transition-colors duration-200"
           >
             <option value="">All Industries</option>
             {INDUSTRY_OPTIONS.map((industry) => (
@@ -436,7 +436,7 @@ function InternshipsPageContent() {
   const MobileFilterButton = () => (
     <button
       onClick={() => setShowMobileFilters(!showMobileFilters)}
-      className="mb-4 rounded-lg bg-purple-600 px-4 py-3 text-white font-medium hover:bg-purple-600-dark focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 transition-colors duration-200 lg:hidden"
+      className="mb-4 rounded-lg bg-purpleBrand text-black px-4 py-3 font-medium hover:bg-purpleBrand-dark focus:outline-none focus:ring-2 focus:ring-purpleBrand-accent focus:ring-offset-2 transition-colors duration-200 lg:hidden"
     >
       {showMobileFilters ? 'Hide Filters' : 'Show Filters'}
     </button>
@@ -456,7 +456,7 @@ function InternshipsPageContent() {
             <select
               value={filters.graduationYear}
               onChange={(e) => updateFilters({ graduationYear: e.target.value })}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-colors duration-200"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purpleBrand-accent focus:border-purpleBrand-accent transition-colors duration-200"
             >
               <option value="">All Years</option>
               <option value="2025">2025</option>
@@ -473,7 +473,7 @@ function InternshipsPageContent() {
             <select
               value={filters.season}
               onChange={(e) => updateFilters({ season: e.target.value })}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-colors duration-200"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purpleBrand-accent focus:border-purpleBrand-accent transition-colors duration-200"
             >
               <option value="">All Seasons</option>
               <option value="Summer 2025">Summer 2025</option>
@@ -493,7 +493,7 @@ function InternshipsPageContent() {
             <select
               value={filters.location}
               onChange={(e) => updateFilters({ location: e.target.value })}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-colors duration-200"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purpleBrand-accent focus:border-purpleBrand-accent transition-colors duration-200"
             >
               <option value="">All Locations</option>
               <option value="New York">New York, NY</option>
@@ -517,7 +517,7 @@ function InternshipsPageContent() {
             <select
               value={filters.industry}
               onChange={(e) => updateFilters({ industry: e.target.value })}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-colors duration-200"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purpleBrand-accent focus:border-purpleBrand-accent transition-colors duration-200"
             >
               <option value="">All Industries</option>
               {INDUSTRY_OPTIONS.map((industry) => (
@@ -545,7 +545,7 @@ function InternshipsPageContent() {
         <div className="text-center">
           <h1 className="mb-4 text-3xl font-bold text-gray-900">Internships</h1>
           <div className="flex items-center justify-center space-x-2">
-            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-purple-600"></div>
+            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-purpleBrand-accent"></div>
             <p className="text-lg text-gray-600">Loading internships...</p>
           </div>
         </div>
@@ -603,7 +603,7 @@ function InternshipsPageContent() {
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => applySavedFilter(f)}
-                            className="bg-purple-600 text-white px-3 py-1 rounded hover:bg-purple-600-dark"
+                            className="bg-purpleBrand text-black px-3 py-1 rounded hover:bg-purpleBrand-dark"
                           >
                             Apply
                           </button>
@@ -705,7 +705,7 @@ function InternshipsPageContent() {
 
 export default function InternshipsPage() {
   return (
-    <Suspense fallback={<div className="flex justify-center items-center min-h-screen"><div className="animate-spin rounded-full h-32 w-32 border-b-2 border-purple-600"></div></div>}>
+    <Suspense fallback={<div className="flex justify-center items-center min-h-screen"><div className="animate-spin rounded-full h-32 w-32 border-b-2 border-purpleBrand-accent"></div></div>}>
       <InternshipsPageContent />
     </Suspense>
   );

@@ -58,7 +58,7 @@ export default function RecruiterPage() {
 
   useEffect(() => {
     if (status === 'loading') return;
-    if (!session) router.push('/login');
+    if (!session) router.push('/auth');
   }, [session, status, router]);
 
   useEffect(() => {

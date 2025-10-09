@@ -91,7 +91,7 @@ export default function DashboardPage() {
 
   useEffect(() => {
     if (status === 'loading') return; // Still loading
-    if (!session) router.push('/login'); // Not authenticated
+    if (!session) router.push('/auth'); // Not authenticated
   }, [session, status, router]);
 
   useEffect(() => {

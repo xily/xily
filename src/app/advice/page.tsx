@@ -161,7 +161,7 @@ export default function AdvicePage() {
                   value={newPostTitle}
                   onChange={(e) => setNewPostTitle(e.target.value)}
                   placeholder="Enter a descriptive title..."
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purpleBrand-accent focus:border-transparent"
                   maxLength={200}
                   required
                 />
@@ -180,7 +180,7 @@ export default function AdvicePage() {
                   onChange={(e) => setNewPostContent(e.target.value)}
                   placeholder="Share your career tips, experiences, or ask for advice..."
                   rows={6}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purpleBrand-accent focus:border-transparent"
                   maxLength={5000}
                   required
                 />
@@ -192,16 +192,16 @@ export default function AdvicePage() {
               <button
                 type="submit"
                 disabled={submittingPost || !newPostTitle.trim() || !newPostContent.trim()}
-                className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-600-dark disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+                className="bg-purpleBrand text-black px-4 py-2 rounded hover:bg-purpleBrand-dark disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
               >
                 {submittingPost ? 'Creating...' : 'Create Post'}
               </button>
             </form>
           </div>
         ) : (
-          <div className="border p-4 rounded-lg mb-6 bg-purple-600-light">
+          <div className="border p-4 rounded-lg mb-6 bg-purpleBrand-light">
             <p className="text-gray-700">
-              <a href="/login" className="text-purple-600 hover:text-purple-600-dark font-medium">
+              <a href="/auth" className="text-purpleBrand-accent hover:text-purpleBrand-accent font-medium">
                 Log in
               </a> to create posts and share your career advice.
             </p>

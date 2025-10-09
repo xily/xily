@@ -264,7 +264,7 @@ export default function ResumeDetailPage() {
               ) : (
                 <div className="mb-6 p-4 bg-gray-50 rounded-md">
                   <p className="text-gray-600 text-sm">
-                    <a href="/login" className="text-purple-600 hover:text-purple-700">
+                    <a href="/auth" className="text-purple-600 hover:text-purple-700">
                       Log in
                     </a> to add comments and provide feedback.
                   </p>
