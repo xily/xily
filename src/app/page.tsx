@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { cookies } from 'next/headers';
-import HomeCarousel from './components/HomeCarousel';
+import KeyFeaturesCarousel from './components/KeyFeaturesCarousel';
 
 export default async function Home() {
   const cookieStore = await cookies();
@@ -39,8 +39,38 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Mission + Why carousel */}
-      <HomeCarousel />
+      {/* Mission Section */}
+      <section className="pt-16 pb-16 bg-white">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="mx-auto max-w-3xl text-center">
+            <div className="rounded-2xl bg-white shadow-lg border border-gray-200 px-6 py-12">
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">Our Mission</h2>
+              <p className="text-gray-700">
+                To make internship discovery simple, fair, and timely—so students spend less time
+                searching and more time succeeding.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why MS Intern Section */}
+      <section className="pt-16 pb-16 bg-gray-50">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="mx-auto max-w-3xl text-center">
+            <div className="rounded-2xl bg-white shadow-lg border border-gray-200 px-6 py-12">
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">Why Ms Intern?</h2>
+              <p className="text-gray-700">
+                Ms Intern is your real-time internship radar. We filter opportunities by graduation year,
+                industry, season, and location—so you only see what's open and relevant.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Key Features Carousel */}
+      <KeyFeaturesCarousel />
 
       {/* CTA Section */}
       <section>

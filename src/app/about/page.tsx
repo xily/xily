@@ -24,17 +24,12 @@ export default function AboutPage() {
             </div>
             <div className="flex-shrink-0">
               <div 
-                className="w-64 h-48 rounded-lg flex items-center justify-center shadow-lg"
-                style={{
-                  backgroundColor: '#E9D5FF',
-                  border: '2px solid #C4B5FD'
-                }}
+                className="w-64 h-48 rounded-lg flex items-center justify-center shadow-lg bg-purpleBrand-light border-2 border-purpleBrand"
               >
                 <div className="text-center">
                   <div className="text-6xl mb-2">🎯</div>
                   <div 
-                    className="font-semibold text-lg"
-                    style={{ color: '#7C3AED' }}
+                    className="font-semibold text-lg text-purpleBrand-accent"
                   >
                     Find Your Path
                   </div>
@@ -56,33 +51,6 @@ export default function AboutPage() {
             <p className="mt-4">
               Think of it as a ‘real-time internship radar’ built for students and early-career applicants.
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Key Features Section */}
-      <section className="border-b border-gray-200">
-        <div className="mx-auto max-w-7xl px-6 py-12">
-          <h2 className="mb-6 text-3xl font-bold text-gray-900">🧱 Key Features</h2>
-          <div className="grid gap-6 md:grid-cols-2">
-            {[
-              { icon: '🎯', title: 'Smart Filtering', desc: 'Filter internships by graduation year, season, location, and industry.' },
-              { icon: '📅', title: 'Live Deadline Tracker', desc: 'Shows open internships with real deadlines and countdowns.' },
-              { icon: '📥', title: 'Direct Apply Links', desc: 'Each internship links directly to the application page.' },
-              { icon: '🔔', title: 'Custom Alerts', desc: 'Get alerts for internships matching your timeline and interests.' },
-              { icon: '🗂️', title: 'Application Tracker', desc: 'Track applied internships, statuses, and notes.' },
-              { icon: '✅', title: 'Verified Listings', desc: 'Only real, vetted, and updated listings.' },
-              { icon: '📊', title: 'Dashboard View', desc: 'Visual dashboard to stay organized.' },
-              { icon: '🤝', title: 'Company Insights (future)', desc: 'Optional reviews, pay info, intern experiences.' },
-            ].map((f) => (
-              <div key={f.title} className="rounded-xl bg-white p-6 shadow">
-                <div className="text-2xl" aria-hidden>
-                  {f.icon}
-                </div>
-                <h3 className="mt-3 text-lg font-semibold text-gray-900">{f.title}</h3>
-                <p className="mt-2 text-gray-700">{f.desc}</p>
-              </div>
-            ))}
           </div>
         </div>
       </section>
